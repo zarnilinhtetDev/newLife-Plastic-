@@ -11,6 +11,12 @@
 </head>
 
 <style>
+     body {
+        background-image: url('{{ asset('back.avif') }}');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
     .btn-color {
         background-color: #0e1c36;
         color: #fff;
