@@ -29,11 +29,11 @@ class AuthController extends Controller
     }
     public function dashboard()
     {
-        return view('backend.dashboard');
+        return view('dashboard');
     }
     public function logout()
     {
         Auth::logout();
-        return redirect(url('/login'));
+        return redirect('/');
     }
 }
