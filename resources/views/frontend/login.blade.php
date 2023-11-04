@@ -11,16 +11,21 @@
 </head>
 
 <style>
-     body {
+    body {
         background-image: url('{{ asset('back.avif') }}');
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
     }
+
     .btn-color {
-        background-color: #0e1c36;
+
         color: #fff;
 
+    }
+
+    .btn-color:hover {
+        color: white
     }
 
     .profile-image-pic {
@@ -43,13 +48,14 @@
 <body>
 
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
             <div class="col-md-6 offset-md-3 ">
-                <h2 class="text-center text-dark mt-5">Login Form</h2>
 
-                <div class="card my-5 ">
 
+
+                <h2 class="text-center text-white mt-5">Login Form </h2>
+                <div class="card  ">
                     <form class="card-body cardbody-color p-lg-5 " method="POST" action="{{ route('admin. login') }}">
                         @csrf
                         <div class="text-center">
@@ -74,7 +80,7 @@
                             @enderror
                         </div>
                         <div class="text-center"><button type="submit"
-                                class="btn btn-color px-5 mb-5 w-100">Login</button></div>
+                                class="btn btn-color px-5 mb-5 w-100 btn-primary">Login</button></div>
 
                     </form>
                 </div>
