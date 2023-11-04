@@ -105,7 +105,7 @@
                                                     </div>
                                                 </div>
                                                 <button type="submit" class="btn mt-3 btn-primary"
-                                                    style="background-color: #0069D9">Update Driver</button>
+                                                    style="background-color: #0069D9">Update </button>
                                             </form>
                                         </div>
                                     </div>

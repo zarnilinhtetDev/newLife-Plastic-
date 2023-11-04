@@ -54,10 +54,13 @@
                                                         <option value="">Select a Car</option>
                                                         @foreach ($cars as $car)
                                                             <option value="{{ $car->id }}">
-                                                                {{ $car->car_brand_name }} / {{ $car->plate_number }}
+                                                                {{ $car->car_brand_name }} - {{ $car->plate_number }}
                                                             </option>
                                                         @endforeach
                                                     </select>
+                                                    @error('car_id')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="form-group mt-3">
@@ -92,7 +95,7 @@
                                                 </div>
 
                                                 <button type="submit" class="btn btn-primary mt-3"
-                                                    style="background-color: #0069D9">Submit</button>
+                                                    style="background-color: #0069D9">Register</button>
                                             </form>
 
                                         </div>

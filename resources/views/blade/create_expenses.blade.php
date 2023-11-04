@@ -29,6 +29,7 @@
                                     {{ session('status') }}
                                 </div>
                             @endif
+
                             <div class="container my-5">
 
                                 <div class="row">
@@ -46,6 +47,9 @@
                                                             <textarea class="form-control" name="description" value="{{ old('description') }}" rows="3"
                                                                 placeholder="Enter ..." style="border-color:#6B7280"></textarea>
                                                         </div>
+                                                        @error('description')
+                                                            <span class="text-danger"> {{ $message }}</span>
+                                                        @enderror
                                                     </div>
 
                                                     <div class="col-md-6 mt-3">

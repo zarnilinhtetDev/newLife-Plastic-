@@ -200,3 +200,11 @@ Route::post('monthly_update/{id}', [MonthlyPaymentController::class, 'monthly_pa
 
 
 Route::get('show_image', [MonthlyPaymentController::class, 'showimage']);
+
+Route::get('user', [UserController::class, 'user_register']);
+Route::post('User_Register', [UserController::class, 'user_store']);
+Route::get('/delete_user/{id}', [UserController::class, 'delete_user']);
+Route::get('/delete_user/{id}', [UserController::class, 'delete_user']);
+Route::get('/userShow/{id}', [UserController::class, 'userShow']);
+// Route::post('/update_user/{id}', 'UserController@update_user')->name('update_user');
+Route::post('/update_user/{id}', [UserController::class, 'update_user']);

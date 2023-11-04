@@ -20,7 +20,7 @@
                                 </li>
 
                             </ol>
-                            <div class="container my-5">
+                            <div class="container-fluid my-5">
                                 @if (session('success'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         {{ session('success') }}

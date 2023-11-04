@@ -50,9 +50,16 @@
                                                     <label for="company_id">Company</label>
                                                     <select class="form-control" name="company_id">
                                                         <option value="">Select a Company</option>
+
                                                         @foreach ($companies as $company)
-                                                            <option value="{{ $company->id }}">{{ $company->name }}
-                                                            </option>
+                                                            @if ($branchEdit->company_id == $company->id)
+                                                                <option value="{{ $company->id }}" selected>
+                                                                    {{ $company->name }}
+                                                                </option>
+                                                            @else
+                                                                <option value="{{ $company->id }}">{{ $company->name }}
+                                                                </option>
+                                                            @endif
                                                         @endforeach
 
                                                     </select>

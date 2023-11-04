@@ -31,9 +31,13 @@
              <div class="sb-nav-link-icon"><i class="fa-solid fa-money-check-dollar"></i></div>
              Monthly Payment
          </a>
+         {{-- <a class="nav-link" href="{{ url('/user') }}">
+             <div class="sb-nav-link-icon"><i class="fa-solid fa-money-check-dollar"></i></div>
+             Users
+         </a> --}}
 
          @if (auth()->user()->is_admin)
-             <a class="nav-link" href="{{ url('/User_Register') }}">
+             <a class="nav-link" href="{{ url('/user') }}">
                  <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
                  Users
              </a>

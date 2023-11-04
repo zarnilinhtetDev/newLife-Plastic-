@@ -79,7 +79,8 @@
 
                                                         <td>
                                                             @if ($expenses->car)
-                                                                {{ $expenses->car->car_brand_name }}
+                                                                {{ $expenses->car->car_brand_name }} -
+                                                                {{ $expenses->car->plate_number }}
                                                             @else
                                                                 N/A
                                                             @endif

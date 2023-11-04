@@ -52,9 +52,17 @@
                                                     <select class="form-control" name="car_id">
                                                         <option value="">Select a Car</option>
                                                         @foreach ($cars as $car)
-                                                            <option value="{{ $car->id }}">
-                                                                {{ $car->car_brand_name }} ( {{ $car->plate_number }})
-                                                            </option>
+                                                            @if ($carExpenseEdit->car_id == $car->id)
+                                                                <option value="{{ $car->id }}" selected>
+                                                                    {{ $car->car_brand_name }} (
+                                                                    {{ $car->plate_number }})
+                                                                </option>
+                                                            @else
+                                                                <option value="{{ $car->id }}">
+                                                                    {{ $car->car_brand_name }} (
+                                                                    {{ $car->plate_number }})
+                                                                </option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                 </div>

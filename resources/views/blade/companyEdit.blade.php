@@ -27,13 +27,13 @@
                             <ol class="breadcrumb mb-4 ">
                                 <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
                                 <li class="breadcrumb-item active"><a href="{{ url('/company_list') }}">Company</a></li>
-                                <li class="breadcrumb-item active">Company Register</li>
+                                <li class="breadcrumb-item active">Company Edit</li>
 
                             </ol>
                             <div class="container my-5">
                                 <div class="row">
                                     <div class="col-md-6 offset-3">
-                                        <div class="card  ">
+                                        <div class="card  p-4">
 
                                             @if (session('updateStatus'))
                                                 <div class="alert alert-success alert-dismissible fade show"
@@ -87,20 +87,9 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="form-group mt-3">
-                                                    <label for="">Branch</label>
-                                                    <select class="form-select" aria-label="Default select example"
-                                                        name="branch">
-                                                        <option selected>{{ $companyEdit->branch }}</option>
-                                                        <option value="Yangon">Yangon</option>
-                                                        <option value="Mandalay">Mandalay</option>
-                                                        <option value="Pyay">Pyay</option>
-                                                        <option value="Nay Pyi Taw">Nay Pyi Taw</option>
-                                                        <option value="Larshio">Larshio</option>
-                                                    </select>
-                                                </div>
 
-                                                <button type="" class="btn  mt-3 btn-primary">Register</button>
+
+                                                <button type="" class="btn  mt-3 btn-primary">Update</button>
                                         </div>
                                     </div>
 

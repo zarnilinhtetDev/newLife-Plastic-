@@ -29,7 +29,7 @@ class UserController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'is_admin' => $request->input('is_admin')
+            'is_admin' => $request->input('is_admin', false),
         ]);
 
 
@@ -45,42 +45,37 @@ class UserController extends Controller
 
         return redirect()->back()->with('delete_success', ' User delete is successful');
     }
-
-
-
-    //Excel User
-
-    public function fileImportExport()
+    public function userShow($id)
     {
-        return view('file-import');
+
+        $userShow = User::find($id);
+        return view('blade.userEdit', compact('userShow'));
     }
-
-    /**
-     * Import a file and store it temporarily before processing.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function fileImport(Request $request)
+    public function update_user(Request $request, $id)
     {
-        $request->validate([
-            'file' => 'required|mimes:xlsx,csv,txt|max:2048', // Add validation rules for file uploads
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
         ]);
 
-        $path = $request->file('file')->store('temp');
+        $user = User::find($id);
 
-        Excel::import(new UsersImport, storage_path('app/' . $path));
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found');
+        }
 
-        return back()->with('success', 'File imported successfully.');
-    }
+        $user->name = $data['name'];
+        $user->email = $data['email'];
 
-    /**
-     * Export data to an Excel file and force download it.
-     *
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     */
-    public function fileExport()
-    {
-        return Excel::download(new UsersExport, 'users.xlsx');
+        // Check if a new password is provided, and update the password if needed
+        if ($request->filled('new_password')) {
+            $user->password = Hash::make($request->input('new_password'));
+        }
+
+        $user->is_admin = $request->input('is_admin', false);
+
+        $user->save();
+
+        return redirect('user')->with('success', 'User update is successful');
     }
 }

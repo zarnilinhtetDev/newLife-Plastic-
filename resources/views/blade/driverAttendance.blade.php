@@ -52,7 +52,7 @@
 
 
 
-                                <div class="container-fluid my-5">
+                                <div class="container-fluid card my-5 p-4">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <form action="{{ route('driver-attendance-start', $driver->id) }}"
@@ -93,39 +93,36 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
                             </div>
                             <hr>
-
-
-
                             <div class="container-fluid my-5 ">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <form action="{{ route('filter.driver.attendance', ['id' => $driver->id]) }}"
-                                            method="get">
-                                            <div class="row">
-                                                <div class="col-md-5 form-group">
-                                                    <label for="">Date From :</label>
-                                                    <input type="date" name="start_date" class="form-control">
-                                                </div>
-                                                <div class="col-md-5 form-group">
-                                                    <label for="">Date To :</label>
-                                                    <input type="date" name="end_date" class="form-control">
-                                                </div>
-                                                <div class="col-md-3 mt-3 form-group">
-                                                    <input type="submit" class="btn btn-primary form-control"
-                                                        value="Search" style="background-color: #0069D9">
-                                                </div>
+                                    <div class="col-md-6 ">
+                                        <div class="card p-4">
+                                            <form
+                                                action="{{ route('filter.driver.attendance', ['id' => $driver->id]) }}"
+                                                method="get">
+                                                <div class="row">
+                                                    <div class="col-md-5 form-group">
+                                                        <label for="">Date From :</label>
+                                                        <input type="date" name="start_date" class="form-control">
+                                                    </div>
+                                                    <div class="col-md-5 form-group">
+                                                        <label ford="">Date To :</label>
+                                                        <input type="date" name="end_date" class="form-control">
+                                                    </div>
+                                                    <div class="col-md-3 mt-3 form-group">
+                                                        <input type="submit" class="btn btn-primary form-control"
+                                                            value="Search" style="background-color: #0069D9">
+                                                    </div>
 
-                                            </div>
-                                        </form>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class=" mb-4 container-fluid">
+                            <div class="card mb-4 container-fluid">
                                 <div class="card-header">
                                     <i class="fas fa-table me-1"></i>
                                     Driver Attendance Table

@@ -23,10 +23,10 @@
                                 <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item active"><a href="{{ url('/User_Register') }}">Users</a></li>
-                                <li class="ml-auto">Users Register</li>
+                                <li class="ml-auto">&nbsp/ Users Register</li>
 
                             </ol>
-                            <div class="container my-5">
+                            <div class="container-fluid my-5">
                                 @if (session('success'))
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         {{ session('success') }}
@@ -39,30 +39,17 @@
 
                                     </div>
                                 @endif
-                                <div class="container mt-5 text-center">
-                                    {{-- <h2 class="mb-4">
-                                        Laravel 7 Import and Export CSV & Excel to Database Example
-                                    </h2> --}}
+                                @if (session('delete_success'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{ session('delete_success') }}
 
-                                    <form action="{{ route('file-import') }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
-                                            <div class="custom-file text-left">
-                                                <input type="file" name="file" class="custom-file-input"
-                                                    id="customFile">
-                                                <label class="custom-file-label" for="customFile">Choose file</label>
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-primary">Import data</button>
-                                        <a class="btn btn-success" href="{{ route('file-export') }}">Export data</a>
-                                    </form>
-                                </div>
+                                    </div>
+                                @endif
 
                                 <div class="row mt-6">
                                     <div class="col-md-6 offset-3">
 
-                                        <div class="card  p-6">
+                                        <div class="card  p-4 mb-4">
                                             <form action="{{ url('/User_Register') }}" method="post">
                                                 @csrf
                                                 <div class="form-group">
@@ -75,7 +62,7 @@
                                                     @enderror
 
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group mt-3">
                                                     <label for="exampleInputEmail1">Email address <span
                                                             class="text-danger">*</span></label>
                                                     <input type="email" class="form-control" id="exampleInputEmail1"
@@ -84,7 +71,7 @@
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group mt-3">
                                                     <label for="exampleInputPassword1">Password <span
                                                             class="text-danger">*</span></label>
                                                     <input type="password" class="form-control"
@@ -93,25 +80,19 @@
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group mt-3">
                                                     <label for="is_admin"> Admin </label> &nbsp;
-                                                    <input type="checkbox" name="is_admin" value="1"
-                                                        class="form-control">
+                                                    <input type="checkbox" name="is_admin" value="1">
                                                 </div>
-                                                <button type="submit" class="btn btn-primary"
-                                                    style="background-color: #0069D9">Submit</button>
+                                                <button type="submit" class="btn btn-primary mt-3"
+                                                    style="background-color: #0069D9">Register</button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="card my-6">
-                                    @if (session('delete_success'))
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            {{ session('delete_success') }}
 
-                                        </div>
-                                    @endif
                                     <div class="card-header">
                                         <i class="fas fa-table me-1"></i>
                                         User Tables
@@ -165,7 +146,7 @@
                                                             {{-- <x-dropdown-link :href="route('profile.edit')">
                                                                 {{ __('Profile') }}
                                                             </x-dropdown-link> --}}
-                                                            <a href="{{ route('profile.edit') }}"
+                                                            <a href="{{ url('userShow', $userData->id) }}"
                                                                 class="btn btn-success">
                                                                 <i class="fa-solid fa-pen-to-square"></i>
 

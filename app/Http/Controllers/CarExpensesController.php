@@ -29,6 +29,7 @@ class CarExpensesController extends Controller
             'car_vouncher' => 'image|max:2000',
             'amount' => 'required',
             'car_id' => 'required',
+            'car_vouncher' => 'required',
         ]);
 
         // Create a new CarExpense instance

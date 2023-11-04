@@ -50,6 +50,9 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
+                                                    @error('company_id')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
                                                 </div>
 
 

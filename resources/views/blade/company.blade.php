@@ -95,7 +95,7 @@
                                                 <td>
                                                     <a href="{{ url('company_edit', $list->id) }}"
                                                         class="btn btn-success"><i
-                                                            class="fa-solid fa-pen-to-square"></i></a><br>
+                                                            class="fa-solid fa-pen-to-square"></i></a>
                                                     <a href="{{ url('company_delete', $list->id) }}"
                                                         class="btn btn-danger"
                                                         onclick="return confirm('Are you sure you want to delete this car information ?')"><i
