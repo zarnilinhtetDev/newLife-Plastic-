@@ -1,23 +1,47 @@
-@include('backend.header')
+@include('master.header')
 
-<body class="sb-nav-fixed">
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="../../index3.html" class="nav-link">Home</a>
+                </li>
+
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
 
 
-    @include('backend.nav')
+                <li class="nav-item">
 
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                @include('backend.sidebar')
-            </nav>
+
+
+                <li><a class="dropdown-item btn bg-danger  logout-link" href="{{ url('/logout') }}">Logout</a></li>
+                </li>
+            </ul>
+        </nav>
+        @include('master.sidebar')
+        <div class="content-wrapper">
+
+
+            <!-- Main content -->
+            <section class="content">
+                @include('blade.cars.cars')
+
+            </section>
+
         </div>
-        <div id="" style="width:100%">
-            @include('blade.cars')
-        </div>
+
+
+
     </div>
 
 
-    @include('backend.script')
-</body>
-
-</html>
+    @include('master.footer')

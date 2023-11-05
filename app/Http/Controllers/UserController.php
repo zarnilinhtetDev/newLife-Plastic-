@@ -3,22 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Exports\UsersExport;
-use App\Imports\UsersImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
-    public function user_register()
+    public function user()
     {
-        $showUser_data =  User::latest()->get();
-        return view('blade.users', compact('showUser_data'));
+        $user = User::all();
+        return view('blade.user.user', compact('user'));
     }
 
-    public function user_store(Request $request)
+    public function userStore(Request $request)
     {
+
         $data = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -29,53 +27,15 @@ class UserController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'is_admin' => $request->input('is_admin', false),
+            'is_admin' => $request->input('is_admin')
         ]);
 
 
-        return redirect()->back()->with('success', 'User registration is successful');
+        return redirect()->back()->with('success', 'User Register is Successfull');
     }
-
-
-
-    public function delete_user($id)
+    public function delete($id)
     {
-        $user_delete = User::find($id);
-        $user_delete->delete();
-
-        return redirect()->back()->with('delete_success', ' User delete is successful');
-    }
-    public function userShow($id)
-    {
-
-        $userShow = User::find($id);
-        return view('blade.userEdit', compact('userShow'));
-    }
-    public function update_user(Request $request, $id)
-    {
-        $data = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-        ]);
-
-        $user = User::find($id);
-
-        if (!$user) {
-            return redirect()->back()->with('error', 'User not found');
-        }
-
-        $user->name = $data['name'];
-        $user->email = $data['email'];
-
-        // Check if a new password is provided, and update the password if needed
-        if ($request->filled('new_password')) {
-            $user->password = Hash::make($request->input('new_password'));
-        }
-
-        $user->is_admin = $request->input('is_admin', false);
-
-        $user->save();
-
-        return redirect('user')->with('success', 'User update is successful');
+        User::Find($id)->delete();
+        return redirect()->back()->with('deleteStatus', 'User Delete is Successfull');
     }
 }

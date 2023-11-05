@@ -7,59 +7,53 @@ use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
 {
-    public function expenses()
+    public function expense()
     {
-        $expenses = Expense::latest()->get();
-        return view('blade.expense', compact('expenses'));
+        $expense = Expense::latest()->get();
+        return view('blade.expense.expenses', compact('expense'));
     }
-    public function expenses_store(Request $request)
+
+    public function register(Request $request)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'amount' => 'required',
-            'branch' => 'required',
-            'message' => 'nullable|string',
+
+        $request->validate([
+            'category' => 'required',
+            'expense_name' => 'required',
+            'expense_amount' => 'required',
         ]);
-        $expense = new Expense($validatedData);
-        $expense->save();
 
-        return redirect()->back()->with('success', 'Expense is successful');
+        $expense = new Expense();
+        $expense->category = $request->category;
+        $expense->expense_name = $request->expense_name;
+        $expense->expense_amount = $request->expense_amount;
+
+        $expense->save();
+        return redirect()->back()->with('success', 'Expense Register is Successfull');
     }
 
-    public function delete_expense($id)
+    public function delete($id)
     {
         $expense = Expense::find($id);
         $expense->delete();
-        return redirect()->back()->with('delete_success', ' Expense delete  successful');
+        return redirect()->back()->with('deleteStatus', 'Expense Delete is Successfull');
     }
-    public function edit_expense($id)
-    {
-        $expense = Expense::find($id);
 
-        return view('blade.expenseEdit', compact('expense'));
-    }
-    public function update_expense(Request $request, $id)
+    public function show($id)
     {
 
-        $validatedData = $request->validate([
-            'amount' => 'required',
-            'branch' => 'required',
+        $expenseData = Expense::find($id);
+        return view('blade.expense.expensesEdit', compact('expenseData'));
+    }
 
-
-        ]);
-
+    public function update(Request $request, $id)
+    {
 
         $expense = Expense::find($id);
+        $expense->category = $request->category;
+        $expense->expense_name = $request->expense_name;
+        $expense->expense_amount = $request->expense_amount;
 
-
-
-        $expense->update([
-            'amount' => $validatedData['amount'],
-            'branch' => $validatedData['branch'],
-            'message' => $validatedData['branch'],
-
-        ]);
-
-        return redirect('/Expenses')->with('expenseSuccess', 'Expense updated successfully');
+        $expense->update();
+        return redirect('expense')->with('updateStatus', 'Expense Update is Successfull');
     }
 }
