@@ -38,88 +38,95 @@ use App\Models\CarExpense;
 
 
 
-Route::get('/', [AuthController::class, 'login']);
+Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'adminLogin'])->name('admin. login')->middleware('guest');
 
 Route::get('/logout', [AuthController::class, 'logout']);
 
 
 
+Route::middleware(['auth'])->group(
+    function () {
+        Route::get('/dashboard', function () {
+            $car = Car::latest()->get();
+            return view('dashboard', compact('car'));
+        })->name('dashboard');
 
-Route::get('/dashboard', function () {
-    $car = Car::latest()->get();
-    return view('dashboard', compact('car'));
-})->name('dashboard');
+        Route::controller(CustomerController::class)->group(function () {
+            Route::get('customer', 'customer')->name('customer');
+            Route::post('customer_register', 'customer_store');
+            Route::get('customer/delete/{id}', 'customer_delete');
+            Route::get('customer_show/{id}', 'customer_show');
+            Route::post('customer_update/{id}', 'customer_update');
+        });
 
-Route::controller(CustomerController::class)->group(function () {
-    Route::get('customer', 'customer')->name('customer');
-    Route::post('customer_register', 'customer_store');
-    Route::get('customer/delete/{id}', 'customer_delete');
-    Route::get('customer_show/{id}', 'customer_show');
-    Route::post('customer_update/{id}', 'customer_update');
-});
+        //Car
 
-//Car
-Route::post('/cars_register', [CarController::class, 'carsRegister']);
-Route::get('/cars_delete/{id}', [CarController::class, 'delete']);
-Route::get('/cars_show/{id}', [CarController::class, 'show']);
-Route::post('/cars_update/{id}', [CarController::class, 'update']);
-Route::get('/Car_Detail/{id}', [CarController::class, 'car_detail']);
+        Route::match(['get', 'post'], '/cars_register', [CarController::class, 'carsRegister']);
 
-//Car Buy
-Route::post('/Buying_Price/{id}', [BuyController::class, 'buying_price']);
+        Route::get('/cars_delete/{id}', [CarController::class, 'delete']);
+        Route::get('/cars_show/{id}', [CarController::class, 'show']);
+        Route::post('/cars_update/{id}', [CarController::class, 'update']);
+        Route::get('/Car_Detail/{id}', [CarController::class, 'car_detail']);
 
-//Car Offer
-Route::post('/Offer_Price/{id}', [OfferController::class, 'offer_price']);
-
-//Car Expense
-Route::get('/car_expense/{id}', [CarExpenseController::class, 'car_expense']);
-Route::post('/car_expense_store/{id}', [CarExpenseController::class, 'car_expense_store']);
-Route::get('/expense/delete/{id}', [CarExpenseController::class, 'delete'])->name('delete.expense');
-Route::post('/expense/edit/{id}', [CarExpenseController::class, 'update']);
+        //Car Buy
+        Route::post('/Buying_Price/{id}', [BuyController::class, 'buying_price'])->name('Buying_Price');
+        Route::get('/delete-car-price/{carId}', [BuyController::class, 'deleteCarPrice'])->name('delete.car.price');
 
 
-//Account
-Route::get('account', [AccountController::class, 'account']);
-Route::post('/accounts_register', [AccountController::class, 'accountRegister']);
-Route::get('/account', [AccountController::class, 'accountStore']);
-Route::get('/accounts_delete/{id}', [AccountController::class, 'delete']);
-Route::get('/accounts_show/{id}', [AccountController::class, 'show']);
-Route::post('/accounts_update/{id}', [AccountController::class, 'update']);
+        //Car Offer
+        Route::post('/Offer_Price/{id}', [OfferController::class, 'offer_price'])->name('Offer_Price');
 
-//Transaction
-Route::get('/transaction', [TransactionController::class, 'transaction']);
-Route::post('/transaction_register', [TransactionController::class, 'register']);
-Route::get('/transaction_delete/{id}', [TransactionController::class, 'delete']);
-Route::get('/transaction_show/{id}', [TransactionController::class, 'show']);
-Route::post('/transaction_update/{id}', [TransactionController::class, 'update']);
+        //Car Expense
+        Route::get('/car_expense/{id}', [CarExpenseController::class, 'car_expense']);
+        Route::post('/car_expense_store/{id}', [CarExpenseController::class, 'car_expense_store']);
+        Route::get('/expense/delete/{id}', [CarExpenseController::class, 'delete'])->name('delete.expense');
+        Route::post('/expense/edit/{id}', [CarExpenseController::class, 'update']);
 
-//Expense-Category
-Route::controller(ExpenseCategoryController::class)->group(function () {
-    Route::get('expense-category', 'expense_category')->name('expense-category');
-    Route::post('category_register', 'category_store');
-    Route::get('category/delete/{id}', 'category_delete');
-    Route::get('category_show/{id}', 'category_show');
-    Route::post('category_update/{id}', 'category_update');
-});
 
-//Company Expense
-Route::controller(ExpenseController::class)->group(function () {
-    Route::get('/expense', 'expense');
-    Route::post('/expense_register', 'register');
-    Route::get('/expense_delete/{id}', 'delete');
-    Route::get('/expense_show/{id}', 'show');
-    Route::post('/expense_update/{id}', 'update');
-});
+        //Account
+        Route::get('account', [AccountController::class, 'account']);
+        Route::post('/accounts_register', [AccountController::class, 'accountRegister']);
+        Route::get('/account', [AccountController::class, 'accountStore']);
+        Route::get('/accounts_delete/{id}', [AccountController::class, 'delete']);
+        Route::get('/accounts_show/{id}', [AccountController::class, 'show']);
+        Route::post('/accounts_update/{id}', [AccountController::class, 'update']);
 
-//User
-Route::get('/user', [UserController::class, 'user']);
-Route::post('/user_store', [UserController::class, 'userStore']);
-Route::get('/delete/{id}', [UserController::class, 'delete']);
+        //Transaction
+        Route::get('/transaction', [TransactionController::class, 'transaction']);
+        Route::post('/transaction_register', [TransactionController::class, 'register']);
+        Route::get('/transaction_delete/{id}', [TransactionController::class, 'delete']);
+        Route::get('/transaction_show/{id}', [TransactionController::class, 'show']);
+        Route::post('/transaction_update/{id}', [TransactionController::class, 'update']);
 
-//Company Income
-Route::get('/company_income', [CompanyIncomeController::class, 'company']);
-Route::post('/companyincome_register', [CompanyIncomeController::class, 'incomeRegister']);
-Route::get('/companyincome_delete/{id}', [CompanyIncomeController::class, 'delete']);
-Route::get('/companyincome_show/{id}', [CompanyIncomeController::class, 'show']);
-Route::post('/companyincome_show/{id}', [CompanyIncomeController::class, 'update']);
+        //Expense-Category
+        Route::controller(ExpenseCategoryController::class)->group(function () {
+            Route::get('expense-category', 'expense_category')->name('expense-category');
+            Route::post('category_register', 'category_store');
+            Route::get('category/delete/{id}', 'category_delete');
+            Route::get('category_show/{id}', 'category_show');
+            Route::post('category_update/{id}', 'category_update');
+        });
+
+        //Company Expense
+        Route::controller(ExpenseController::class)->group(function () {
+            Route::get('/expense', 'expense');
+            Route::post('/expense_register', 'register');
+            Route::get('/expense_delete/{id}', 'delete');
+            Route::get('/expense_show/{id}', 'show');
+            Route::post('/expense_update/{id}', 'update');
+        });
+
+        //User
+        Route::get('/user', [UserController::class, 'user']);
+        Route::post('/user_store', [UserController::class, 'userStore']);
+        Route::get('/delete/{id}', [UserController::class, 'delete']);
+
+        //Company Income
+        Route::get('/company_income', [CompanyIncomeController::class, 'company']);
+        Route::post('/companyincome_register', [CompanyIncomeController::class, 'incomeRegister']);
+        Route::get('/companyincome_delete/{id}', [CompanyIncomeController::class, 'delete']);
+        Route::get('/companyincome_show/{id}', [CompanyIncomeController::class, 'show']);
+        Route::post('/companyincome_show/{id}', [CompanyIncomeController::class, 'update']);
+    }
+);

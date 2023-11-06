@@ -22,6 +22,20 @@ class BuyController extends Controller
             $buy->car_id = $car->id;
             $buy->save();
         }
+
         return redirect()->back()->with('offerSuccess', 'Add Offer Price is Successful');
+    }
+    public function deleteCarPrice($carId)
+    {
+        // Find the car by its ID
+        $car = Buy::find($carId);
+
+        if (!$car) {
+            return redirect()->back()->with('deleteStatus', 'Car not found.');
+        }
+
+        $car->delete();
+
+        return redirect()->back()->with('deleteStatus', 'Car price deleted successfully.');
     }
 }

@@ -12,7 +12,7 @@
 
 <style>
     body {
-        background-image: url('{{ asset('back.avif') }}');
+        background-image: url('{{ asset('01.webp') }}');
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -37,7 +37,7 @@
 
 
     .cardbody-color {
-        background-color: #ebf2fa;
+        background-color: white;
     }
 
     a {
@@ -59,13 +59,13 @@
                     <form class="card-body cardbody-color p-lg-5 " method="POST" action="{{ route('admin. login') }}">
                         @csrf
                         <div class="text-center">
-                            <img src="https://png.pngtree.com/png-vector/20191125/ourmid/pngtree-beautiful-admin-roles-line-vector-icon-png-image_2035379.jpg"
+                            <img src="{{ asset('logo.png') }}"
                                 class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="150px"
                                 alt="profile">
 
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-3 ">
                             <input type="email" class="form-control" id="Username" aria-describedby="emailHelp"
                                 placeholder="email" name="email" value="{{ old('email') }}">
                             @error('email')

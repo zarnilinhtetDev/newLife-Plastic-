@@ -10,7 +10,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" class="nav-link">Home</a>
+                    <a href="{{ url('/dashboard') }}" class="nav-link">Home</a>
                 </li>
             </ul>
 
@@ -41,12 +41,15 @@
                                 <div class="container-fluid">
                                     <div class="row mb-2">
                                         <div class="col-sm-6">
-                                            <h1>Expenses</h1>
+                                            <h1>Car Expenses</h1>
                                         </div>
                                         <div class="col-sm-6">
                                             <ol class="breadcrumb float-sm-right">
-                                                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                                <li class="breadcrumb-item active">Car Expenses</li>
+                                                <li class="breadcrumb-item"><a
+                                                        href="{{ url('/dashboard') }}">Dashboard</a>
+                                                </li>
+
+                                                <li class="breadcrumb-item active"> Car Expenses</li>
                                             </ol>
                                         </div>
                                     </div>
@@ -157,16 +160,26 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
+                                                <th>Date</th>
                                                 <th>Description</th>
                                                 <th>Price</th>
-                                                <th>Date</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
                                             <tr>
-                                                <td>{{ $car->car_type }} &nbsp; ( {{ $car->car_number }})</td>
+                                                <td>
+
+                                                    @if ($buy)
+                                                        {{ $buy->created_at }}
+                                                </td>
+                                            @else
+                                                N/A
+                                                @endif
+                                                </td>
+                                                <td>{{ $car->car_type }} &nbsp; ( {{ $car->car_number }}) - <span
+                                                        class="text-danger">Buy</span></td>
                                                 <td>
 
                                                     @if ($buy)
@@ -177,18 +190,11 @@
                                                 @endif
 
                                                 </td>
-                                                <td>
 
-                                                    @if ($buy)
-                                                        {{ $buy->created_at }}
-                                                </td>
-                                            @else
-                                                N/A
-                                                @endif
-                                                </td>
                                                 <td>
-                                                    <a href="" class="btn btn-danger" style="width:82px"><i
-                                                            class="fa-solid fa-trash"></i>
+                                                    <a href="{{ route('delete.car.price', $car->id) }}"
+                                                        class="btn btn-danger" style="width:82px"> <i
+                                                            class="fa-solid fa-trash"></i></a>
                                                 </td>
                                             </tr>
 
@@ -196,11 +202,11 @@
                                             @foreach ($expenses as $expense)
                                                 <tr>
 
-
-                                                    <td>{{ $car->car_type }} &nbsp; ( {{ $car->car_number }})&nbsp;
-                                                        &nbsp;&nbsp; &nbsp;{{ $expense->description }}</td>
-                                                    <td>{{ $expense->expense_price }}</td>
                                                     <td>{{ $expense->created_at }}</td>
+                                                    <td>{{ $car->car_type }} &nbsp; ( {{ $car->car_number }})&nbsp; -
+                                                        {{ $expense->description }}</td>
+                                                    <td>{{ $expense->expense_price }}</td>
+
                                                     <td>
 
 
@@ -216,10 +222,27 @@
                                                 </tr>
                                             @endforeach
                                             <tr>
-                                                <th scope="row" colspan="4">Total Expenses</th>
-                                                <td>
+                                                <th scope="row" colspan="2">Total Expenses</th>
+                                                <td> @php
+                                                    $totalExpenses = 0;
+                                                @endphp
 
+                                                    @foreach ($expenses as $expense)
+                                                        @php
+                                                            $totalExpenses += $expense->expense_price;
+                                                        @endphp
+                                                    @endforeach
+
+                                                    {{-- {{ $buy->price + $totalExpenses }} --}}
+                                                    @if ($buy)
+                                                        {{ $buy->price + $totalExpenses }}
                                                 </td>
+                                            @else
+                                                N/A
+                                                @endif
+                                                </td>
+                                                <td></td>
+
 
                                         </tbody>
                                         <div class="modal fade" id="modal-lg1">
