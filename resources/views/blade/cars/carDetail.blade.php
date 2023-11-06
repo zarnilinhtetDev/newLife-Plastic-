@@ -2,9 +2,9 @@
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <!-- Navbar -->
+
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
+
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
@@ -14,7 +14,17 @@
                 </li>
             </ul>
 
-            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+
+
+                <li class="nav-item">
+
+
+                    <a href="{{ url('/logout') }}" class="btn btn-danger text-white">Logout</a>
+
+
+                </li>
+            </ul>
 
         </nav>
 
@@ -22,7 +32,6 @@
 
         <div class="content-wrapper">
 
-            <!-- Main content -->
             <section class="content">
                 <section class="content-header">
                     <div class="container-fluid">
@@ -45,6 +54,11 @@
                         {{ session('buySuccess') }}
                     </div>
                 @endif
+                @if (session('offerSuccess'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('offerSuccess') }}
+                </div>
+            @endif
                 <div class="card">
                     <div class="card p-4">
                         <div class="card-header" style="">
@@ -52,10 +66,68 @@
                                 <a href="{{ url('Buying_Price', $carDetail->id) }}"
                                     class="btn btn-primary btn-default  text-white btn-outline-accent-5 btn-md "
                                     data-toggle="modal" style = "background-color:#007BFF"
-                                    data-target="#modal-default"><i class="fa-solid fa-cart-shopping text-white"></i>
+                                    data-target="#modal-default">
                                     Buying Price</a>
+                                    <a href="{{ url('Buying_Price', $carDetail->id) }}"
+                                        class="btn btn-primary btn-default  text-white btn-outline-accent-5 btn-md "
+                                        data-toggle="modal" style = "background-color:#007BFF"
+                                        data-target="#modal-default1">
+                                        Offer Price</a>
+                                        <a href="{{ url('car_expense', $carDetail->id) }}"
+                                            class="btn btn-primary btn-default  text-white btn-outline-accent-5 btn-md "
+                                           style = "background-color:#007BFF"
+                                            >
+                                            Car Expense</a>
+
                             </h4>
                         </div>
+
+
+
+                        <div class="modal fade" id="modal-default1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Offer Price</h4>
+
+                                    </div>
+                                    <form action="{{ url('Offer_Price', $carDetail->id) }}" method="POST">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <div class="form-group col-12">
+                                                <label for="price">Offer Price</label>
+                                                <input type="text" class="form-control" id="offer_price"
+                                                    name="offer_price" placeholder="Enter Offer Price">
+                                            </div>
+                                        </div>
+                                        <div class="modal-body" style="display: none">
+                                            <div class="form-group col-12">
+                                                <label for="car_id">Car Type</label>
+                                                <input type="text" name="car_id" class="form-control" id="car_id"
+                                                    value="{{ $carDetail->id }}" placeholder="Enter Buying Price">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Add</button>
+                                        </div>
+                                    </form>
+                                   <div class="alert success" role="alert">
+
+                                    @if (isset($offerprice))
+
+                                    Current Offer Price -   {{ $offerprice->offer_price}}
+                                    @else
+                                    N/A
+                                    @endif
+                                   </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
                         <div class="modal fade" id="modal-default">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -85,6 +157,15 @@
                                             <button type="submit" class="btn btn-primary">Add</button>
                                         </div>
                                     </form>
+                                   <div class="alert success" role="alert">
+                                   {{-- {{ $buyprice->price }} --}}
+                                    @if (isset($buyprice))
+
+                                    Current Buying Price -   {{ $buyprice->price}}
+                                    @else
+                                    N/A
+                                    @endif
+                                   </div>
                                 </div>
 
                             </div>
@@ -126,9 +207,9 @@
                                     <tr>
 
                                         <td class="fw-light" style="width:300px">Car Image</td>
-                                        <td><a target="_blank" href="/carimage/{{ $carDetail->car_images }}"><img
-                                                    style="width: 200px" src="/carimage/{{ $carDetail->car_images }}"
-                                                    alt=""></a>
+                                        <td>  <a target="_blank" href="/carimage/{{ $carDetail->car_images }}">
+                                            <img src="{{ asset('carimage/' . $carDetail->car_images) }}" alt="" width="65px">
+                                        </a>
                                         </td>
                                     </tr>
 
@@ -141,53 +222,47 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="row mt-6">
+                    <div class="row mt-6">
                         <div class="col-md-12">
                             <div class="card p-4">
                                 <div class="card-header p-4" style="">
-                                    <h1 style="font-size: 18px" class="fw-semibold">Owner Details</h1>
+                                    <h1 style="font-size: 18px" class="fw-semibold">Price Details</h1>
                                 </div>
                                 <table class='table table-bordered mt-4' style="font-size: 20">
 
                                     <tr>
-                                        <td class="fw-light" style="width:300px">Owner Name</td>
-                                        <td class="fw-normal"></td>
+                                        <td class="fw-light" style="width:300px">Buying Price</td>
+                                        <td class="fw-normal">
+
+                                            {{-- @if ($buyprice)
+                                            <td class="fw-normal">{{ $buyprice->price }}</td>
+                                        @else
+                                            <td class="fw-normal">N/A</td>
+                                        @endif --}}
+                                        @if ($buyprice)
+                                        {{ $buyprice->price }}</td>
+                                        @else
+                                        N/A
+                                        @endif
 
                                     </tr>
                                     <tr>
-                                        <td class="fw-light" style="width:300px">NRC Number</td>
-                                        <td class="fw-normal"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-light" style="width:300px">Owner Address</td>
-                                        <td class="fw-normal"></td>
+                                        <td class="fw-light" style="width:300px">Offer Price</td>
+                                        <td class="fw-normal">
+                                            @if (isset($offerprice))
 
-                                    </tr>
-                                    <tr>
+                                            {{ $offerprice->offer_price}}
+                                            @else
+                                            N/A
+                                            @endif
 
-                                        <td class="fw-light" style="width:300px">Owner ID(NRC /Driving Lincense
-                                            -
-                                            Front)</td>
-                                        {{-- <td><a target="_blank" href="/frontID/{{ $data->owner_id_front }}"><img
-                                                    style="width: 200px" src="/frontID/{{ $data->owner_id_front }}"
-                                                    alt=""></a>
                                         </td>
-                                    </tr>
 
-                                    <tr>
-
-                                    <td class="fw-light" style="width:300px">Owner ID(NRC /Driving Lincense
-                                            -
-                                            Back)</td>
-                                 <td><a target="_blank" href="/backID/{{ $data->owner_id_back }}"><img
-                                                    style="width: 200px" src="/backID/{{ $data->owner_id_back }}"
-                                                    alt=""></a>
-                                        </td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
 
                 </div>
                 </main>

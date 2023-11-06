@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Buy;
 use App\Models\Car;
+use App\Models\Offer;
 use Illuminate\Http\Request;
 
-class BuyController extends Controller
+class OfferController extends Controller
 {
-
-    public function buying_price(Request $request, $id)
+    public function offer_price(Request $request, $id)
     {
 
         $validation = request()->validate([
-            'price' => 'required'
+            'offer_price' => 'required'
         ]);
         $carId = $request->input('car_id');
         $car = Car::find($id);
         if ($car) {
-            $buy = new Buy($validation);
-            $buy->car_id = $car->id;
-            $buy->save();
+            $offer = new Offer($validation);
+            $offer->car_id = $car->id;
+            $offer->save();
         }
         return redirect()->back()->with('offerSuccess', 'Add Offer Price is Successful');
-    }
+}
 }

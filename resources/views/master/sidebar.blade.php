@@ -69,14 +69,7 @@
                           </p>
                       </a>
                   </li>
-                  <li class="nav-item">
-                      <a href="{{ url('expense-category') }}" class="nav-link">
-                          <i class="fa-solid fa-wallet"></i>
-                          <p class="pl-3">
-                              Expenses Category
-                          </p>
-                      </a>
-                  </li>
+                  
               </ul>
           </nav>
           <!-- /.sidebar-menu -->

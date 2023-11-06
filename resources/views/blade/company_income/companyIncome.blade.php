@@ -54,12 +54,12 @@
                                 <div class="container-fluid">
                                     <div class="row mb-2">
                                         <div class="col-sm-6">
-                                            <h1> Company Expense</h1>
+                                            <h1> Company Income</h1>
                                         </div>
                                         <div class="col-sm-6">
                                             <ol class="breadcrumb float-sm-right">
                                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                                <li class="breadcrumb-item active"> Company Expense</li>
+                                                <li class="breadcrumb-item active"> Company Income</li>
                                             </ol>
                                         </div>
                                     </div>
@@ -87,16 +87,8 @@
                                     <div class="col-md-12 text-end">
                                         <button type="button" class="btn btn-default text-white" data-toggle="modal"
                                             data-target="#modal-lg" style="background-color: #007BFF">
-                                            Company Expense
+                                            Register
                                         </button>
-                                        <a href="{{ route('expense-category') }}"><button type="button"
-                                                class="btn btn-default text-white" style="background-color: #007BFF">
-                                                Expenses Category
-                                            </button></a>
-                                        <a href="{{ url('company_income') }}"><button type="button"
-                                                class="btn btn-default text-white" style="background-color: #007BFF">
-                                                Company Income
-                                            </button></a>
                                     </div>
                                 </div>
                             </div>
@@ -106,48 +98,32 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Company Expense Register</h4>
+                                            <h4 class="modal-title">Company Income Register</h4>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ url('/expense_register') }}" method="POST">
+                                            <form action="{{ url('/companyincome_register') }}" method="POST">
                                                 @csrf
 
                                                 <div class="form-group">
-                                                    <label for="category">Category Name</label>
-                                                    <select name="category" class="form-control" id="category">
-                                                        <option value="">Select Category
-                                                            @foreach ($expenseCategory as $category)
-                                                        <option value="{{ $category->category_name }}">
-                                                            {{ $category->category_name }}
-                                                        </option>
-                                                        @endforeach
-                                                        </option>
-                                                    </select>
-                                                    @error('category')
+                                                    <label for="company_date">Date</label>
+                                                    <input class="form-control" type="date" name="company_date"
+                                                        id="company_date" placeholder="Enter Date"
+                                                        value="{{ old('company_date') }}">
+                                                    @error('company_date')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="expense_date">Date</label>
-                                                    <input class="form-control" type="date" name="expense_date"
-                                                        id="expense_date" placeholder="Enter Date"
-                                                        value="{{ old('expense_date') }}">
-                                                    @error('expense_date')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="expense_price">Price</label>
-                                                    <input type="text" class="form-control" id="expense_price"
-                                                        name="expense_price" placeholder="Enter Expense Price"
-                                                        value="{{ old('expense_price') }}">
-                                                    @error('expense_price')
+                                                    <label for="company_price">Price</label>
+                                                    <input type="text" class="form-control" id="company_price"
+                                                        name="company_price" placeholder="Enter Price"
+                                                        value="{{ old('company_price') }}">
+                                                    @error('company_price')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -156,7 +132,7 @@
                                                 <div class="form-group">
                                                     <label>Description</label>
                                                     <textarea class="form-control" rows="3" placeholder="Enter ..." style="border-color:#6B7280"
-                                                        name="expense_description"></textarea>
+                                                        name="company_description"></textarea>
                                                 </div>
 
                                                 <!-- /.card-body -->
@@ -186,7 +162,6 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Category Name</th>
                                                 <th>Date</th>
                                                 <th>Description</th>
                                                 <th>Price</th>
@@ -196,33 +171,25 @@
                                         <tbody>
                                             @php
                                                 $no = '1';
-                                                $totalExpensePrice = 0.0;
                                             @endphp
-                                            @foreach ($expense as $expenses)
+                                            @foreach ($companyIncome as $income)
                                                 <tr>
                                                     <td>{{ $no }}</td>
-                                                    <td>{{ $expenses->category }}</td>
-                                                    <td>{{ $expenses->expense_date }}</td>
-                                                    <td>{{ $expenses->expense_description }}</td>
-                                                    <td>{{ $expenses->expense_price }}</td>
+                                                    <td>{{ $income->company_date }}</td>
+                                                    <td>{{ $income->company_description }}</td>
+                                                    <td>{{ $income->company_price }}</td>
                                                     <td>
-                                                        <a href="{{ url('expense_show', $expenses->id) }}"
+                                                        <a href="{{ url('companyincome_show', $income->id) }}"
                                                             class="btn btn-success"><i
                                                                 class="fa-solid fa-pen-to-square"></i></a>
-                                                        <a href="{{ url('expense_delete', $expenses->id) }}"
+                                                        <a href="{{ url('companyincome_delete', $income->id) }}"
                                                             class="btn btn-danger"><i class="fa-solid fa-trash"></i>
                                                     </td>
                                                 </tr>
                                                 @php
                                                     $no++;
-                                                    $totalExpensePrice += $expenses->expense_price;
                                                 @endphp
                                             @endforeach
-                                            <tr>
-                                                <th scope="row" colspan="4">Total Expense</th>
-                                                <td>{{ number_format($totalExpensePrice, 2) }}</td>
-                                                <td></td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

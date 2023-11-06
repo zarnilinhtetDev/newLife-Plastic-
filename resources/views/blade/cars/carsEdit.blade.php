@@ -91,7 +91,7 @@
                                     @enderror
                                     @if ($carShow->car_images)
                                         <div class="mt-2">
-                                            <img src="/carimage/{{ $carShow->car_images }}" alt="Current Car Image"
+                                            <img src="{{ asset('carimage/' . $carShow->car_images) }}" alt="Current Car Image"
                                                 width="100">
                                         </div>
                                     @endif

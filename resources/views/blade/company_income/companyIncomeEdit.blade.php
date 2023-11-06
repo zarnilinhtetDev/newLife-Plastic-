@@ -31,12 +31,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Company Expense</h1>
+                            <h1>Company Income</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Company Expense Update</li>
+                                <li class="breadcrumb-item active">Company Income Update</li>
                             </ol>
                         </div>
                     </div>
@@ -66,49 +66,30 @@
                         <div class="col-md-6 offset-3 my-3">
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Company Expense Update</h3>
+                                    <h3 class="card-title">Company Income Update</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
-                                <form action="{{ url('/expense_update', $expenseData->id) }}" method="POST">
+                                <form action="{{ url('/companyincome_show', $income->id) }}" method="POST">
                                     @csrf
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="category">Category Name</label>
-                                            <select name="category" class="form-control" id="category">
-                                                <option value="">Select Category
-                                                    @foreach ($expenseCategory as $category)
-                                                        @if ($expenseData->category == $category->category_name)
-                                                <option value="{{ $category->category_name }}" selected>
-                                                    {{ $category->category_name }}
-                                                </option>
-                                            @else
-                                                <option value="{{ $category->category_name }}">
-                                                    {{ $category->category_name }}
-                                                </option>
-                                                @endif
-                                                @endforeach
-                                                </option>
-                                            </select>
+                                            <label for="company_date">Date</label>
+                                            <input class="form-control" type="date" name="company_date"
+                                                id="company_date" value="{{ $income->company_date }}">
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="expense_date">Date</label>
-                                            <input class="form-control" type="date" name="expense_date"
-                                                id="expense_date" value="{{ $expenseData->expense_date }}">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="expense_price">Price</label>
-                                            <input type="text" class="form-control" id="expense_price"
-                                                name="expense_price" value="{{ $expenseData->expense_price }}">
+                                            <label for="company_price">Price</label>
+                                            <input type="text" class="form-control" id="company_price"
+                                                name="company_price" value="{{ $income->company_price }}">
                                         </div>
 
 
                                         <div class="form-group">
                                             <label>Description</label>
                                             <textarea class="form-control" rows="3" placeholder="Enter ..." style="border-color:#6B7280"
-                                                name="expense_description">{{ $expenseData->expense_description }}</textarea>
+                                                name="company_description">{{ $income->company_description }}</textarea>
                                         </div>
                                         <button type="submit" class="btn btn-primary"
                                             style="background-color: #007BFF">Update</button>

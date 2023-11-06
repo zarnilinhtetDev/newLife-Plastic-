@@ -10,6 +10,7 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BuyController;
+use App\Http\Controllers\CarExpenseController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\PaymentController;
@@ -18,9 +19,11 @@ use App\Http\Controllers\CarExpensesController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\MonthlyPaymentController;
 use App\Http\Controllers\CompanyExpensesController;
+use App\Http\Controllers\CompanyIncomeController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\DriverAttendanceController;
-
+use App\Http\Controllers\OfferController;
+use App\Models\CarExpense;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +68,17 @@ Route::get('/Car_Detail/{id}', [CarController::class, 'car_detail']);
 
 //Car Buy
 Route::post('/Buying_Price/{id}', [BuyController::class, 'buying_price']);
+
+//Car Offer
+Route::post('/Offer_Price/{id}', [OfferController::class, 'offer_price']);
+
+//Car Expense
+Route::get('/car_expense/{id}', [CarExpenseController::class, 'car_expense']);
+Route::post('/car_expense_store/{id}', [CarExpenseController::class, 'car_expense_store']);
+Route::get('/expense/delete/{id}', [CarExpenseController::class, 'delete'])->name('delete.expense');
+Route::post('/expense/edit/{id}', [CarExpenseController::class, 'update']);
+
+
 //Account
 Route::get('account', [AccountController::class, 'account']);
 Route::post('/accounts_register', [AccountController::class, 'accountRegister']);
@@ -89,7 +103,7 @@ Route::controller(ExpenseCategoryController::class)->group(function () {
     Route::post('category_update/{id}', 'category_update');
 });
 
-//Expense
+//Company Expense
 Route::controller(ExpenseController::class)->group(function () {
     Route::get('/expense', 'expense');
     Route::post('/expense_register', 'register');
@@ -102,3 +116,10 @@ Route::controller(ExpenseController::class)->group(function () {
 Route::get('/user', [UserController::class, 'user']);
 Route::post('/user_store', [UserController::class, 'userStore']);
 Route::get('/delete/{id}', [UserController::class, 'delete']);
+
+//Company Income
+Route::get('/company_income', [CompanyIncomeController::class, 'company']);
+Route::post('/companyincome_register', [CompanyIncomeController::class, 'incomeRegister']);
+Route::get('/companyincome_delete/{id}', [CompanyIncomeController::class, 'delete']);
+Route::get('/companyincome_show/{id}', [CompanyIncomeController::class, 'show']);
+Route::post('/companyincome_show/{id}', [CompanyIncomeController::class, 'update']);

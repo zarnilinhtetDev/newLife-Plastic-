@@ -14,4 +14,12 @@ class Car extends Model
     {
         return $this->hasMany(Buy::class, 'car_id');
     }
+    public function offers()
+    {
+        return $this->hasMany(Offer::class, 'car_id');
+    }
+    public function carExpenses()
+    {
+        return $this->hasMany(CarExpense::class);
+    }
 }

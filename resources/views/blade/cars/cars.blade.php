@@ -195,9 +195,10 @@
                                       <td>{{ $cars->car_color }}</td>
                                       <td>
 
-                                          <a target="_blank" href="/carimage/{{ $cars->car_images }}"><img
-                                                  src="/carimage/{{ $cars->car_images }}" alt=""
-                                                  width="65px"></a>
+                                                  <a target="_blank" href="/carimage/{{ $cars->car_images }}">
+                                                    <img src="{{ asset('carimage/' . $cars->car_images) }}" alt="" width="65px">
+                                                </a>
+
                                       </td>
 
 
