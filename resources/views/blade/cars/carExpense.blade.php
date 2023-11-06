@@ -214,12 +214,13 @@
                                                         </a>
                                                     </td>
                                                 </tr>
+                                            @endforeach
 
-                                                <tr>
-                                                    <th scope="row" colspan="4">Total Expenses</th>
-                                                    <td>
+                                            <tr>
+                                                <th scope="row" colspan="4">Total Expenses</th>
+                                                <td>
 
-                                                    </td>
+                                                </td>
 
                                         </tbody>
                                         <div class="modal fade" id="modal-lg1">
