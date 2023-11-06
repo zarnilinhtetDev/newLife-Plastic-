@@ -22,6 +22,7 @@ use App\Http\Controllers\CompanyExpensesController;
 use App\Http\Controllers\CompanyIncomeController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\DriverAttendanceController;
+use App\Http\Controllers\InOutController;
 use App\Http\Controllers\OfferController;
 use App\Models\CarExpense;
 
@@ -123,3 +124,11 @@ Route::post('/companyincome_register', [CompanyIncomeController::class, 'incomeR
 Route::get('/companyincome_delete/{id}', [CompanyIncomeController::class, 'delete']);
 Route::get('/companyincome_show/{id}', [CompanyIncomeController::class, 'show']);
 Route::post('/companyincome_show/{id}', [CompanyIncomeController::class, 'update']);
+
+
+//InOut
+Route::get('/inout', [InOutController::class, 'inout']);
+Route::post('inout', [InOutController::class, 'inoutRegister']);
+Route::get('inout_edit/{id}', [InOutController::class, 'show']);
+Route::post('inout_update/{id}', [InOutController::class, 'update']);
+Route::get('inout_delete/{id}', [InOutController::class, 'delete']);
