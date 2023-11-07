@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string('License_expire')->nullable();
             $table->string('car_color')->nullable();
             $table->string('car_images')->nullable();
-
-
             $table->string('description')->nullable();
             $table->timestamps();
         });

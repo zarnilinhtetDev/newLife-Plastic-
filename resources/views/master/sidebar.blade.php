@@ -15,13 +15,7 @@
                   data-accordion="false">
                   <li class="nav-item">
 
-                      <a href="{{ url('/user') }}" class="nav-link">
 
-                          <i class="fa-solid fa-users-line "></i>
-                          <p class="pl-3">
-                              Users
-                          </p>
-                      </a>
 
                   </li>
                   <li class="nav-item">
@@ -69,7 +63,12 @@
                           </p>
                       </a>
                   </li>
-                  
+                  @if (auth()->user()->is_admin)
+                      <a class="nav-link" href="{{ url('/user') }}">
+                          <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
+                          Users
+                      </a>
+                  @endif
               </ul>
           </nav>
           <!-- /.sidebar-menu -->

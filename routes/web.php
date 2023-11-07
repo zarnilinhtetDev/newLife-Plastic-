@@ -10,6 +10,7 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BuyController;
+use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\CarExpenseController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ExpenseController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\DriverAttendanceController;
 use App\Http\Controllers\InOutController;
 use App\Http\Controllers\OfferController;
+use App\Models\Buyer;
 use App\Models\CarExpense;
 
 /*
@@ -127,5 +129,17 @@ Route::middleware(['auth'])->group(
         Route::get('inout_edit/{id}', [InOutController::class, 'show']);
         Route::post('inout_update/{id}', [InOutController::class, 'update'])->name('inout.update'); // Added names for the edit and update routes
         Route::get('inout_delete/{id}', [InOutController::class, 'delete']);
+
+        //Buyers
+        Route::post('BuyingCar/{id}', [BuyerController::class, 'buyingCar'])->name('BuyingCar');
+
+        //User
+        Route::get('user', [UserController::class, 'user_register']);
+        Route::post('User_Register', [UserController::class, 'user_store']);
+        Route::get('/delete_user/{id}', [UserController::class, 'delete_user']);
+        Route::get('/delete_user/{id}', [UserController::class, 'delete_user']);
+        Route::get('/userShow/{id}', [UserController::class, 'userShow']);
+
+        Route::post('/update_user/{id}', [UserController::class, 'update_user']);
     }
 );

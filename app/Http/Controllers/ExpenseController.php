@@ -21,7 +21,7 @@ class ExpenseController extends Controller
         $request->validate([
             'category' => 'required',
             'expense_date' => 'required',
-            'expense_price' => 'required',
+            'expense_price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
         ]);
 
         $expense = new Expense();

@@ -226,7 +226,7 @@
                                                     <td>
 
                                                     </td>
-
+                                            @endforeach
                                         </tbody>
                                         <div class="modal fade" id="modal-lg1">
                                             <div class="modal-dialog modal-lg">

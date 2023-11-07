@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buy;
+use App\Models\Buyer;
 use App\Models\Car;
 use App\Models\Offer;
 use Illuminate\Http\Request;
@@ -87,6 +88,7 @@ class CarController extends Controller
         $buyprice = Buy::find($id);
         $offerprice = Offer::find($id);
         $carDetail = Car::find($id);
-        return view('blade.cars.carDetail', compact('carDetail','buyprice','offerprice'));
+        $carstatus = Buyer::find($id);
+        return view('blade.cars.carDetail', compact('carDetail', 'buyprice', 'offerprice', 'carstatus'));
     }
 }
