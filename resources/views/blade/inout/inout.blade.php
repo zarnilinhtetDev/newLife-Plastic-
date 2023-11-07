@@ -248,9 +248,9 @@
                                             @endphp
                                             @foreach ($inouts as $inout)
                                                 <tr>
-                                                    <td>{{ $inout->date }}</td>
-                                                    <td>{{ $inout->price }}</td>
-                                                    <td>{{ $inout->description }}</td>
+                                                    <td>{{ $inout->paydate }}</td>
+                                                    <td>{{ $inout->payprice }}</td>
+                                                    <td>{{ $inout->paydescription }}</td>
 
                                                     <td>
                                                         <a href="{{ url('inout_edit', $inout->id) }}"
