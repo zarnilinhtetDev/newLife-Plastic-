@@ -23,7 +23,17 @@
                           <i class="fa-solid fa-car-side"></i>
                           <p class="pl-3">
                               Cars
-                              {{-- <i class="right fas fa-angle-left"></i> --}}
+
+                          </p>
+                      </a>
+
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ url('/sold_out_car') }}" class="nav-link">
+                          <i class="fa-solid fa-list"></i>
+                          <p class="pl-3">
+                              Cars Sold Out
+
                           </p>
                       </a>
 
@@ -63,12 +73,20 @@
                           </p>
                       </a>
                   </li>
-                  @if (auth()->user()->is_admin)
+                  {{-- @if (auth()->user()->is_admin)
                       <a class="nav-link" href="{{ url('/user') }}">
-                          <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i></div>
-                          Users
+                          <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i> Users</div>
+
                       </a>
-                  @endif
+                  @endif --}}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url('/user') }}">
+                          <i class="fa-solid fa-user-plus"></i>
+                          <p class="pl-3">
+                              Users
+                          </p>
+                      </a>
+                  </li>
               </ul>
           </nav>
           <!-- /.sidebar-menu -->

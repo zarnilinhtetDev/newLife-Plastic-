@@ -11,16 +11,16 @@ class InOutController extends Controller
     {
 
         $request->validate([
-            'date' => 'required',
-            'price' => 'required',
-            'description' => 'required',
+            'paydate' => 'required',
+            'payprice' => 'required',
+            'paydescription' => 'required',
         ]);
         $inoutList = new InOut();
-        $inoutList->date = $request->input('date');
-        $inoutList->price = $request->input('price');
-        $inoutList->description = $request->input('description');
+        $inoutList->paydate = $request->input('paydate');
+        $inoutList->payprice = $request->input('payprice');
+        $inoutList->paydescription = $request->input('paydescription');
         $inoutList->save();
-        return redirect()->back()->with('success', 'Register is Successfull');
+        return redirect()->back()->with('success', 'Pay Register is Successfull');
     }
     public function inout()
     {
@@ -53,5 +53,20 @@ class InOutController extends Controller
         $inout->update();
 
         return redirect('/inout')->with('updateStatus', ' Update is Successfull');
+    }
+
+    public function outregister(Request $request)
+    {
+        $request->validate([
+            'yadate' => 'required',
+            'yaprice' => 'required',
+            'yadescription' => 'required',
+        ]);
+        $inoutList = new InOut();
+        $inoutList->yadate = $request->input('yadate');
+        $inoutList->yaprice = $request->input('yaprice');
+        $inoutList->yadescription = $request->input('yadescription');
+        $inoutList->save();
+        return redirect()->back()->with('success', 'Ya Register is Successfull');
     }
 }

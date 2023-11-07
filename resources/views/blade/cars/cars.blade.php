@@ -195,9 +195,10 @@
                                       <td>{{ $cars->car_color }}</td>
                                       <td>
 
-                                                  <a target="_blank" href="/carimage/{{ $cars->car_images }}">
-                                                    <img src="{{ asset('carimage/' . $cars->car_images) }}" alt="" width="65px">
-                                                </a>
+                                          <a target="_blank" href="/carimage/{{ $cars->car_images }}">
+                                              <img src="{{ asset('carimage/' . $cars->car_images) }}" alt=""
+                                                  width="65px">
+                                          </a>
 
                                       </td>
 
@@ -211,8 +212,6 @@
 
                                           <a href="{{ url('cars_delete', $cars->id) }}" class="btn btn-danger"><i
                                                   class="fa-solid fa-trash"></i></a>
-
-
 
                                       </td>
                                   </tr>

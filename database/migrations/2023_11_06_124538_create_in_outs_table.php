@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('in_outs', function (Blueprint $table) {
             $table->id();
-            $table->string('date');
-            $table->string('price');
-            $table->string('description');
+            $table->string('paydate')->nullable();
+            $table->string('payprice')->nullable();
+            $table->string('paydescription')->nullable();
+            $table->string('yadate')->nullable();
+            $table->string('yaprice')->nullable();
+            $table->string('yadescription')->nullable();
             $table->timestamps();
         });
     }

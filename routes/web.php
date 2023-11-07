@@ -72,6 +72,11 @@ Route::middleware(['auth'])->group(
         Route::post('/cars_update/{id}', [CarController::class, 'update']);
         Route::get('/Car_Detail/{id}', [CarController::class, 'car_detail']);
 
+        //SoldOut
+        Route::get('/sold_out_car', [CarController::class, 'soldcar']);
+
+
+
         //Car Buy
         Route::post('/Buying_Price/{id}', [BuyController::class, 'buying_price'])->name('Buying_Price');
         Route::get('/delete-car-price/{carId}', [BuyController::class, 'deleteCarPrice'])->name('delete.car.price');
@@ -94,6 +99,8 @@ Route::middleware(['auth'])->group(
             Route::post('/expense_update/{id}', 'update');
         });
         Route::get('/expense/filter', [ExpenseController::class, 'filter'])->name('filter.companyExpense');
+
+
         //Expense-Category
         Route::controller(ExpenseCategoryController::class)->group(function () {
             Route::get('expense-category', 'expense_category')->name('expense-category');
@@ -124,13 +131,16 @@ Route::middleware(['auth'])->group(
         Route::get('/companyincome_show/{id}', [CompanyIncomeController::class, 'show']);
         Route::post('/companyincome_show/{id}', [CompanyIncomeController::class, 'update'])->name('companyincome.update'); // Added a name for the update route
 
-        //InOut
+        //In
         Route::get('/inout', [InOutController::class, 'inout']);
         Route::post('inout', [InOutController::class, 'inoutRegister']);
         Route::get('inout_edit/{id}', [InOutController::class, 'show']);
         Route::post('inout_update/{id}', [InOutController::class, 'update'])->name('inout.update'); // Added names for the edit and update routes
         Route::get('inout_delete/{id}', [InOutController::class, 'delete']);
 
+
+        //out
+        Route::post('out', [InOutController::class, 'outRegister']);
         //Buyers
         Route::post('BuyingCar/{id}', [BuyerController::class, 'buyingCar'])->name('BuyingCar');
 

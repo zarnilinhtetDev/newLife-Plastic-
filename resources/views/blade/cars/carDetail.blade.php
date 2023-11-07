@@ -86,7 +86,7 @@
 
 
                                 <a href="{{ url('Buying_Price', $carDetail->id) }}" class="btn btn-default text-white"
-                                    data-toggle="modal" data-target="#modal-lg" style = "background-color:#218838">
+                                    data-toggle="modal" data-target="#modal-lg" style = "background-color:#C82333">
                                     Sold Out
                                 </a>
                             </h4>
@@ -108,7 +108,7 @@
                                             @csrf
 
                                             <div class="modal-body">
-                                                <div class="form-group col-12 ">
+                                                <div class="form-group col-12 " style="display: none">
                                                     <label for="car_id">Car Type</label>
                                                     <input type="text" name="car_id" class="form-control"
                                                         id="car_id" value="{{ $carDetail->id }}"
@@ -289,10 +289,10 @@
                                             @if ($carstatus)
                                                 <span style="display: none">{{ $carstatus->car_id }}</span>
                                                 {{-- <span class="text-success"></span> --}}
-                                                <button type="button" class="btn btn-success">Sold Out</button>
+                                                <button type="button" class="btn btn-danger">Sold Out</button>
                                         </td>
                                     @else
-                                        <button type="button" class="btn btn-danger">Avaliable</button>
+                                        <button type="button" class="btn btn-success">Avaliable</button>
                                         @endif
 
 

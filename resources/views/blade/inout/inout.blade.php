@@ -72,87 +72,27 @@
                                     <div class="col-md-4 text-end">
                                         <button type="button" class="btn btn-default text-white" data-toggle="modal"
                                             data-target="#modal-lg" style="background-color: #007BFF">
-                                            Register
+                                            ပေးရန်
+                                        </button>
+                                        <button type="button" class="btn btn-default text-white" data-toggle="modal"
+                                            data-target="#modal-lg1" style="background-color: #007BFF">
+                                            ရရန်
                                         </button>
                                     </div>
 
 
 
                                 </div>
+
                             </div>
 
-                            {{-- <div class="modal fade" id="m-lg">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Large Modal</h4>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="{{ url('/inout') }}" method="POST">
-                                                @csrf
 
-                                                <div class="form-group">
-
-                                                    @error('category')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="date">Date</label>
-                                                    <input type="date" class="form-control" id="date"
-                                                        name="date" placeholder="Enter  Date"
-                                                        value="{{ old('expense_name') }}">
-                                                    @error('date')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="expense_amount">Price</label>
-                                                    <input type="text" class="form-control" id="price"
-                                                        name="price" placeholder="Enter Price"
-                                                        value="{{ old('expense_amount') }}">
-                                                    @error('price')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="description">Description</label>
-                                                    <input type="text" class="form-control" id="description"
-                                                        name="description" placeholder="Enter Description"
-                                                        value="{{ old('expense_amount') }}">
-                                                    @error('description')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-
-
-
-                                                <!-- /.card-body -->
-                                                <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-default"
-                                                        data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary"
-                                                        style="background-color: #007BFF">Register</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div> --}}
                             {{-- Modal Content --}}
                             <div class="modal fade" id="modal-lg">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Register Form</h4>
+                                            <h4 class="modal-title"> ပေးရန်</h4>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -167,28 +107,28 @@
                                                 <div class="form-group">
                                                     <label for="date">Date</label>
                                                     <input type="date" class="form-control" id="date"
-                                                        name="date" placeholder="Enter Date"
-                                                        value="{{ old('expense_name') }}">
-                                                    @error('date')
+                                                        name="paydate" placeholder="Enter Date"
+                                                        value="{{ old('paydate') }}">
+                                                    @error('paydate')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="expense_amount">Price</label>
-                                                    <input type="text" class="form-control" id="price"
-                                                        name="price" placeholder="Enter Price"
-                                                        value="{{ old('expense_amount') }}">
-                                                    @error('price')
+                                                    <input type="text" class="form-control" id="payprice"
+                                                        name="payprice" placeholder="Enter Price"
+                                                        value="{{ old('payprice') }}">
+                                                    @error('payprice')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="expense_amount">Description</label>
-                                                    <input type="text" class="form-control" id="description"
-                                                        name="description" placeholder="Enter Description"
-                                                        value="{{ old('expense_amount') }}">
-                                                    @error('description')
+                                                    <input type="text" class="form-control" id="paydescription"
+                                                        name="paydescription" placeholder="Enter Description"
+                                                        value="{{ old('paydescription') }}">
+                                                    @error('paydescription')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -210,7 +150,67 @@
                                 <!-- /.modal-dialog -->
                             </div>
 
+                            <div class="modal fade" id="modal-lg1">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title"> ရရန်</h4>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ url('/out') }}" method="POST">
+                                                @csrf
 
+
+
+                                                <div class="form-group">
+                                                    <label for="yadate">Date</label>
+                                                    <input type="date" class="form-control" id="date"
+                                                        name="yadate" placeholder="Enter Date"
+                                                        value="{{ old('yadate') }}">
+                                                    @error('yadate')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="expense_amount">Price</label>
+                                                    <input type="text" class="form-control" id="price"
+                                                        name="yaprice" placeholder="Enter Price"
+                                                        value="{{ old('yaprice') }}">
+                                                    @error('yaprice')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="yadescription">Description</label>
+                                                    <input type="text" class="form-control" id="yadescription"
+                                                        name="yadescription" placeholder="Enter Description"
+                                                        value="{{ old('yadescription') }}">
+                                                    @error('yadescription')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+
+
+                                                <!-- /.card-body -->
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary"
+                                                        style="background-color: #007BFF">Register</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
                             @if (session('success'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('success') }}
@@ -273,44 +273,7 @@
                                 </div>
                                 <!-- /.card-body -->
                             </div>
-                            {{-- <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">ပေးရန်/ရရန်</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Price Name</th>
-                                                <th>Description</th>
 
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $no = '1';
-                                            @endphp
-                                            {{-- @foreach ($inouts as $inout)
-                                                <tr>
-
-                                                    <td>{{ $inout->date }}</td>
-                                                    <td>{{ $inout->price }}</td>
-                                                    <td>{{ $inout->description }}</td>
-                                                    <td>
-                                                        <a href="{{ url('expense_show', $expenses->id) }}"
-                                                            class="btn btn-success"><i
-                                                                class="fa-solid fa-pen-to-square"></i></a>
-                                                        <a href="{{ url('expense_delete', $expenses->id) }}"
-                                                            class="btn btn-danger"><i class="fa-solid fa-trash"></i>
-                                                    </td>
-                                                </tr>
-                                                @php
-                                                    $no++;
-                                                @endphp
-                                            @endforeach --}}
                             </tbody>
 
 
