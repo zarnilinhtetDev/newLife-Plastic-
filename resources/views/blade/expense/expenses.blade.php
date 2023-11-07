@@ -62,6 +62,7 @@
                                                 <li class="breadcrumb-item active"> Company Expense</li>
                                             </ol>
                                         </div>
+
                                     </div>
                                 </div><!-- /.container-fluid -->
                             </section>
@@ -82,7 +83,7 @@
                                 </div>
                             @endif
 
-                            <div class="container-fluid mb-4 mr-auto">
+                            {{-- <div class="container-fluid mb-4 mr-auto">
                                 <div class="row">
                                     <div class="col-md-12 text-end">
                                         <button type="button" class="btn btn-default text-white" data-toggle="modal"
@@ -93,13 +94,48 @@
                                                 class="btn btn-default text-white" style="background-color: #007BFF">
                                                 Expenses Category
                                             </button></a>
+
                                         <a href="{{ url('company_income') }}"><button type="button"
-                                                class="btn btn-default text-white" style="background-color: #007BFF">
+                                                class="btn btn-default text-white " style="background-color: #007BFF">
                                                 Company Income
+                                            </button></a>
+                                        <a href="{{ url('/inout') }}"><button type="button"
+                                                class="btn btn-default text-white" style="background-color: #007BFF">
+                                                InOut
                                             </button></a>
                                     </div>
                                 </div>
+                            </div> --}}
+                            <div class="container-fluid mb-4 mr-auto">
+                                <div class="row">
+                                    <div class="col-md-12 d-flex justify-content-end">
+                                        <button type="button" class="btn btn-default text-white mr-2"
+                                            data-toggle="modal" data-target="#modal-lg"
+                                            style="background-color: #007BFF">
+                                            Company Expense
+                                        </button>
+                                        <a href="{{ route('expense-category') }}">
+                                            <button type="button" class="btn btn-default text-white mr-2"
+                                                style="background-color: #007BFF">
+                                                Expenses Category
+                                            </button>
+                                        </a>
+                                        <a href="{{ url('company_income') }}">
+                                            <button type="button" class="btn btn-default text-white "
+                                                style="background-color: #007BFF">
+                                                Company Income
+                                            </button>
+                                        </a>
+                                        <a href="{{ url('/inout') }}" class="ml-auto">
+                                            <button type="button" class="btn btn-default text-white"
+                                                style="background-color: #007BFF">
+                                                ‌ပေးရန်/ရရန်
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
+
 
                             {{-- Modal Content --}}
                             <div class="modal fade" id="modal-lg">
@@ -178,7 +214,7 @@
 
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Transaction Table</h3>
+                                    <h3 class="card-title">Expense Table</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">

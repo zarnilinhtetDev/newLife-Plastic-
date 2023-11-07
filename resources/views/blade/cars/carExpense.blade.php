@@ -220,29 +220,12 @@
                                                         </a>
                                                     </td>
                                                 </tr>
-                                            @endforeach
-                                            <tr>
-                                                <th scope="row" colspan="2">Total Expenses</th>
-                                                <td> @php
-                                                    $totalExpenses = 0;
-                                                @endphp
 
-                                                    @foreach ($expenses as $expense)
-                                                        @php
-                                                            $totalExpenses += $expense->expense_price;
-                                                        @endphp
-                                                    @endforeach
+                                                <tr>
+                                                    <th scope="row" colspan="4">Total Expenses</th>
+                                                    <td>
 
-                                                    {{-- {{ $buy->price + $totalExpenses }} --}}
-                                                    @if ($buy)
-                                                        {{ $buy->price + $totalExpenses }}
-                                                </td>
-                                            @else
-                                                N/A
-                                                @endif
-                                                </td>
-                                                <td></td>
-
+                                                    </td>
 
                                         </tbody>
                                         <div class="modal fade" id="modal-lg1">

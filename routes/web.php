@@ -22,6 +22,7 @@ use App\Http\Controllers\CompanyExpensesController;
 use App\Http\Controllers\CompanyIncomeController;
 use App\Http\Controllers\ExpenseCategoryController;
 use App\Http\Controllers\DriverAttendanceController;
+use App\Http\Controllers\InOutController;
 use App\Http\Controllers\OfferController;
 use App\Models\CarExpense;
 
@@ -83,7 +84,21 @@ Route::middleware(['auth'])->group(
         Route::get('/expense/delete/{id}', [CarExpenseController::class, 'delete'])->name('delete.expense');
         Route::post('/expense/edit/{id}', [CarExpenseController::class, 'update']);
 
-
+        Route::controller(ExpenseController::class)->group(function () {
+            Route::get('/expense', 'expense');
+            Route::post('/expense_register', 'register');
+            Route::get('/expense_delete/{id}', 'delete');
+            Route::get('/expense_show/{id}', 'show');
+            Route::post('/expense_update/{id}', 'update');
+        });
+        //Expense-Category
+        Route::controller(ExpenseCategoryController::class)->group(function () {
+            Route::get('expense-category', 'expense_category')->name('expense-category');
+            Route::post('category_register', 'category_store');
+            Route::get('category/delete/{id}', 'category_delete');
+            Route::get('category_show/{id}', 'category_show');
+            Route::post('category_update/{id}', 'category_update');
+        });
         //Account
         Route::get('account', [AccountController::class, 'account']);
         Route::post('/accounts_register', [AccountController::class, 'accountRegister']);
@@ -99,34 +114,18 @@ Route::middleware(['auth'])->group(
         Route::get('/transaction_show/{id}', [TransactionController::class, 'show']);
         Route::post('/transaction_update/{id}', [TransactionController::class, 'update']);
 
-        //Expense-Category
-        Route::controller(ExpenseCategoryController::class)->group(function () {
-            Route::get('expense-category', 'expense_category')->name('expense-category');
-            Route::post('category_register', 'category_store');
-            Route::get('category/delete/{id}', 'category_delete');
-            Route::get('category_show/{id}', 'category_show');
-            Route::post('category_update/{id}', 'category_update');
-        });
-
-        //Company Expense
-        Route::controller(ExpenseController::class)->group(function () {
-            Route::get('/expense', 'expense');
-            Route::post('/expense_register', 'register');
-            Route::get('/expense_delete/{id}', 'delete');
-            Route::get('/expense_show/{id}', 'show');
-            Route::post('/expense_update/{id}', 'update');
-        });
-
-        //User
-        Route::get('/user', [UserController::class, 'user']);
-        Route::post('/user_store', [UserController::class, 'userStore']);
-        Route::get('/delete/{id}', [UserController::class, 'delete']);
-
         //Company Income
         Route::get('/company_income', [CompanyIncomeController::class, 'company']);
         Route::post('/companyincome_register', [CompanyIncomeController::class, 'incomeRegister']);
         Route::get('/companyincome_delete/{id}', [CompanyIncomeController::class, 'delete']);
         Route::get('/companyincome_show/{id}', [CompanyIncomeController::class, 'show']);
-        Route::post('/companyincome_show/{id}', [CompanyIncomeController::class, 'update']);
+        Route::post('/companyincome_show/{id}', [CompanyIncomeController::class, 'update'])->name('companyincome.update'); // Added a name for the update route
+
+        //InOut
+        Route::get('/inout', [InOutController::class, 'inout']);
+        Route::post('inout', [InOutController::class, 'inoutRegister']);
+        Route::get('inout_edit/{id}', [InOutController::class, 'show']);
+        Route::post('inout_update/{id}', [InOutController::class, 'update'])->name('inout.update'); // Added names for the edit and update routes
+        Route::get('inout_delete/{id}', [InOutController::class, 'delete']);
     }
 );
