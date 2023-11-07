@@ -42,6 +42,8 @@ class ExpenseController extends Controller
         return redirect()->back()->with('deleteStatus', 'Company Expense Delete is Successfull');
     }
 
+
+
     public function show($id)
     {
 

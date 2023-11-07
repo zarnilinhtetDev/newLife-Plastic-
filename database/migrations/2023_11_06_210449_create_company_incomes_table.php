@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('company_incomes', function (Blueprint $table) {
             $table->id();
             $table->string('company_date');
-            $table->decimal('company_price', 10, 2);
+            $table->string('company_price');
             $table->string('company_description')->nullable();
             $table->timestamps();
         });

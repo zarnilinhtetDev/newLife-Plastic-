@@ -18,29 +18,18 @@
             <ul class="navbar-nav ml-auto">
 
 
-                <li class="nav-item">
+                <ul class="navbar-nav ml-auto">
 
-                </li>
+
+                    <li class="nav-item">
+                        <a href="{{ url('/logout') }}" class="btn btn-danger text-white">Logout</a>
+                    </li>
+                </ul>
             </ul>
         </nav>
         @include('master.sidebar')
         <div class="content-wrapper">
-            {{-- <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>DataTables</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">DataTables</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section> --}}
+
 
             <!-- Main content -->
             <section class="content">
@@ -335,5 +324,5 @@
 
     </div>
 
-
-    @include('master.footer')
+</body>
+@include('master.footer')

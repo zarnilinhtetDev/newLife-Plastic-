@@ -226,7 +226,7 @@
                                                     <td>
 
                                                     </td>
-
+                                            @endforeach
                                         </tbody>
                                         <div class="modal fade" id="modal-lg1">
                                             <div class="modal-dialog modal-lg">
@@ -258,10 +258,10 @@
                                                                 <label for="description">Description</label>
 
                                                                 <textarea class="form-control" rows="3" name="description" placeholder="Enter ...">
-@isset($expense)
+                                                                @isset($expense)
 {{ $expense->description }}
 @endisset
-</textarea>
+                                                                    </textarea>
 
                                                                 @error('description')
                                                                     <span class="text-danger">{{ $message }}</span>
@@ -316,7 +316,9 @@
 
 
 
+
     </div>
 
+</body>
 
-    @include('master.footer')
+@include('master.footer')
