@@ -210,6 +210,29 @@
                                 <!-- /.modal-dialog -->
                             </div>
 
+                            <div class="container-fluid my-5">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <form action="{{ route('filter.companyExpense') }}" method="get">
+                                            <div class="row">
+                                                <div class="col-md-5 form-group">
+                                                    <label for="">Date From :</label>
+                                                    <input type="date" name="start_date" class="form-control">
+                                                </div>
+                                                <div class="col-md-5 form-group">
+                                                    <label for="">Date To :</label>
+                                                    <input type="date" name="end_date" class="form-control">
+                                                </div>
+                                                <div class="col-md-3 mt-3 form-group">
+                                                    <input type="submit" class="btn btn-primary form-control"
+                                                        value="Search" style="background-color: #218838">
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
 
 
                             <div class="card">
@@ -234,31 +257,52 @@
                                                 $no = '1';
                                                 $totalExpensePrice = 0.0;
                                             @endphp
-                                            @foreach ($expense as $expenses)
+                                            @if (isset($companyExpense))
+                                                @foreach ($companyExpense as $comexpense)
+                                                    <tr>
+                                                        <td>{{ $no }}</td>
+                                                        <td>{{ $comexpense->category }}</td>
+                                                        <td>{{ $comexpense->expense_date }}</td>
+                                                        <td>{{ $comexpense->expense_description }}</td>
+                                                        <td>{{ $comexpense->expense_price }}</td>
+                                                        <td>
+                                                            <a href="{{ url('expense_show', $comexpense->id) }}"
+                                                                class="btn btn-success"><i
+                                                                    class="fa-solid fa-pen-to-square"></i></a>
+                                                            <a href="{{ url('expense_delete', $comexpense->id) }}"
+                                                                class="btn btn-danger"><i
+                                                                    class="fa-solid fa-trash"></i>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                                @foreach ($expense as $expenses)
+                                                    <tr>
+                                                        <td>{{ $no }}</td>
+                                                        <td>{{ $expenses->category }}</td>
+                                                        <td>{{ $expenses->expense_date }}</td>
+                                                        <td>{{ $expenses->expense_description }}</td>
+                                                        <td>{{ $expenses->expense_price }}</td>
+                                                        <td>
+                                                            <a href="{{ url('expense_show', $expenses->id) }}"
+                                                                class="btn btn-success"><i
+                                                                    class="fa-solid fa-pen-to-square"></i></a>
+                                                            <a href="{{ url('expense_delete', $expenses->id) }}"
+                                                                class="btn btn-danger"><i
+                                                                    class="fa-solid fa-trash"></i>
+                                                        </td>
+                                                    </tr>
+                                                    @php
+                                                        $no++;
+                                                        $totalExpensePrice += $expenses->expense_price;
+                                                    @endphp
+                                                @endforeach
                                                 <tr>
-                                                    <td>{{ $no }}</td>
-                                                    <td>{{ $expenses->category }}</td>
-                                                    <td>{{ $expenses->expense_date }}</td>
-                                                    <td>{{ $expenses->expense_description }}</td>
-                                                    <td>{{ $expenses->expense_price }}</td>
-                                                    <td>
-                                                        <a href="{{ url('expense_show', $expenses->id) }}"
-                                                            class="btn btn-success"><i
-                                                                class="fa-solid fa-pen-to-square"></i></a>
-                                                        <a href="{{ url('expense_delete', $expenses->id) }}"
-                                                            class="btn btn-danger"><i class="fa-solid fa-trash"></i>
-                                                    </td>
+                                                    <th scope="row" colspan="4">Total Expense</th>
+                                                    <td>{{ number_format($totalExpensePrice, 2) }}</td>
+                                                    <td></td>
                                                 </tr>
-                                                @php
-                                                    $no++;
-                                                    $totalExpensePrice += $expenses->expense_price;
-                                                @endphp
-                                            @endforeach
-                                            <tr>
-                                                <th scope="row" colspan="4">Total Expense</th>
-                                                <td>{{ number_format($totalExpensePrice, 2) }}</td>
-                                                <td></td>
-                                            </tr>
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>

@@ -62,4 +62,17 @@ class ExpenseController extends Controller
         $expense->update();
         return redirect('expense')->with('updateStatus', 'Company Expense Update is Successfull');
     }
+    public function filter(Request $request)
+    {
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        $expenseCategory = ExpenseCategory::all();
+
+
+        $companyExpense = Expense::whereDate('expense_date', '>=', $start_date)
+            ->whereDate('expense_date', '<=', $end_date)
+            ->get();
+
+        return view('blade.expense.expenses', compact('companyExpense', 'expenseCategory'));
+    }
 }

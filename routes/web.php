@@ -93,6 +93,7 @@ Route::middleware(['auth'])->group(
             Route::get('/expense_show/{id}', 'show');
             Route::post('/expense_update/{id}', 'update');
         });
+        Route::get('/expense/filter', [ExpenseController::class, 'filter'])->name('filter.companyExpense');
         //Expense-Category
         Route::controller(ExpenseCategoryController::class)->group(function () {
             Route::get('expense-category', 'expense_category')->name('expense-category');
