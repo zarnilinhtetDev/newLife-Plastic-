@@ -43,44 +43,49 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+
+                                    <th>Buyer Name</th>
+                                    <th>Buyer Phone</th>
+                                    <th>Buyer NRC</th>
+
                                     <th>Car Type</th>
                                     <th>Car Model</th>
                                     <th>Car Number </th>
-                                    <th>Manufacture Years</th>
-                                    <th>License Expire</th>
-                                    <th>Car Color</th>
+
                                     <th>Car Image</th>
-                                    <th>Action</th>
+                                    <th>Buyer Price</th>
+
+
 
 
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $no = '1';
-                                @endphp
+
                                 @foreach ($buyers as $buyer)
                                     <tr>
-                                        <td>{{ $no }}</td>
 
+                                        <td>{{ $buyer->buyer_name }}</td>
+                                        <td>{{ $buyer->buyer_ph }}</td>
+                                        <td>{{ $buyer->buyer_nrc }}</td>
                                         <td>{{ $buyer->car->car_type }}</td>
                                         <td>{{ $buyer->car->car_model }}</td>
                                         <td>{{ $buyer->car->car_number }}</td>
-                                        <td>{{ $buyer->car->manufacture_year }}</td>
-                                        <td>{{ $buyer->car->License_expire }}</td>
-                                        <td>{{ $buyer->car->car_color }}</td>
                                         <td>
-                                            <a target="_blank" href="/carimage/{{ $buyer->car->car_images }}">
+                                            <a target="_blank"
+                                                href="{{ asset('carimage/' . $buyer->car->car_images) }}">
                                                 <img src="{{ asset('carimage/' . $buyer->car->car_images) }}"
                                                     alt="" width="65px">
                                             </a>
                                         </td>
-                                        <td></td>
+                                        <td>{{ $buyer->selling }}</td>
+
+
+                                        <td>
+                                            <a href="{{ url('Soldout_Detail', $buyer->id) }}"
+                                                class="btn btn-warning"><i class="fa-regular fa-eye"></i></a>
+                                        </td>
                                     </tr>
-                                    @php
-                                        $no++;
-                                    @endphp
                                 @endforeach
 
                             </tbody>

@@ -164,6 +164,8 @@
                                                 <th>Description</th>
                                                 <th>Price</th>
                                                 <th>Action</th>
+
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -198,7 +200,9 @@
                                                 </td>
                                             </tr>
 
-
+                                            @php
+                                                $totalPrice = 0;
+                                            @endphp
                                             @foreach ($expenses as $expense)
                                                 <tr>
 
@@ -206,10 +210,7 @@
                                                     <td>{{ $car->car_type }} &nbsp; ( {{ $car->car_number }})&nbsp; -
                                                         {{ $expense->description }}</td>
                                                     <td>{{ $expense->expense_price }}</td>
-
                                                     <td>
-
-
                                                         <a type="button" class="btn btn-success text-white"
                                                             data-toggle="modal" data-target="#modal-lg1">
                                                             <i class="fa-solid fa-pen-to-square"></i>
@@ -219,15 +220,24 @@
                                                             <i class="fa-solid fa-trash"></i>
                                                         </a>
                                                     </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <th scope="row" colspan="4">Total Expenses</th>
-                                                    <td>
-
-                                                    </td>
+                                                    @php
+                                                        $totalPrice += $expense->expense_price;
+                                                    @endphp
                                             @endforeach
+
                                         </tbody>
+                                        <tr>
+                                            <td colspan='2' class="font-weight-bold"
+                                                style="background-color:#96c5f8">Total Expense </td>
+                                            <td style="background-color:#96c5f8" class="font-weight-bold">
+                                                {{ $totalPrice + $buy->price }}
+
+                                            </td>
+                                            <td class="font-weight-bold" style="background-color:#96c5f8"></td>
+
+
+
+                                        </tr>
                                         <div class="modal fade" id="modal-lg1">
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
@@ -258,10 +268,10 @@
                                                                 <label for="description">Description</label>
 
                                                                 <textarea class="form-control" rows="3" name="description" placeholder="Enter ...">
-@isset($expense)
+                                                                @isset($expense)
 {{ $expense->description }}
 @endisset
-</textarea>
+                                                                    </textarea>
 
                                                                 @error('description')
                                                                     <span class="text-danger">{{ $message }}</span>
@@ -316,7 +326,9 @@
 
 
 
+
     </div>
 
+</body>
 
-    @include('master.footer')
+@include('master.footer')

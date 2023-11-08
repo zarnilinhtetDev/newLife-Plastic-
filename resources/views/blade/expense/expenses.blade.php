@@ -83,29 +83,7 @@
                                 </div>
                             @endif
 
-                            {{-- <div class="container-fluid mb-4 mr-auto">
-                                <div class="row">
-                                    <div class="col-md-12 text-end">
-                                        <button type="button" class="btn btn-default text-white" data-toggle="modal"
-                                            data-target="#modal-lg" style="background-color: #007BFF">
-                                            Company Expense
-                                        </button>
-                                        <a href="{{ route('expense-category') }}"><button type="button"
-                                                class="btn btn-default text-white" style="background-color: #007BFF">
-                                                Expenses Category
-                                            </button></a>
 
-                                        <a href="{{ url('company_income') }}"><button type="button"
-                                                class="btn btn-default text-white " style="background-color: #007BFF">
-                                                Company Income
-                                            </button></a>
-                                        <a href="{{ url('/inout') }}"><button type="button"
-                                                class="btn btn-default text-white" style="background-color: #007BFF">
-                                                InOut
-                                            </button></a>
-                                    </div>
-                                </div>
-                            </div> --}}
                             <div class="container-fluid mb-4 mr-auto">
                                 <div class="row">
                                     <div class="col-md-12 d-flex justify-content-end">
@@ -126,10 +104,25 @@
                                                 Company Income
                                             </button>
                                         </a>
-                                        <a href="{{ url('/inout') }}" class="ml-auto">
+
+
+                                        <a href="{{ url('/daily_expense') }}" class="ml-auto">
+                                            <button type="button" class="btn btn-default text-white"
+                                                style="background-color: #007BFF">
+                                                ‌Daily Expense
+                                            </button>
+                                        </a>
+
+                                        <a href="{{ url('/inout') }}" class="ml-6">
                                             <button type="button" class="btn btn-default text-white"
                                                 style="background-color: #007BFF">
                                                 ‌ပေးရန်/ရရန်
+                                            </button>
+                                        </a>
+                                        <a href="{{ url('car_company_expense') }}" class="ml-6">
+                                            <button type="button" class="btn btn-default text-white mr-2"
+                                                style="background-color:#5A6268">
+                                                Car/Company Expenses
                                             </button>
                                         </a>
                                     </div>
@@ -237,7 +230,7 @@
 
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Expense Table</h3>
+                                    <h3 class="card-title">Company Expense Table</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">

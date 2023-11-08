@@ -19,6 +19,8 @@ class ExpenseCategoryController extends Controller
             'category_name' => 'required',
             'description' => 'required',
 
+
+
         ]);
         $category = ExpenseCategory::create($category);
         return redirect()->back()->with('success', 'Expense Category Register is Successful');

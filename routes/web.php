@@ -1,32 +1,24 @@
 <?php
 
 use App\Models\Car;
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BuyController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\BranchController;
-use App\Http\Controllers\DriverController;
-use App\Http\Controllers\AccountController;
-use App\Http\Controllers\BuyController;
 use App\Http\Controllers\BuyerController;
-use App\Http\Controllers\CarExpenseController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\ExpenseController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\CarExpensesController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\MonthlyPaymentController;
-use App\Http\Controllers\CompanyExpensesController;
-use App\Http\Controllers\CompanyIncomeController;
-use App\Http\Controllers\ExpenseCategoryController;
-use App\Http\Controllers\DriverAttendanceController;
 use App\Http\Controllers\InOutController;
 use App\Http\Controllers\OfferController;
-use App\Models\Buyer;
-use App\Models\CarExpense;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AddPaymentController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CarCompanyController;
+use App\Http\Controllers\CarExpenseController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\CompanyIncomeController;
+use App\Http\Controllers\ExpenseCategoryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -72,9 +64,14 @@ Route::middleware(['auth'])->group(
         Route::post('/cars_update/{id}', [CarController::class, 'update']);
         Route::get('/Car_Detail/{id}', [CarController::class, 'car_detail']);
 
+        //Add Payment
+
+
+        Route::post('/Add_Payment/{id}', [AddPaymentController::class, 'Add_Payment']);
+
         //SoldOut
         Route::get('/sold_out_car', [CarController::class, 'soldcar']);
-
+        Route::get('/Soldout_Detail/{id}', [CarController::class, 'Soldout_Detail']);
 
 
         //Car Buy
@@ -130,6 +127,7 @@ Route::middleware(['auth'])->group(
         Route::get('/companyincome_delete/{id}', [CompanyIncomeController::class, 'delete']);
         Route::get('/companyincome_show/{id}', [CompanyIncomeController::class, 'show']);
         Route::post('/companyincome_show/{id}', [CompanyIncomeController::class, 'update'])->name('companyincome.update'); // Added a name for the update route
+        Route::post('BuyingCar/{id}', [BuyerController::class, 'buyingCar'])->name('BuyingCar');
 
         //In
         Route::get('/inout', [InOutController::class, 'inout']);
@@ -137,20 +135,10 @@ Route::middleware(['auth'])->group(
         Route::get('inout_edit/{id}', [InOutController::class, 'show']);
         Route::post('inout_update/{id}', [InOutController::class, 'update'])->name('inout.update'); // Added names for the edit and update routes
         Route::get('inout_delete/{id}', [InOutController::class, 'delete']);
+        //Car-Company Expenses
+        Route::get('car_company_expense', [CarCompanyController::class, 'show']);
+        Route::post('search', [CarCompanyController::class, 'filter']);
 
-
-        //out
-        Route::post('out', [InOutController::class, 'outRegister']);
-        //Buyers
-        Route::post('BuyingCar/{id}', [BuyerController::class, 'buyingCar'])->name('BuyingCar');
-
-        //User
-        Route::get('user', [UserController::class, 'user_register']);
-        Route::post('User_Register', [UserController::class, 'user_store']);
-        Route::get('/delete_user/{id}', [UserController::class, 'delete_user']);
-        Route::get('/delete_user/{id}', [UserController::class, 'delete_user']);
-        Route::get('/userShow/{id}', [UserController::class, 'userShow']);
-
-        Route::post('/update_user/{id}', [UserController::class, 'update_user']);
+        Route::get('/expense/filter', [ExpenseController::class, 'filter'])->name('filter.companyExpense');
     }
 );

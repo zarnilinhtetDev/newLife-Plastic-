@@ -38,9 +38,6 @@ class BuyerController extends Controller
             $buyer->document = 'documentphoto/' . $imagename;
 
             $buyer->save();
-
-
-
             return redirect()->back()->with('soldout', 'Car is Sold Out');
         }
     }

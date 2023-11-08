@@ -91,10 +91,23 @@ class CarController extends Controller
         $carstatus = Buyer::find($id);
         return view('blade.cars.carDetail', compact('carDetail', 'buyprice', 'offerprice', 'carstatus'));
     }
+
+    //Sold Out
     public function soldcar()
     {
         $buyers = Buyer::with('car')->latest()->get();
 
         return view('blade.cars.Sold_Out', compact('buyers'));
+    }
+    public function Soldout_Detail($id)
+
+    {
+        // $buyer = Buyer::find($id);
+        // $cardata = Car::find($id);
+        // $buy = Buy::find($id);
+        $buyer = Buyer::all();
+
+        // return view('blade.cars.Sold_Out_Detail', compact('buyer', 'cardata', 'buy'));
+        return view('blade.cars.Sold_Out_Detail', compact('buyer'));
     }
 }

@@ -282,22 +282,19 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <table class='table table-bordered mt-4' style="font-size: 20">
-                                    <tr>
+                                    {{-- <tr>
 
                                         <td class="fw-light " style="width:300px"> Car Status </td>
                                         <td class="fw-normal">
                                             @if ($carstatus)
-                                                <span style="display: none">{{ $carstatus->car_id }}</span>
-                                                {{-- <span class="text-success"></span> --}}
+                                                <span>{{ $carstatus->car_id }}</span>
                                                 <button type="button" class="btn btn-danger">Sold Out</button>
-                                        </td>
-                                    @else
-                                        <button type="button" class="btn btn-success">Avaliable</button>
-                                        @endif
+                                            @else
+                                                <button type="button" class="btn btn-success">Available</button>
+                                            @endif
 
 
-
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
                                         <td class="fw-light" style="width:300px">Car Type
                                         </td>

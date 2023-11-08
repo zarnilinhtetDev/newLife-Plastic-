@@ -26,4 +26,8 @@ class Car extends Model
     {
         return $this->hasOne(Buyer::class, 'car_id', 'id');
     }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'car_id');
+    }
 }
