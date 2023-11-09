@@ -31,12 +31,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>ရရန်</h1>
+                            <h1>ပေးရန် Update</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active">ရရန် Update</li>
+                                <li class="breadcrumb-item active">ပေးရန် Update</li>
                             </ol>
                         </div>
                     </div>
@@ -66,29 +66,28 @@
                         <div class="col-md-6 offset-3 my-3">
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">ရရန် Update</h3>
+                                    <h3 class="card-title">ပေးရန် Update</h3>
                                 </div>
-                                <form action="{{ url('/inout_update', $inout->id) }}" method="POST">
+                                <form action="{{ url('/out_update', $out->id) }}" method="POST">
                                     @csrf
                                     <div class="card-body">
 
 
                                         <div class="form-group">
-                                            <label for="date">Date</label>
-                                            <input type="text" class="form-control" id="date" name="date"
-                                                placeholder="Enter Date" value="{{ $inout->date }}">
+                                            <label for="out_date">Date</label>
+                                            <input type="text" class="form-control" id="out_date" name="out_date"
+                                                value="{{ $out->out_date }}">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="price">Price</label>
-                                            <input type="text" class="form-control" id="price" name="price"
-                                                placeholder="Enter Price" value="{{ $inout->price }}">
+                                            <input type="text" class="form-control" id="out_price" name="out_price"
+                                                value="{{ $out->out_price }}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="description">Description</label>
-                                            <input type="text" class="form-control" id="description"
-                                                name="description" placeholder="Enter Description "
-                                                value="{{ $inout->description }}">
+                                            <label for="out_description">Description</label>
+                                            <input type="text" class="form-control" id="out_description"
+                                                name="out_description" value="{{ $out->out_description }}">
                                         </div>
 
 

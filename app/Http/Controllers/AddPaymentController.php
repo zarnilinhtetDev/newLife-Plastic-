@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 class AddPaymentController extends Controller
 {
 
+    public function add_pay($id)
+    {
+        $payment = AddPayment::find($id);
+        $car = Car::find($id);
+        $pay = AddPayment::all();
+
+        $totalAmount = AddPayment::sum('add_payment');
+      return view('blade.cars.add_payment',compact('payment','car','pay','totalAmount'));
+    }
 
     public function Add_Payment(Request $request, $id)
     {
@@ -23,6 +32,6 @@ class AddPaymentController extends Controller
             $payment->car_id = $car->id;
             $payment->save();
         }
-        return redirect()->back()->with('offerSuccess', 'Add Payment Price is Successful');
+        return redirect()->back()->with('payment_store', 'Add Payment Price is Successful');
     }
 }

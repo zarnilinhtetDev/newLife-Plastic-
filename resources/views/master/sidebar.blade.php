@@ -38,17 +38,7 @@
                       </a>
 
                   </li>
-                  <li class="nav-item">
-                      <a href="{{ url('customer') }}" class="nav-link">
 
-                          <i class="fa-solid fa-user-plus"></i>
-                          <p class="pl-3">
-                              Customers
-
-                          </p>
-                      </a>
-
-                  </li>
                   <li class="nav-item">
                       <a href="{{ url('account') }}" class="nav-link">
                           <i class="fa-solid fa-credit-card"></i>

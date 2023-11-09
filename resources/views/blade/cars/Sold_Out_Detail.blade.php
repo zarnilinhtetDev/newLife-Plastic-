@@ -81,35 +81,35 @@
                                     <tr>
                                         <td class="fw-light" style="width:300px">Buyer Name
                                         </td>
-                                        <td class="fw-normal">{{ $buyer->buyer_name }}</td>
+                                        <td class="fw-normal">{{ $buyer->buyer_name ??'none'}}</td>
 
                                     </tr>
                                     <tr>
                                         <td class="fw-light" style="width:300px">Buyer NRC</td>
-                                        <td class="fw-normal">{{ $buyer->buyer_nrc }}</td>
+                                        <td class="fw-normal">{{ $buyer->buyer_nrc ??'none'}}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-light" style="width:300px">Car Type</td>
-                                        <td class="fw-normal">{{ $cardata->car_type }}</td>
+                                        <td class="fw-normal">{{ $cardata->car_type ?? 'none'}}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-light" style="width:300px">Car Model</td>
-                                        <td class="fw-normal">{{ $cardata->car_model }}</td>
+                                        <td class="fw-normal">{{ $cardata->car_model ?? 'none' }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-light" style="width:300px">Car Number</td>
-                                        <td class="fw-normal">{{ $cardata->car_number }}</td>
+                                        <td class="fw-normal">{{ $cardata->car_number ?? 'none' }}</td>
                                     </tr>
 
                                     <tr>
-
-                                        <td class="fw-light" style="width:300px">Car Image</td>
-                                        <td> <a target="_blank" href="{{ asset('carimage/' . $cardata->car_images) }}">
-                                                <img src="{{ asset('carimage/' . $cardata->car_images) }}"
-                                                    alt="" width="65px">
+                                        <td class="fw-light" style="width: 300px">Car Image</td>
+                                        <td>
+                                            <a target="_blank" href="{{ asset('carimage/' . ($cardata->car_images ?? 'null') ) }}">
+                                                <img src="{{ asset('carimage/' . ($cardata->car_images ?? 'null') ) }}" alt="" width="65px">
                                             </a>
                                         </td>
                                     </tr>
+
 
 
                                 </table>
@@ -123,52 +123,16 @@
                 <div class="card">
                     <div class="card ">
                         <div class="card-header text-secondary">
-                            <button type="button" class="btn btn-default text-white" data-toggle="modal"
-                                data-target="#modal-default" style="background-color: #C82333">
-                                Add Payment
-                            </button>
-                            <div class="modal fade" id="modal-default">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Add payment</h4>
 
-                                        </div>
-                                        <form action="{{ url('Add_Payment', $buyer->id) }}" method="POST">
-                                            @csrf
-                                            <div class="modal-body">
-                                                <div class="form-group col-12">
-                                                    <label for="price"> Payment Date</label>
-                                                    <input type="text" class="form-control" id="payment_date"
-                                                        name="payment" placeholder="Enter Add Payment">
-                                                </div>
-                                                <div class="form-group col-12">
-                                                    <label for="price">Add Payment</label>
-                                                    <input type="text" class="form-control" id="add_payment"
-                                                        name="add_payment" placeholder="Enter Add Payment">
-                                                </div>
 
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group col-12">
-                                                    <label for="car_id">Car Type</label>
-                                                    <input type="text" name="car_id" class="form-control"
-                                                        id="car_id" placeholder="Enter Buying Price"
-                                                        value="{{ $buyer->id }}">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default"
-                                                    data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Add</button>
-                                            </div>
-                                        </form>
+                            @if (isset($pay))
+                            <a href="{{ route('payment.detail', ['id' => $pay->id]) }}" class="btn btn-default text-white" style="background-color: #C82333">
+                               Add Payment
+                            </a>
 
-                                    </div>
+                        @endif
 
-                                </div>
 
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
@@ -177,26 +141,39 @@
                                     <tr>
                                         <td class="fw-light" style="width:300px">Buy Price
                                         </td>
-                                        <td class="fw-normal">{{ $buy->price }}</td>
+                                        <td class="fw-normal">{{ $buy->price ??'none'}}</td>
 
                                     </tr>
                                     <tr>
                                         <td class="fw-light" style="width:300px">Sell Price</td>
-                                        <td class="fw-normal">{{ $buyer->selling }}</td>
+                                        <td class="fw-normal">{{ $buyer->selling ??'none'}}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-light" style="width:300px">Balance</td>
-                                        <td class="fw-normal">{{ $buyer->balance }}</td>
+                                        <td class="fw-normal">@php
+                                            $buyerBalance = $buyer->balance ?? 'none';
+                                            $totalAmount = $totalAmount ?? 'none';
+
+                                            if ($buyerBalance !== 'none' && $totalAmount !== 'none') {
+                                                $result = $buyerBalance - $totalAmount;
+                                                echo " $result";
+                                            } else {
+                                                echo "Invalid input: One or both values are 'none'.";
+                                            }
+                                        @endphp </td>
                                     </tr>
                                     {{-- <tr>
-                                        <td class="fw-light" style="width:300px">Car Model</td>
-                                        <td class="fw-normal">{{ $cardata->car_model }}</td>
+                                        <td class="fw-light" style="width:300px">Payment Total</td>
+                                        <td class="fw-normal">
+                                            {{ $totalAmount ??'none'}}
+                                        </td>
                                     </tr> --}}
+                                    {{-- <tr>
+                                        <td class="fw-light" style="width:300px">ကျန်ငွေ</td>
+                                        <td class="fw-normal">
 
-
-
-
-
+                                        </td>
+                                    </tr> --}}
                                 </table>
                             </div>
                         </div>

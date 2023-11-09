@@ -19,28 +19,15 @@
 
 
                 <li class="nav-item">
-
+                <li class="nav-item">
+                    <a href="{{ url('/logout') }}" class="btn btn-danger text-white">Logout</a>
+                </li>
                 </li>
             </ul>
         </nav>
         @include('master.sidebar')
         <div class="content-wrapper">
-            {{-- <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>DataTables</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">DataTables</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section> --}}
+
 
             <!-- Main content -->
             <section class="content">
@@ -54,13 +41,13 @@
                                 <div class="container-fluid">
                                     <div class="row mb-2">
                                         <div class="col-sm-6">
-                                            <h1>Expenses</h1>
+                                            <h1>ပေးရန် ရရန် စာရင်းများ</h1>
                                         </div>
                                         <div class="col-sm-6">
                                             <ol class="breadcrumb float-sm-right">
                                                 <li class="breadcrumb-item"><a
                                                         href="{{ url('/dashboard') }}">Dashboard</a></li>
-                                                <li class="breadcrumb-item active">Expenses</li>
+                                                <li class="breadcrumb-item active">ပေးရန် - ရရန် စာရင်းများ</li>
                                             </ol>
                                         </div>
                                     </div>
@@ -72,63 +59,58 @@
                                     <div class="col-md-4 text-end">
                                         <button type="button" class="btn btn-default text-white" data-toggle="modal"
                                             data-target="#modal-lg" style="background-color: #007BFF">
-                                            ပေးရန်
+                                            ရရန်
                                         </button>
                                         <button type="button" class="btn btn-default text-white" data-toggle="modal"
-                                            data-target="#modal-lg1" style="background-color: #007BFF">
-                                            ရရန်
+                                            data-target="#modal-aa" style="background-color: #007BFF">
+                                            ပေးရန်
                                         </button>
                                     </div>
 
 
 
                                 </div>
-
                             </div>
-
 
                             {{-- Modal Content --}}
                             <div class="modal fade" id="modal-lg">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title"> ပေးရန်</h4>
+                                            <h4 class="modal-title">ရရန်</h4>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ url('/inout') }}" method="POST">
+                                            <form action="{{ url('/ya_yan') }}" method="POST">
                                                 @csrf
-
-
-
                                                 <div class="form-group">
                                                     <label for="date">Date</label>
                                                     <input type="date" class="form-control" id="date"
-                                                        name="paydate" placeholder="Enter Date"
-                                                        value="{{ old('paydate') }}">
-                                                    @error('paydate')
+                                                        name="date" placeholder="Enter Date"
+                                                        value="{{ old('date') }}">
+                                                    @error('date')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="expense_amount">Price</label>
-                                                    <input type="text" class="form-control" id="payprice"
-                                                        name="payprice" placeholder="Enter Price"
-                                                        value="{{ old('payprice') }}">
-                                                    @error('payprice')
+                                                    <label for="price">Price</label>
+                                                    <input type="text" class="form-control" id="price"
+                                                        name="price" placeholder="Enter Price"
+                                                        value="{{ old('price') }}">
+                                                    @error('price')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="expense_amount">Description</label>
-                                                    <input type="text" class="form-control" id="paydescription"
-                                                        name="paydescription" placeholder="Enter Description"
-                                                        value="{{ old('paydescription') }}">
-                                                    @error('paydescription')
+                                                    <label for="description">Description</label>
+                                                    <input type="text" class="form-control" id="description"
+                                                        name="description" placeholder="Enter Description"
+                                                        value="{{ old('description') }}">
+                                                    @error('description')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -150,47 +132,45 @@
                                 <!-- /.modal-dialog -->
                             </div>
 
-                            <div class="modal fade" id="modal-lg1">
+                            {{-- Modal Content --}}
+                            <div class="modal fade" id="modal-aa">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title"> ရရန်</h4>
+                                            <h4 class="modal-title">ပေးရန်</h4>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{ url('/out') }}" method="POST">
+                                            <form action="{{ url('/outRegister') }}" method="POST">
                                                 @csrf
-
-
-
                                                 <div class="form-group">
-                                                    <label for="yadate">Date</label>
-                                                    <input type="date" class="form-control" id="date"
-                                                        name="yadate" placeholder="Enter Date"
-                                                        value="{{ old('yadate') }}">
-                                                    @error('yadate')
+                                                    <label for="out_date">Date</label>
+                                                    <input type="date" class="form-control" id="out_date"
+                                                        name="out_date" placeholder="Enter Date"
+                                                        value="{{ old('out_date') }}">
+                                                    @error('out_date')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="expense_amount">Price</label>
-                                                    <input type="text" class="form-control" id="price"
-                                                        name="yaprice" placeholder="Enter Price"
-                                                        value="{{ old('yaprice') }}">
-                                                    @error('yaprice')
+                                                    <label for="out_price">Price</label>
+                                                    <input type="text" class="form-control" id="out_price"
+                                                        name="out_price" placeholder="Enter Price"
+                                                        value="{{ old('out_price') }}">
+                                                    @error('out_price')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="yadescription">Description</label>
-                                                    <input type="text" class="form-control" id="yadescription"
-                                                        name="yadescription" placeholder="Enter Description"
-                                                        value="{{ old('yadescription') }}">
-                                                    @error('yadescription')
+                                                    <label for="out_description">Description</label>
+                                                    <input type="text" class="form-control" id="out_description"
+                                                        name="out_description" placeholder="Enter Description"
+                                                        value="{{ old('out_description') }}">
+                                                    @error('out_description')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -211,6 +191,8 @@
                                 </div>
                                 <!-- /.modal-dialog -->
                             </div>
+
+
                             @if (session('success'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('success') }}
@@ -227,8 +209,8 @@
                                 </div>
                             @endif
                             <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">ပေးရန်/ရရန်</h3>
+                                <div class="card-header" style="background-color: #96C5F8">
+                                    <h3 class="card-title">ရရန်</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -238,7 +220,6 @@
                                                 <th>Date</th>
                                                 <th>Price</th>
                                                 <th>Descripton</th>
-
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -247,22 +228,25 @@
                                                 $no = '1';
                                             @endphp
                                             @foreach ($inouts as $inout)
-                                                <tr>
-                                                    <td>{{ $inout->paydate }}</td>
-                                                    <td>{{ $inout->payprice }}</td>
-                                                    <td>{{ $inout->paydescription }}</td>
+                                                @if ($inout->date != null)
+                                                    <tr>
+                                                        <td>{{ $inout->date }}</td>
+                                                        <td>{{ $inout->price }}</td>
+                                                        <td>{{ $inout->description }}</td>
 
-                                                    <td>
-                                                        <a href="{{ url('inout_edit', $inout->id) }}"
-                                                            class="btn btn-success"><i
-                                                                class="fa-solid fa-pen-to-square"></i></a>
-                                                        <a href="{{ url('inout_delete', $inout->id) }}"
-                                                            class="btn btn-danger"><i class="fa-solid fa-trash"></i>
-                                                    </td>
-                                                </tr>
-                                                @php
-                                                    $no++;
-                                                @endphp
+                                                        <td>
+                                                            <a href="{{ url('inout_edit', $inout->id) }}"
+                                                                class="btn btn-success"><i
+                                                                    class="fa-solid fa-pen-to-square"></i></a>
+                                                            <a href="{{ url('inout_delete', $inout->id) }}"
+                                                                class="btn btn-danger"><i
+                                                                    class="fa-solid fa-trash"></i>
+                                                        </td>
+                                                    </tr>
+                                                    @php
+                                                        $no++;
+                                                    @endphp
+                                                @endif
                                             @endforeach
                                         </tbody>
 
@@ -274,6 +258,94 @@
                                 <!-- /.card-body -->
                             </div>
 
+                            <div class="card">
+                                <div class="card-header" style="background-color: #96C5F8">
+                                    <h3 class="card-title">ပေးရန်</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Price</th>
+                                                <th>Descripton</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $no = '1';
+                                            @endphp
+                                            @foreach ($inouts as $inout)
+                                                @if ($inout->out_date != null)
+                                                    <tr>
+                                                        <td>{{ $inout->out_date }}</td>
+                                                        <td>{{ $inout->out_price }}</td>
+                                                        <td>{{ $inout->out_description }}</td>
+
+                                                        <td>
+                                                            <a href="{{ url('out_edit', $inout->id) }}"
+                                                                class="btn btn-success"><i
+                                                                    class="fa-solid fa-pen-to-square"></i></a>
+                                                            <a href="{{ url('inout_delete', $inout->id) }}"
+                                                                class="btn btn-danger"><i
+                                                                    class="fa-solid fa-trash"></i>
+                                                        </td>
+                                                    </tr>
+                                                    @php
+                                                        $no++;
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+
+                                        </tbody>
+
+
+
+
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            {{-- <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">ပေးရန်/ရရန်</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Price Name</th>
+                                                <th>Description</th>
+
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $no = '1';
+                                            @endphp
+                                            {{-- @foreach ($inouts as $inout)
+                                                <tr>
+
+                                                    <td>{{ $inout->date }}</td>
+                                                    <td>{{ $inout->price }}</td>
+                                                    <td>{{ $inout->description }}</td>
+                                                    <td>
+                                                        <a href="{{ url('expense_show', $expenses->id) }}"
+                                                            class="btn btn-success"><i
+                                                                class="fa-solid fa-pen-to-square"></i></a>
+                                                        <a href="{{ url('expense_delete', $expenses->id) }}"
+                                                            class="btn btn-danger"><i class="fa-solid fa-trash"></i>
+                                                    </td>
+                                                </tr>
+                                                @php
+                                                    $no++;
+                                                @endphp
+                                            @endforeach --}}
                             </tbody>
 
 

@@ -13,4 +13,8 @@ class Buyer extends Model
     {
         return $this->belongsTo(Car::class, 'car_id');
     }
+    public function buy()
+    {
+        return $this->hasOne(Buy::class, 'buyer_id', 'id');
+    }
 }

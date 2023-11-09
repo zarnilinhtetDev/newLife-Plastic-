@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('in_outs', function (Blueprint $table) {
             $table->id();
-            $table->string('paydate')->nullable();
-            $table->string('payprice')->nullable();
-            $table->string('paydescription')->nullable();
-            $table->string('yadate')->nullable();
-            $table->string('yaprice')->nullable();
-            $table->string('yadescription')->nullable();
+            $table->string('date')->nullable();
+            $table->string('price')->nullable();
+            $table->string('description')->nullable();
+            $table->string('out_date')->nullable();
+            $table->string('out_price')->nullable();
+            $table->string('out_description')->nullable();
             $table->timestamps();
         });
     }

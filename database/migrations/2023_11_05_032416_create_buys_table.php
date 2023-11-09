@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('buys', function (Blueprint $table) {
             $table->id();
             $table->foreignId('car_id')->nullable()->constrained()->onDelete('cascade');
+
             $table->string('price')->nullable();
 
             $table->timestamps();

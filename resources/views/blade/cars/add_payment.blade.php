@@ -47,7 +47,7 @@
                         <div class="col-md-12 text-end">
                             <button type="button" class="btn btn-default text-white" style="background-color: #007BFF"
                                 data-toggle="modal" data-target="#modal-lg">
-                                Add Payment
+                                 Payment Register
                             </button>
                         </div>
                     </div>
@@ -68,43 +68,50 @@
                     </h6>
                 @endif
                 <div class="modal fade" id="modal-lg">
-                    <div class="modal-dialog modal-lg">
+                    <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Add Payment</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                <h4 class="modal-title">Add payment</h4>
+
                             </div>
-                            <div class="modal-body">
-                                <form action="" method="POST">
-                                    @csrf
-                                    <div class="modal-body">
-                                        <div class="form-group col-12">
-                                            <label for="price">Add Payment</label>
-                                            <input type="text" class="form-control" id="add_payment"
-                                                name="add_payment">
-                                        </div>
-                                        <div class="form-group col-12">
-                                            <label for="price"> Payment Date</label>
-                                            <input type="date" class="form-control" id="payment_date"
-                                                name="payment_date">
-                                        </div>
+                            {{-- <form action="{{ url('Add_Payment', $payment->id }}" method="POST"> --}}
+                            <form action="{{ url('Add_Payment',$payment->id) }}" method="POST">
+
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="form-group col-12">
+                                        <label for="price"> Payment Date</label>
+                                        <input type="date" class="form-control" id="payment_date"
+                                            name="payment_date" placeholder="Enter Add Payment">
+                                        @error('payment_date')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="modal-body" style="display: none">
-                                        <div class="form-group col-12">
-                                            <label for="car_id">Car Type</label>
-                                            <input type="text" name="car_id" class="form-control" id="car_id"
-                                                value="{{ $car->id }}" placeholder="Enter Buying Price">
-                                        </div>
+                                    <div class="form-group col-12">
+                                        <label for="price">Add Payment</label>
+                                        <input type="text" class="form-control" id="add_payment"
+                                            name="add_payment" placeholder="Enter Add Payment">
+                                        @error('add_payment')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-default"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Add</button>
+
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group col-12" style="display: none">
+                                        <label for="car_id">Car Type</label>
+                                        <input type="text" name="car_id" class="form-control"
+                                            id="car_id" placeholder="Enter Buying Price"
+                                            value="{{ $buyer->id ?? 'null' }}">
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-default"
+                                        data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </div>
+                            </form>
+
                         </div>
 
                     </div>
@@ -123,42 +130,54 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Customer Name</th>
-                                    <th>Phone Number</th>
-                                    <th>Address</th>
-                                    <th>City</th>
-                                    <th>Message</th>
+                                    <th>Date</th>
+                                    <th>Payment Price</th>
                                     <th>Action</th>
+
 
 
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @php
+                                @php
                                     $no = '1';
                                 @endphp
-                                @foreach ($customers as $customer) --}}
+                                @foreach ($pay as $pays)
                                 <tr>
-                                    <td></td>
+                                    <td>{{ $no }}</td>
 
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $pays->payment_date }}</td>
+                                    <td>{{ $pays->add_payment}}</td>
 
-                                    {{-- <td>
-                                            <a href="{{ url('customer_show', $customer->id) }}"
-                                                class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i></a>
-                                            <a href="{{ url('customer/delete', $customer->id) }}"
-                                                class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                                        </td> --}}
+                                    <td>
+
+                                    <a href="" class="btn btn-success"><i
+                                            class="fa-solid fa-pen-to-square"></i></a>
+
+                                    <a href="" class="btn btn-danger"><i
+                                            class="fa-solid fa-trash"></i></a>
+
+
+
+                                    </td>
+
+
                                 </tr>
 
-                                {{-- @php
+                                @php
                                     $no++;
                                 @endphp
-                                @endforeach --}}
+                                @endforeach
+                            <tr>
+                                <td colspan="2">
+                                Total
+                                      </td>
+                                      <td>
+                                        {{ $totalAmount  }}
+                                      </td>
+                                      <td></td>
+
+                                 </tr>
                             </tbody>
                         </table>
                     </div>

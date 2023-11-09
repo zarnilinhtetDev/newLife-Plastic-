@@ -14,7 +14,7 @@ class CarExpenseController extends Controller
     {
         $car = Car::findOrFail($id);
         $buy = Buy::find($id);
-        $expenses = DB::select('SELECT * FROM car_expenses');
+        $expenses = CarExpense::latest()->get();
 
         return view('blade.cars.carExpense', compact('car', 'expenses', 'buy'));
     }
@@ -47,11 +47,7 @@ class CarExpenseController extends Controller
             'description' => 'required',
             'expense_price' => 'required|numeric',
         ]);
-
-        // Find the car expense you want to update
         $carExpense = CarExpense::findOrFail($id);
-
-        // Update the car expense with the new data
         $carExpense->update($data);
 
         return redirect()->back()->with('success', 'Car Expense updated successfully');

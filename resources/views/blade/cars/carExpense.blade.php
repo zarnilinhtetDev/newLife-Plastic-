@@ -152,7 +152,7 @@
                             <h3 class="text-secondary">Car Name - {{ $car->car_type }}</h3>
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Transaction Table</h3>
+                                    <h3 class="card-title">Car Expense Table</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -171,6 +171,7 @@
                                         <tbody>
 
                                             <tr>
+
                                                 <td>
 
                                                     @if ($buy)
@@ -204,40 +205,45 @@
                                                 $totalPrice = 0;
                                             @endphp
                                             @foreach ($expenses as $expense)
-                                                <tr>
+                                                @if ($expense->car_id == $car->id)
+                                                    <tr>
 
-                                                    <td>{{ $expense->created_at }}</td>
-                                                    <td>{{ $car->car_type }} &nbsp; ( {{ $car->car_number }})&nbsp; -
-                                                        {{ $expense->description }}</td>
-                                                    <td>{{ $expense->expense_price }}</td>
-                                                    <td>
-                                                        <a type="button" class="btn btn-success text-white"
-                                                            data-toggle="modal" data-target="#modal-lg1">
-                                                            <i class="fa-solid fa-pen-to-square"></i>
-                                                        </a>
-                                                        <a href="{{ route('delete.expense', $expense->id) }}"
-                                                            class="btn btn-danger">
-                                                            <i class="fa-solid fa-trash"></i>
-                                                        </a>
-                                                    </td>
-                                                    @php
-                                                        $totalPrice += $expense->expense_price;
-                                                    @endphp
+
+                                                        <td>{{ $expense->created_at }}</td>
+                                                        <td>{{ $car->car_type }} &nbsp; (
+                                                            {{ $car->car_number }})&nbsp; -
+                                                            {{ $expense->description }}</td>
+                                                        <td>{{ $expense->expense_price }}</td>
+                                                        <td>
+                                                            <a type="button" class="btn btn-success text-white"
+                                                                data-toggle="modal" data-target="#modal-lg1">
+                                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                            </a>
+                                                            <a href="{{ route('delete.expense', $expense->id) }}"
+                                                                class="btn btn-danger">
+                                                                <i class="fa-solid fa-trash"></i>
+                                                            </a>
+                                                        </td>
+                                                        @php
+                                                            $totalPrice += $expense->expense_price;
+                                                        @endphp
+                                                @endif
                                             @endforeach
 
+                                            <tr>
+                                                <td colspan='2' class="font-weight-bold"
+                                                    style="background-color:#96c5f8">Total Expense </td>
+                                                <td style="background-color:#96c5f8" class="font-weight-bold">
+                                                    {{ ($buy->price ?? 0) + $totalPrice }}
+
+
+                                                </td>
+                                                <td class="font-weight-bold" style="background-color:#96c5f8"></td>
+
+
+
+                                            </tr>
                                         </tbody>
-                                        <tr>
-                                            <td colspan='2' class="font-weight-bold"
-                                                style="background-color:#96c5f8">Total Expense </td>
-                                            <td style="background-color:#96c5f8" class="font-weight-bold">
-                                                {{ $totalPrice + $buy->price }}
-
-                                            </td>
-                                            <td class="font-weight-bold" style="background-color:#96c5f8"></td>
-
-
-
-                                        </tr>
                                         <div class="modal fade" id="modal-lg1">
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
@@ -268,7 +274,7 @@
                                                                 <label for="description">Description</label>
 
                                                                 <textarea class="form-control" rows="3" name="description" placeholder="Enter ...">
-                                                                @isset($expense)
+                                                                         @isset($expense)
 {{ $expense->description }}
 @endisset
                                                                     </textarea>
@@ -311,22 +317,16 @@
 
                                     </table>
                                 </div>
-                                <!-- /.card-body -->
+
                             </div>
-                            <!-- /.card -->
+
                         </div>
-                        <!-- /.col -->
+
                     </div>
-                    <!-- /.row -->
+
                 </div>
-
             </section>
-
         </div>
-
-
-
-
     </div>
 
 </body>

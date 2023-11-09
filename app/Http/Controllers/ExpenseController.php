@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Expense;
 use App\Models\ExpenseCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ExpenseController extends Controller
 {
@@ -76,5 +77,16 @@ class ExpenseController extends Controller
             ->get();
 
         return view('blade.expense.expenses', compact('companyExpense', 'expenseCategory'));
+    }
+    public function dailyShow()
+    {
+
+        $today = now();
+        $todayDate = $today->toDateString();
+
+        $dailyData = DB::table('expenses')
+            ->whereDate('expense_date', $todayDate)
+            ->get();
+        return view('blade.daily_expense.dailyExpense', compact('dailyData'));
     }
 }

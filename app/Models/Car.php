@@ -14,6 +14,10 @@ class Car extends Model
     {
         return $this->hasMany(Buy::class, 'car_id');
     }
+    public function addpayments()
+    {
+        return $this->hasMany(AddPayment::class, 'car_id');
+    }
     public function offers()
     {
         return $this->hasMany(Offer::class, 'car_id');
@@ -25,9 +29,5 @@ class Car extends Model
     public function buyer()
     {
         return $this->hasOne(Buyer::class, 'car_id', 'id');
-    }
-    public function payments()
-    {
-        return $this->hasMany(Payment::class, 'car_id');
     }
 }

@@ -9,6 +9,11 @@ class Buy extends Model
 {
     use HasFactory;
     protected $guarded = [''];
+    public function buyer()
+    {
+        return $this->belongsTo(Buyer::class, 'buyer_id', 'id');
+    }
+
     public function car()
     {
         return $this->belongsTo(Car::class, 'car_id');

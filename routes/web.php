@@ -12,13 +12,13 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AddPaymentController;
 use App\Http\Controllers\ExpenseController;
-use App\Http\Controllers\CustomerController;
+
 use App\Http\Controllers\CarCompanyController;
 use App\Http\Controllers\CarExpenseController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\CompanyIncomeController;
 use App\Http\Controllers\ExpenseCategoryController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,13 +47,6 @@ Route::middleware(['auth'])->group(
             return view('dashboard', compact('car'));
         })->name('dashboard');
 
-        Route::controller(CustomerController::class)->group(function () {
-            Route::get('customer', 'customer')->name('customer');
-            Route::post('customer_register', 'customer_store');
-            Route::get('customer/delete/{id}', 'customer_delete');
-            Route::get('customer_show/{id}', 'customer_show');
-            Route::post('customer_update/{id}', 'customer_update');
-        });
 
         //Car
 
@@ -65,12 +58,14 @@ Route::middleware(['auth'])->group(
         Route::get('/Car_Detail/{id}', [CarController::class, 'car_detail']);
 
         //Add Payment
+        Route::get('/payment-detail/{id}', [AddPaymentController::class, 'add_pay'])->name('payment.detail');
 
 
         Route::post('/Add_Payment/{id}', [AddPaymentController::class, 'Add_Payment']);
 
         //SoldOut
         Route::get('/sold_out_car', [CarController::class, 'soldcar']);
+        // Route::get('/soldcar/{id}', [CarController::class, 'soldcar']);
         Route::get('/Soldout_Detail/{id}', [CarController::class, 'Soldout_Detail']);
 
 
@@ -86,7 +81,7 @@ Route::middleware(['auth'])->group(
         Route::get('/car_expense/{id}', [CarExpenseController::class, 'car_expense']);
         Route::post('/car_expense_store/{id}', [CarExpenseController::class, 'car_expense_store']);
         Route::get('/expense/delete/{id}', [CarExpenseController::class, 'delete'])->name('delete.expense');
-        Route::post('/expense/edit/{id}', [CarExpenseController::class, 'update']);
+        Route::post('/expense/edit/{id}', [CarExpenseController::class, 'update'])->name('edit.expense');
 
         Route::controller(ExpenseController::class)->group(function () {
             Route::get('/expense', 'expense');
@@ -106,6 +101,8 @@ Route::middleware(['auth'])->group(
             Route::get('category_show/{id}', 'category_show');
             Route::post('category_update/{id}', 'category_update');
         });
+        //Daily Expenses
+        Route::get('daily_expense', [ExpenseController::class, 'dailyShow']);
         //Account
         Route::get('account', [AccountController::class, 'account']);
         Route::post('/accounts_register', [AccountController::class, 'accountRegister']);
@@ -129,16 +126,33 @@ Route::middleware(['auth'])->group(
         Route::post('/companyincome_show/{id}', [CompanyIncomeController::class, 'update'])->name('companyincome.update'); // Added a name for the update route
         Route::post('BuyingCar/{id}', [BuyerController::class, 'buyingCar'])->name('BuyingCar');
 
-        //In
-        Route::get('/inout', [InOutController::class, 'inout']);
-        Route::post('inout', [InOutController::class, 'inoutRegister']);
-        Route::get('inout_edit/{id}', [InOutController::class, 'show']);
-        Route::post('inout_update/{id}', [InOutController::class, 'update'])->name('inout.update'); // Added names for the edit and update routes
-        Route::get('inout_delete/{id}', [InOutController::class, 'delete']);
+
         //Car-Company Expenses
         Route::get('car_company_expense', [CarCompanyController::class, 'show']);
+
         Route::post('search', [CarCompanyController::class, 'filter']);
 
         Route::get('/expense/filter', [ExpenseController::class, 'filter'])->name('filter.companyExpense');
+
+        //In
+        Route::get('/inout', [InOutController::class, 'inout']);
+        Route::post('/ya_yan', [InOutController::class, 'inRegister']);
+
+        Route::get('inout_edit/{id}', [InOutController::class, 'show']);
+        Route::post('inout_update/{id}', [InOutController::class, 'update'])->name('inout.update');
+        Route::get('inout_delete/{id}', [InOutController::class, 'delete']);
+
+        //Out
+        Route::post('outRegister', [InOutController::class, 'outRegister']);
+        Route::get('out_edit/{id}', [InOutController::class, 'outShow']);
+        Route::post('out_update/{id}', [InOutController::class, 'outUpdate']);
+
+        Route::get('user', [UserController::class, 'user_register']);
+Route::post('User_Register', [UserController::class, 'user_store']);
+Route::get('/delete_user/{id}', [UserController::class, 'delete_user']);
+Route::get('/delete_user/{id}', [UserController::class, 'delete_user']);
+Route::get('/userShow/{id}', [UserController::class, 'userShow']);
+
+Route::post('/update_user/{id}', [UserController::class, 'update_user']);
     }
 );

@@ -17,22 +17,13 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-
-
                 <li class="nav-item">
-
-
-
                 <li><a class="dropdown-item btn bg-danger  logout-link" href="{{ url('/logout') }}">Logout</a></li>
                 </li>
             </ul>
         </nav>
         @include('master.sidebar')
         <div class="content-wrapper">
-
-
-            <!-- Main content -->
-
             <section class="content">
                 <div class="card">
                     <div class="card-header">
@@ -43,7 +34,6 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-
                                     <th>Buyer Name</th>
                                     <th>Buyer Phone</th>
                                     <th>Buyer NRC</th>
@@ -51,20 +41,13 @@
                                     <th>Car Type</th>
                                     <th>Car Model</th>
                                     <th>Car Number </th>
-
                                     <th>Car Image</th>
-                                    <th>Buyer Price</th>
-
-
-
-
+                                    <th>Sell Price</th>
                                 </tr>
                             </thead>
                             <tbody>
-
                                 @foreach ($buyers as $buyer)
                                     <tr>
-
                                         <td>{{ $buyer->buyer_name }}</td>
                                         <td>{{ $buyer->buyer_ph }}</td>
                                         <td>{{ $buyer->buyer_nrc }}</td>
@@ -78,33 +61,17 @@
                                                     alt="" width="65px">
                                             </a>
                                         </td>
-                                        <td>{{ $buyer->selling }}</td>
-
-
                                         <td>
-                                            <a href="{{ url('Soldout_Detail', $buyer->id) }}"
-                                                class="btn btn-warning"><i class="fa-regular fa-eye"></i></a>
+                                            <a href="{{ url('Soldout_Detail', $buyer->id) }}" class="btn btn-warning"
+                                                style="width: 80px"><i class="fa-solid fa-bars-staggered"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
-
-
-
-
                         </table>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-
             </section>
-
         </div>
-
-
-
     </div>
-
-
     @include('master.footer')

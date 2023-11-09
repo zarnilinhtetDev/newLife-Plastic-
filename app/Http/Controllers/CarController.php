@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AddPayment;
 use App\Models\Buy;
 use App\Models\Buyer;
 use App\Models\Car;
+use App\Models\CarExpense;
 use App\Models\Offer;
 use Illuminate\Http\Request;
 
@@ -85,13 +87,19 @@ class CarController extends Controller
     }
     public function car_detail($id)
     {
-        $buyprice = Buy::find($id);
-        $offerprice = Offer::find($id);
+        $carDetail = Car::find($id);
+        $buyprice = Buy::where('car_id', $carDetail->id)
+            ->orderBy('created_at', 'desc')
+            ->first();
+        $offerprice =
+            Offer::where('car_id', $carDetail->id)
+            ->orderBy('created_at', 'desc')
+            ->first();
         $carDetail = Car::find($id);
         $carstatus = Buyer::find($id);
-        return view('blade.cars.carDetail', compact('carDetail', 'buyprice', 'offerprice', 'carstatus'));
+        $carexpenses = CarExpense::all();
+        return view('blade.cars.carDetail', compact('carDetail', 'buyprice', 'offerprice', 'carstatus', 'carexpenses'));
     }
-
     //Sold Out
     public function soldcar()
     {
@@ -102,12 +110,11 @@ class CarController extends Controller
     public function Soldout_Detail($id)
 
     {
-        // $buyer = Buyer::find($id);
-        // $cardata = Car::find($id);
-        // $buy = Buy::find($id);
-        $buyer = Buyer::all();
-
-        // return view('blade.cars.Sold_Out_Detail', compact('buyer', 'cardata', 'buy'));
-        return view('blade.cars.Sold_Out_Detail', compact('buyer'));
+        $buyer = Buyer::find($id);
+        $cardata = Car::find($id);
+        $buy = Buy::find($id);
+$pay=AddPayment::find($id);
+$totalAmount = AddPayment::sum('add_payment');
+        return view('blade.cars.Sold_Out_Detail', compact('buyer', 'cardata', 'buy','pay','totalAmount'));
     }
 }
