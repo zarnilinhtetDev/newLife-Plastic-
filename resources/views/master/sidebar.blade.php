@@ -57,9 +57,9 @@
                   </li>
                   <li class="nav-item">
                       <a href="{{ url('expense') }}" class="nav-link">
-                          <i class="fa-solid fa-money-bill-1"></i>
+                          <i class="fa-solid fa-building-circle-arrow-right"></i>
                           <p class="pl-3">
-                              Expenses
+                              Company Expenses
                           </p>
                       </a>
                   </li>

@@ -207,7 +207,58 @@ class CarController extends Controller
         return view('blade.cars.Sold_Out_Detail', compact('buyer', 'cardata', 'buy', 'pay', 'totalExpense', 'totalAmount'));
     }
     public function filterData(Request $request)
+
     {
+        $buyers = Buyer::with('car')
+            ->latest()
+            ->get();
+
+        $profits = [];
+
+        foreach ($buyers as $buyer) {
+            $car = $buyer->car;
+            $result = Car::select(
+                'cars.car_type',
+                'cars.car_model',
+                'cars.car_number',
+                'buys.price',
+                'buyers.selling',
+                'buyers.payment',
+                'buyers.balance',
+                'car_expenses.expense_price'
+            )
+                ->join('buys', 'cars.id', '=', 'buys.car_id')
+                ->join('buyers', 'cars.id', '=', 'buyers.car_id')
+                ->join(
+                    'car_expenses',
+                    'cars.id',
+                    '=',
+                    'car_expenses.car_id'
+                )
+                ->where('cars.id', $car->id)
+                ->first();
+
+            $data = Car::select(
+                'cars.car_type',
+                'cars.car_model',
+                'cars.car_number',
+                DB::raw('MAX(buys.price) as max_price'),
+                DB::raw('MAX(buyers.selling) as max_selling'),
+                DB::raw('MAX(buyers.payment) as max_payment'),
+                DB::raw('MAX(buyers.balance) as max_balance'),
+                DB::raw('SUM(car_expenses.expense_price) as total_expense_price')
+            )
+                ->join('buys', 'cars.id', '=', 'buys.car_id')
+                ->join('buyers', 'cars.id', '=', 'buyers.car_id')
+                ->leftJoin('car_expenses', 'cars.id', '=', 'car_expenses.car_id')
+                ->where('cars.id', $car->id)
+                ->groupBy('cars.car_type', 'cars.car_model', 'cars.car_number')
+                ->first();
+
+            $profit = $result->selling - $result->price - ($data ? $data->total_expense_price : 0);
+
+            $profits[$car->id] = $profit;
+        }
         $start_date = Carbon::parse($request->input('start_date'))->format('Y-m-d');
         $end_date = Carbon::parse($request->input('end_date'))->format('Y-m-d');
 
@@ -216,6 +267,6 @@ class CarController extends Controller
             ->get();
 
 
-        return view('blade.cars.Sold_Out', compact('soldoutData'));
+        return view('blade.cars.Sold_Out', compact('soldoutData', 'profits'));
     }
 }

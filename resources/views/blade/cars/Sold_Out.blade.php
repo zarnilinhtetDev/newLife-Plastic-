@@ -91,39 +91,75 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($buyers as $buyer)
-                                        @php
-                                            $car = $buyer->car;
-                                            $profit = $profits[$car->id];
-                                        @endphp
-                                        <tr>
+                                    @if (isset($soldoutData))
+                                        @foreach ($soldoutData as $buyer)
+                                            @php
+                                                $car = $buyer->car;
+                                                $profit = $profits[$car->id];
+                                            @endphp
+                                            <tr>
 
-                                            <td>{{ $buyer->buyer_name }}</td>
-                                            <td>{{ $buyer->buyer_ph }}</td>
-                                            <td>{{ $buyer->buyer_nrc }}</td>
-
-
-                                            <td>{{ htmlspecialchars($car->car_type) }}</td>
-                                            <td>{{ htmlspecialchars($car->car_model) }}</td>
-                                            <td>{{ htmlspecialchars($car->car_number) }}</td>
-                                            <td>
-                                                <a target="_blank"
-                                                    href="{{ asset('carimage/' . $buyer->car->car_images) }}">
-                                                    <img src="{{ asset('carimage/' . $buyer->car->car_images) }}"
-                                                        alt="" width="65px">
-                                                </a>
-                                            </td>
-                                            <td style="background-color: #A1D39E">
-
-                                                {{ number_format(intval(htmlspecialchars($profit)), 0, '', ',') ?? 'none' }}
+                                                <td>{{ $buyer->buyer_name }}</td>
+                                                <td>{{ $buyer->buyer_ph }}</td>
+                                                <td>{{ $buyer->buyer_nrc }}</td>
 
 
-                                            <td>
-                                                <a href="{{ url('Soldout_Detail', $buyer->id) }}"
-                                                    class="btn btn-warning" style="width: 80px">Details</a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                <td>{{ htmlspecialchars($car->car_type) }}</td>
+                                                <td>{{ htmlspecialchars($car->car_model) }}</td>
+                                                <td>{{ htmlspecialchars($car->car_number) }}</td>
+                                                <td>
+                                                    <a target="_blank"
+                                                        href="{{ asset('carimage/' . $buyer->car->car_images) }}">
+                                                        <img src="{{ asset('carimage/' . $buyer->car->car_images) }}"
+                                                            alt="" width="65px">
+                                                    </a>
+                                                </td>
+                                                <td style="background-color: #A1D39E">
+
+                                                    {{ number_format(intval(htmlspecialchars($profit)), 0, '', ',') ?? 'none' }}
+
+
+                                                <td>
+                                                    <a href="{{ url('Soldout_Detail', $buyer->id) }}"
+                                                        class="btn btn-warning" style="width: 80px">Details</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        @foreach ($buyers as $buyer)
+                                            @php
+                                                $car = $buyer->car;
+                                                $profit = $profits[$car->id];
+                                            @endphp
+                                            <tr>
+
+                                                <td>{{ $buyer->buyer_name }}</td>
+                                                <td>{{ $buyer->buyer_ph }}</td>
+                                                <td>{{ $buyer->buyer_nrc }}</td>
+
+
+                                                <td>{{ htmlspecialchars($car->car_type) }}</td>
+                                                <td>{{ htmlspecialchars($car->car_model) }}</td>
+                                                <td>{{ htmlspecialchars($car->car_number) }}</td>
+                                                <td>
+                                                    <a target="_blank"
+                                                        href="{{ asset('carimage/' . $buyer->car->car_images) }}">
+                                                        <img src="{{ asset('carimage/' . $buyer->car->car_images) }}"
+                                                            alt="" width="65px">
+                                                    </a>
+                                                </td>
+                                                <td style="background-color: #A1D39E">
+
+                                                    {{ number_format(intval(htmlspecialchars($profit)), 0, '', ',') ?? 'none' }}
+
+
+                                                <td>
+                                                    <a href="{{ url('Soldout_Detail', $buyer->id) }}"
+                                                        class="btn btn-warning" style="width: 80px">Details</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
 
                                 </tbody>
                             </table>
