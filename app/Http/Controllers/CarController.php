@@ -101,28 +101,46 @@ class CarController extends Controller
         $carexpenses = CarExpense::all();
         return view('blade.cars.carDetail', compact('carDetail', 'buyprice', 'offerprice', 'carstatus', 'carexpenses'));
     }
-    //Sold Out
+
     public function soldcar()
     {
-        $buyers = Buyer::with('car')->latest()->get();
+        $buyers = Buyer::with('car')
+            ->latest()
+            ->get();
 
-        return view('blade.cars.Sold_Out', compact('buyers'));
+        $firstBuyer = $buyers->first();
+
+        $result = Car::select('cars.car_type', 'cars.car_model', 'cars.car_number', 'buys.price', 'buyers.selling', 'buyers.payment', 'buyers.balance', 'car_expenses.expense_price')
+            ->join('buys', 'cars.id', '=', 'buys.car_id')
+            ->join('buyers', 'cars.id', '=', 'buyers.car_id')
+            ->join('car_expenses', 'cars.id', '=', 'car_expenses.car_id')
+            ->where('cars.id', $firstBuyer->car->id)
+            ->first();
+        $data = Car::select(
+            'cars.car_type',
+            'cars.car_model',
+            'cars.car_number',
+            DB::raw('MAX(buys.price) as max_price'),
+            DB::raw('MAX(buyers.selling) as max_selling'),
+            DB::raw('MAX(buyers.payment) as max_payment'),
+            DB::raw('MAX(buyers.balance) as max_balance'),
+            DB::raw('SUM(car_expenses.expense_price) as total_expense_price')
+        )
+            ->join(
+                'buys',
+                'cars.id',
+                '=',
+                'buys.car_id'
+            )
+            ->join('buyers', 'cars.id', '=', 'buyers.car_id')
+            ->leftJoin('car_expenses', 'cars.id', '=', 'car_expenses.car_id')
+            ->where('cars.id', $firstBuyer->car->id)
+            ->groupBy('cars.id')
+            ->first();
+
+        return view('blade.cars.Sold_Out', compact('buyers', 'result', 'data'));
     }
 
-
-    // public function Soldout_Detail($id)
-
-    // {
-    //     $buyer = Buyer::find($id);
-    //     $cardata = Car::find($id);
-    //     $buy = Buy::find($id);
-    //     $pay = AddPayment::find($id);
-    //     $carExpense = CarExpense::find($id);
-
-    //     $totalAmount = AddPayment::sum('add_payment');
-
-    //     return view('blade.cars.Sold_Out_Detail', compact('buyer', 'cardata', 'buy', 'pay', 'carExpense', 'totalAmount'));
-    // }
 
     public function Soldout_Detail($id)
     {

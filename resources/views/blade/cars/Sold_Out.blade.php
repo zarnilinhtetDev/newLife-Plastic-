@@ -59,6 +59,8 @@
                                         <th>Car Model</th>
                                         <th>Car Number </th>
                                         <th>Car Image</th>
+                                        <th>Car Profit</th>
+
 
                                         <th>Details</th>
                                     </tr>
@@ -72,6 +74,7 @@
                                             <td>{{ $buyer->car->car_type }}</td>
                                             <td>{{ $buyer->car->car_model }}</td>
                                             <td>{{ $buyer->car->car_number }}</td>
+
                                             <td>
                                                 <a target="_blank"
                                                     href="{{ asset('carimage/' . $buyer->car->car_images) }}">
@@ -80,6 +83,12 @@
                                                 </a>
                                             </td>
 
+
+                                            <td>
+                                                @if ($car_id == $data)
+                                                    {{ $result->selling - $result->price - ($data ? $data->total_expense_price : 0) }}
+                                                @endif
+                                            </td>
 
                                             <td>
                                                 <a href="{{ url('Soldout_Detail', $buyer->id) }}"
