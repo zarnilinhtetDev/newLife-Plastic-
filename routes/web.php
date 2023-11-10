@@ -155,5 +155,7 @@ Route::middleware(['auth'])->group(
         Route::get('/userShow/{id}', [UserController::class, 'userShow']);
 
         Route::post('/update_user/{id}', [UserController::class, 'update_user']);
+
+        Route::get('/sold_out/filter', [CarController::class, 'filterData'])->name('filter.soldout');
     }
 );

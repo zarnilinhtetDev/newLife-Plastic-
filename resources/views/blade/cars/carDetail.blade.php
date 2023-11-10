@@ -281,18 +281,7 @@
                     <div class="col-md-12">
                         <table class='table table-bordered mt-4' style="font-size: 20">
 
-                            {{-- <tr>
-                                <td class="fw-light" style="width:300px">Car Status
-                                </td>
-                                <td class="fw-normal">
-                                    @if ($carstatus->car_id)
-                                        <span class="text-danger">Sold Out</span>
-                                    @else
-                                        <span class="text-success"> Avaliable</span>
-                                    @endif
-                                </td>
 
-                            </tr> --}}
 
                             <tr>
                                 <td class="fw-light" style="width:300px">Car Type
@@ -341,8 +330,8 @@
             <div class="row mt-6">
                 <div class="col-md-12">
                     <div class="card p-4">
-                        <div class="card-header p-4" style="">
-                            <h1 style="font-size: 18px" class="fw-semibold">Price Details</h1>
+                        <div class="card-header " style="">
+                            <h1 style="font-size: 18px" class="fw-semibold">Finance</h1>
                         </div>
                         <table class='table table-bordered mt-4' style="font-size: 20">
 

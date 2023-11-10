@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Buy;
 use App\Models\Car;
 use App\Models\Buyer;
@@ -13,8 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class CarController extends Controller
 {
-
-
     public function carsRegister(Request $request)
     {
         $request->validate([
@@ -102,46 +101,100 @@ class CarController extends Controller
         return view('blade.cars.carDetail', compact('carDetail', 'buyprice', 'offerprice', 'carstatus', 'carexpenses'));
     }
 
+    // public function soldcar()
+    // {
+    //     $buyers = Buyer::with('car')
+    //         ->latest()
+    //         ->get();
+
+    //     $firstBuyer = $buyers->first();
+
+    //     $result = Car::select('cars.car_type', 'cars.car_model', 'cars.car_number', 'buys.price', 'buyers.selling', 'buyers.payment', 'buyers.balance', 'car_expenses.expense_price')
+    //         ->join('buys', 'cars.id', '=', 'buys.car_id')
+    //         ->join('buyers', 'cars.id', '=', 'buyers.car_id')
+    //         ->join('car_expenses', 'cars.id', '=', 'car_expenses.car_id')
+    //         ->where('cars.id', $firstBuyer->car->id)
+    //         ->first();
+    //     $data = Car::select(
+    //         'cars.car_type',
+    //         'cars.car_model',
+    //         'cars.car_number',
+    //         DB::raw('MAX(buys.price) as max_price'),
+    //         DB::raw('MAX(buyers.selling) as max_selling'),
+    //         DB::raw('MAX(buyers.payment) as max_payment'),
+    //         DB::raw('MAX(buyers.balance) as max_balance'),
+    //         DB::raw('SUM(car_expenses.expense_price) as total_expense_price')
+    //     )
+    //         ->join(
+    //             'buys',
+    //             'cars.id',
+    //             '=',
+    //             'buys.car_id'
+    //         )
+    //         ->join('buyers', 'cars.id', '=', 'buyers.car_id')
+    //         ->leftJoin('car_expenses', 'cars.id', '=', 'car_expenses.car_id')
+    //         ->where('cars.id', $firstBuyer->car->id)
+    //         ->groupBy('cars.id')
+    //         ->first();
+
+    //     return view('blade.cars.Sold_Out', compact('buyers', 'result', 'data'));
+    // }
+
     public function soldcar()
     {
         $buyers = Buyer::with('car')
             ->latest()
             ->get();
 
-        $firstBuyer = $buyers->first();
+        $profits = [];
 
-        $result = Car::select('cars.car_type', 'cars.car_model', 'cars.car_number', 'buys.price', 'buyers.selling', 'buyers.payment', 'buyers.balance', 'car_expenses.expense_price')
-            ->join('buys', 'cars.id', '=', 'buys.car_id')
-            ->join('buyers', 'cars.id', '=', 'buyers.car_id')
-            ->join('car_expenses', 'cars.id', '=', 'car_expenses.car_id')
-            ->where('cars.id', $firstBuyer->car->id)
-            ->first();
-        $data = Car::select(
-            'cars.car_type',
-            'cars.car_model',
-            'cars.car_number',
-            DB::raw('MAX(buys.price) as max_price'),
-            DB::raw('MAX(buyers.selling) as max_selling'),
-            DB::raw('MAX(buyers.payment) as max_payment'),
-            DB::raw('MAX(buyers.balance) as max_balance'),
-            DB::raw('SUM(car_expenses.expense_price) as total_expense_price')
-        )
-            ->join(
-                'buys',
-                'cars.id',
-                '=',
-                'buys.car_id'
+        foreach ($buyers as $buyer) {
+            $car = $buyer->car;
+            $result = Car::select(
+                'cars.car_type',
+                'cars.car_model',
+                'cars.car_number',
+                'buys.price',
+                'buyers.selling',
+                'buyers.payment',
+                'buyers.balance',
+                'car_expenses.expense_price'
             )
-            ->join('buyers', 'cars.id', '=', 'buyers.car_id')
-            ->leftJoin('car_expenses', 'cars.id', '=', 'car_expenses.car_id')
-            ->where('cars.id', $firstBuyer->car->id)
-            ->groupBy('cars.id')
-            ->first();
+                ->join('buys', 'cars.id', '=', 'buys.car_id')
+                ->join('buyers', 'cars.id', '=', 'buyers.car_id')
+                ->join(
+                    'car_expenses',
+                    'cars.id',
+                    '=',
+                    'car_expenses.car_id'
+                )
+                ->where('cars.id', $car->id)
+                ->first();
 
-        return view('blade.cars.Sold_Out', compact('buyers', 'result', 'data'));
+            $data = Car::select(
+                'cars.car_type',
+                'cars.car_model',
+                'cars.car_number',
+                DB::raw('MAX(buys.price) as max_price'),
+                DB::raw('MAX(buyers.selling) as max_selling'),
+                DB::raw('MAX(buyers.payment) as max_payment'),
+                DB::raw('MAX(buyers.balance) as max_balance'),
+                DB::raw('SUM(car_expenses.expense_price) as total_expense_price')
+            )
+                ->join('buys', 'cars.id', '=', 'buys.car_id')
+                ->join('buyers', 'cars.id', '=', 'buyers.car_id')
+                ->leftJoin('car_expenses', 'cars.id', '=', 'car_expenses.car_id')
+                ->where('cars.id', $car->id)
+                ->groupBy('cars.car_type', 'cars.car_model', 'cars.car_number')
+                ->first();
+
+            $profit = $result->selling - $result->price - ($data ? $data->total_expense_price : 0);
+
+            $profits[$car->id] = $profit;
+        }
+
+        return view('blade.cars.Sold_Out', compact('buyers', 'profits'));
     }
-
-
     public function Soldout_Detail($id)
     {
         $buyer = Buyer::find($id);
@@ -152,5 +205,17 @@ class CarController extends Controller
         $totalExpense = $carExpenses->sum('expense_price');
         $totalAmount = AddPayment::sum('add_payment');
         return view('blade.cars.Sold_Out_Detail', compact('buyer', 'cardata', 'buy', 'pay', 'totalExpense', 'totalAmount'));
+    }
+    public function filterData(Request $request)
+    {
+        $start_date = Carbon::parse($request->input('start_date'))->format('Y-m-d');
+        $end_date = Carbon::parse($request->input('end_date'))->format('Y-m-d');
+
+        $soldoutData = Buyer::whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)
+            ->get();
+
+
+        return view('blade.cars.Sold_Out', compact('soldoutData'));
     }
 }

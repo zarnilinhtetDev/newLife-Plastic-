@@ -136,9 +136,9 @@
                             <div class="col-md-12">
                                 <table class='table table-bordered mt-4' style="font-size: 20">
                                     <tr>
-                                        <td class="fw-light" style="width: 300px; background-color: #d0dce9;">Profit
+                                        <td class="fw-light" style="width: 300px; background-color: #A1D39E;">Profit
                                         </td>
-                                        <td class="fw-normal" style="background-color: #d0dce9">
+                                        <td class="fw-normal" style="background-color: #A1D39E">
                                             {{ number_format(intval(($buyer->selling ?? 0) - ($buy->price + $totalExpense)), 0, '', ',') ?? 'none' }}
                                         </td>
                                     </tr>
