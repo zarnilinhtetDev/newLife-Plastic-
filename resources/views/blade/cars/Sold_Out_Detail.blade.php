@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </section>
-                @if (session('soldout'))
+                @if (session('successful'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('soldout') }}
                     </div>
@@ -70,10 +70,6 @@
                         <div class="card-header text-secondary">
                             <h4>Information</h4>
                         </div>
-
-
-
-
                         <div class="row">
                             <div class="col-md-12">
                                 <table class='table table-bordered mt-4' style="font-size: 20">
@@ -81,16 +77,16 @@
                                     <tr>
                                         <td class="fw-light" style="width:300px">Buyer Name
                                         </td>
-                                        <td class="fw-normal">{{ $buyer->buyer_name ??'none'}}</td>
+                                        <td class="fw-normal">{{ $buyer->buyer_name ?? 'none' }}</td>
 
                                     </tr>
                                     <tr>
                                         <td class="fw-light" style="width:300px">Buyer NRC</td>
-                                        <td class="fw-normal">{{ $buyer->buyer_nrc ??'none'}}</td>
+                                        <td class="fw-normal">{{ $buyer->buyer_nrc ?? 'none' }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-light" style="width:300px">Car Type</td>
-                                        <td class="fw-normal">{{ $cardata->car_type ?? 'none'}}</td>
+                                        <td class="fw-normal">{{ $cardata->car_type ?? 'none' }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-light" style="width:300px">Car Model</td>
@@ -104,8 +100,10 @@
                                     <tr>
                                         <td class="fw-light" style="width: 300px">Car Image</td>
                                         <td>
-                                            <a target="_blank" href="{{ asset('carimage/' . ($cardata->car_images ?? 'null') ) }}">
-                                                <img src="{{ asset('carimage/' . ($cardata->car_images ?? 'null') ) }}" alt="" width="65px">
+                                            <a target="_blank"
+                                                href="{{ asset('carimage/' . ($cardata->car_images ?? 'null')) }}">
+                                                <img src="{{ asset('carimage/' . ($cardata->car_images ?? 'null')) }}"
+                                                    alt="" width="65px">
                                             </a>
                                         </td>
                                     </tr>
@@ -125,55 +123,66 @@
                         <div class="card-header text-secondary">
 
 
-                            @if (isset($pay))
-                            <a href="{{ route('payment.detail', ['id' => $pay->id]) }}" class="btn btn-default text-white" style="background-color: #C82333">
-                               Add Payment
+
+                            <a href="{{ route('payment.detail', ['id' => $buyer->car_id]) }}"
+                                class="btn btn-default text-white" style="background-color: #C82333">
+                                Add Payment
                             </a>
 
-                        @endif
 
 
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <table class='table table-bordered mt-4' style="font-size: 20">
-
+                                    <tr>
+                                        <td class="fw-light" style="width: 300px; background-color: #d0dce9;">Profit
+                                        </td>
+                                        <td class="fw-normal" style="background-color: #d0dce9">
+                                            {{ number_format(intval(($buyer->selling ?? 0) - ($buy->price + $totalExpense)), 0, '', ',') ?? 'none' }}
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td class="fw-light" style="width:300px">Buy Price
                                         </td>
-                                        <td class="fw-normal">{{ $buy->price ??'none'}}</td>
+                                        <td class="fw-normal">
+
+                                            {{ number_format(intval($buy->price), 0, '', ',') ?? 'none' }}
+
+                                        </td>
 
                                     </tr>
                                     <tr>
                                         <td class="fw-light" style="width:300px">Sell Price</td>
-                                        <td class="fw-normal">{{ $buyer->selling ??'none'}}</td>
+                                        <td class="fw-normal">
+
+                                            {{ number_format(intval($buyer->selling), 0, '', ',') ?? 'none' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-light" style="width:300px">Payment</td>
+                                        <td class="fw-normal">
+                                            {{ number_format(intval($buyer->payment + $totalAmount), 0, '', ',') ?? 'none' }}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="fw-light" style="width:300px">Balance</td>
-                                        <td class="fw-normal">@php
-                                            $buyerBalance = $buyer->balance ?? 'none';
-                                            $totalAmount = $totalAmount ?? 'none';
+                                        <td class="fw-normal">
+                                            {{-- {{ $buyer->balance }} --}}
+                                            @php
+                                                $buyerBalance = $buyer->balance ?? 'none';
+                                                $totalAmount = $totalAmount ?? 'none';
 
-                                            if ($buyerBalance !== 'none' && $totalAmount !== 'none') {
-                                                $result = $buyerBalance - $totalAmount;
-                                                echo " $result";
-                                            } else {
-                                                echo "Invalid input: One or both values are 'none'.";
-                                            }
-                                        @endphp </td>
+                                                if ($buyerBalance !== 'none' && $totalAmount !== 'none') {
+                                                    $result = $buyerBalance - $totalAmount;
+                                                    echo number_format(intval($result), 0, '', ',');
+                                                } else {
+                                                    echo "Invalid input: One or both values are 'none'.";
+                                                }
+                                            @endphp
+                                        </td>
                                     </tr>
-                                    {{-- <tr>
-                                        <td class="fw-light" style="width:300px">Payment Total</td>
-                                        <td class="fw-normal">
-                                            {{ $totalAmount ??'none'}}
-                                        </td>
-                                    </tr> --}}
-                                    {{-- <tr>
-                                        <td class="fw-light" style="width:300px">ကျန်ငွေ</td>
-                                        <td class="fw-normal">
 
-                                        </td>
-                                    </tr> --}}
+
                                 </table>
                             </div>
                         </div>

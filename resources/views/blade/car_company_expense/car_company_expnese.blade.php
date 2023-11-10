@@ -19,7 +19,7 @@
 
 
                 <li class="nav-item">
-
+                    <a href="{{ url('/logout') }}" class="btn btn-danger text-white">Logout</a>
                 </li>
             </ul>
         </nav>
@@ -58,7 +58,7 @@
                             <thead>
                                 <tr>
                                     <td>No</td>
-                                    <th>Car ID</th>
+                                    <th>Car Name</th>
                                     <th>Description</th>
                                     <th>Price</th>
                                 </tr>
@@ -72,7 +72,7 @@
                                 @foreach ($car_expenses as $car_expense)
                                     <tr>
                                         <td>{{ $no }}</td>
-                                        <td>{{ $car_expense->car_id }}</td>
+                                        <td>{{ $car_expense->car->car_type ?? 'null' }}</td>
                                         <td>{{ $car_expense->description }}</td>
                                         <td>{{ $car_expense->expense_price }}</td>
 
@@ -127,10 +127,10 @@
                         <thead>
                             <tr>
                                 <td>No</td>
-                                <th>Category</th>
+                                <th>Transaction</th>
                                 <th>Date</th>
                                 <th>Description</th>
-                                <th>Price</th>
+                                <th>Amount</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -142,7 +142,7 @@
                                 @foreach ($company_expenses as $company_expense)
                                     <tr>
                                         <td>{{ $no }}</td>
-                                        <td>{{ $company_expense->category }}</td>
+                                        <td>{{ $company_expense->transaction->transaction_name }}</td>
                                         <td>{{ $company_expense->expense_date }}</td>
                                         <td>{{ $company_expense->expense_description }}</td>
                                         <td>{{ $company_expense->expense_price }}</td>

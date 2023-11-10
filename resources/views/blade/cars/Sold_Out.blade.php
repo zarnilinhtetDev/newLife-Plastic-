@@ -23,55 +23,76 @@
             </ul>
         </nav>
         @include('master.sidebar')
+
         <div class="content-wrapper">
             <section class="content">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Cars Table</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Buyer Name</th>
-                                    <th>Buyer Phone</th>
-                                    <th>Buyer NRC</th>
-
-                                    <th>Car Type</th>
-                                    <th>Car Model</th>
-                                    <th>Car Number </th>
-                                    <th>Car Image</th>
-                                    <th>Sell Price</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($buyers as $buyer)
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>Sold Out Cars</h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                                    <li class="breadcrumb-item">Cars Sold Out </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div><!-- /.container-fluid -->
+                </section>
+                <section class="content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Cars Table</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
                                     <tr>
-                                        <td>{{ $buyer->buyer_name }}</td>
-                                        <td>{{ $buyer->buyer_ph }}</td>
-                                        <td>{{ $buyer->buyer_nrc }}</td>
-                                        <td>{{ $buyer->car->car_type }}</td>
-                                        <td>{{ $buyer->car->car_model }}</td>
-                                        <td>{{ $buyer->car->car_number }}</td>
-                                        <td>
-                                            <a target="_blank"
-                                                href="{{ asset('carimage/' . $buyer->car->car_images) }}">
-                                                <img src="{{ asset('carimage/' . $buyer->car->car_images) }}"
-                                                    alt="" width="65px">
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ url('Soldout_Detail', $buyer->id) }}" class="btn btn-warning"
-                                                style="width: 80px"><i class="fa-solid fa-bars-staggered"></i></a>
-                                        </td>
+                                        <th>Buyer Name</th>
+                                        <th>Buyer Phone</th>
+                                        <th>Buyer NRC</th>
+
+                                        <th>Car Type</th>
+                                        <th>Car Model</th>
+                                        <th>Car Number </th>
+                                        <th>Car Image</th>
+
+                                        <th>Details</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($buyers as $buyer)
+                                        <tr>
+                                            <td>{{ $buyer->buyer_name }}</td>
+                                            <td>{{ $buyer->buyer_ph }}</td>
+                                            <td>{{ $buyer->buyer_nrc }}</td>
+                                            <td>{{ $buyer->car->car_type }}</td>
+                                            <td>{{ $buyer->car->car_model }}</td>
+                                            <td>{{ $buyer->car->car_number }}</td>
+                                            <td>
+                                                <a target="_blank"
+                                                    href="{{ asset('carimage/' . $buyer->car->car_images) }}">
+                                                    <img src="{{ asset('carimage/' . $buyer->car->car_images) }}"
+                                                        alt="" width="65px">
+                                                </a>
+                                            </td>
+
+
+                                            <td>
+                                                <a href="{{ url('Soldout_Detail', $buyer->id) }}"
+                                                    class="btn btn-warning" style="width: 80px"><i
+                                                        class="fa-solid fa-bars-staggered"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
         </div>
     </div>
     @include('master.footer')

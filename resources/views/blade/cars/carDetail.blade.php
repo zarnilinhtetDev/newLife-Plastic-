@@ -35,8 +35,8 @@
             <section class="content">
                 <div class="container-fluid">
                     <div class="row ">
-                        <div class="col-sm-6"`>
-                            <h1>Cars Detail</h1>
+                        <div class="col-sm-6 mt-3">
+                            <h4>Cars Detail</h4>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -65,7 +65,7 @@
                 </div>
             @endif
             <div class="card">
-                <div class="card p-4">
+                <div class=" p-4">
                     <div class="card-header" style="">
                         <h4 style="font-size: 18px" class="fw-semibold">
                             <a href="{{ url('Buying_Price', $carDetail->id) }}"
@@ -94,7 +94,7 @@
                     </div>
 
 
-                    <div class="modal fade" id="modal-lg">
+                    <div class="modal fade container-fluid" id="modal-lg">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -277,9 +277,22 @@
                     </div>
 
                 </div>
-                <div class="row">
+                <div class="row ">
                     <div class="col-md-12">
                         <table class='table table-bordered mt-4' style="font-size: 20">
+
+                            {{-- <tr>
+                                <td class="fw-light" style="width:300px">Car Status
+                                </td>
+                                <td class="fw-normal">
+                                    @if ($carstatus->car_id)
+                                        <span class="text-danger">Sold Out</span>
+                                    @else
+                                        <span class="text-success"> Avaliable</span>
+                                    @endif
+                                </td>
+
+                            </tr> --}}
 
                             <tr>
                                 <td class="fw-light" style="width:300px">Car Type
@@ -318,7 +331,6 @@
                             </tr>
 
                             <tr>
-
                                 <td class="fw-light" style="width:300px"> Description</td>
                                 <td class="fw-normal">{{ $carDetail->description }}</td>
                             </tr>
@@ -401,8 +413,6 @@
                                     {{ ($buyprice->price ?? 0) + $total_expense }}
 
                                 </td>
-
-
 
                             </tr>
                         </table>

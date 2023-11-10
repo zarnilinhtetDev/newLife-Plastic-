@@ -74,21 +74,22 @@
                                     @csrf
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="category">Category Name</label>
-                                            <select name="category" class="form-control" id="category">
-                                                <option value="">Select Category
-                                                    @foreach ($expenseCategory as $category)
-                                                        @if ($expenseData->category == $category->category_name)
-                                                <option value="{{ $category->category_name }}" selected>
-                                                    {{ $category->category_name }}
-                                                </option>
-                                            @else
-                                                <option value="{{ $category->category_name }}">
-                                                    {{ $category->category_name }}
-                                                </option>
-                                                @endif
+                                            <label for="transaction_id">Transaction Name</label>
+                                            <select name="transaction_id" class="form-control" id="transaction_id">
+                                                <option value="">Select Transaction</option>
+
+                                                @foreach ($transaction as $transactions)
+                                                    @if ($expenseData->transaction_id == $transactions->id)
+                                                        <option value="{{ $transactions->id }}" selected>
+                                                            {{ $transactions->transaction_name }}
+                                                        </option>
+                                                    @else
+                                                        <option value="{{ $transactions->id }}">
+                                                            {{ $transactions->transaction_name }}
+                                                        </option>
+                                                    @endif
                                                 @endforeach
-                                                </option>
+
                                             </select>
                                         </div>
 
@@ -113,13 +114,14 @@
                                         <button type="submit" class="btn btn-primary"
                                             style="background-color: #007BFF">Update</button>
                                     </div>
-                                </form>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </section>
         </div>
+        </section>
+    </div>
     </div>
     </div>
 

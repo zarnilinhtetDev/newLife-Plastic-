@@ -59,9 +59,10 @@ Route::middleware(['auth'])->group(
 
         //Add Payment
         Route::get('/payment-detail/{id}', [AddPaymentController::class, 'add_pay'])->name('payment.detail');
-
-
         Route::post('/Add_Payment/{id}', [AddPaymentController::class, 'Add_Payment']);
+        Route::get('/payment_delete/{id}', [AddPaymentController::class, 'delete']);
+        Route::get('/payment-edit/{id}', [AddPaymentController::class, 'show']);
+        Route::post('/payment-update/{id}', [AddPaymentController::class, 'update']);
 
         //SoldOut
         Route::get('/sold_out_car', [CarController::class, 'soldcar']);
@@ -148,11 +149,11 @@ Route::middleware(['auth'])->group(
         Route::post('out_update/{id}', [InOutController::class, 'outUpdate']);
 
         Route::get('user', [UserController::class, 'user_register']);
-Route::post('User_Register', [UserController::class, 'user_store']);
-Route::get('/delete_user/{id}', [UserController::class, 'delete_user']);
-Route::get('/delete_user/{id}', [UserController::class, 'delete_user']);
-Route::get('/userShow/{id}', [UserController::class, 'userShow']);
+        Route::post('User_Register', [UserController::class, 'user_store']);
+        Route::get('/delete_user/{id}', [UserController::class, 'delete_user']);
+        Route::get('/delete_user/{id}', [UserController::class, 'delete_user']);
+        Route::get('/userShow/{id}', [UserController::class, 'userShow']);
 
-Route::post('/update_user/{id}', [UserController::class, 'update_user']);
+        Route::post('/update_user/{id}', [UserController::class, 'update_user']);
     }
 );

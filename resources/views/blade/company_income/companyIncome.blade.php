@@ -93,6 +93,23 @@
                                                 @csrf
 
                                                 <div class="form-group">
+                                                    <label for="transaction_id">Transaction Name</label>
+                                                    <select name="transaction_id" class="form-control"
+                                                        id="transaction_id">
+                                                        <option value="">Select Transaction
+                                                            @foreach ($transaction as $transactions)
+                                                        <option value="{{ $transactions->id }}">
+                                                            {{ $transactions->transaction_name }}
+                                                        </option>
+                                                        @endforeach
+                                                        </option>
+                                                    </select>
+                                                    @error('transaction_id')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
                                                     <label for="company_date">Date</label>
                                                     <input class="form-control" type="date" name="company_date"
                                                         id="company_date" placeholder="Enter Date"
@@ -103,7 +120,7 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="company_price">Price</label>
+                                                    <label for="company_price">Amount</label>
                                                     <input type="text" class="form-control" id="company_price"
                                                         name="company_price" placeholder="Enter Price"
                                                         value="{{ old('company_price') }}">
@@ -146,9 +163,10 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Transaction Name</th>
                                                 <th>Date</th>
                                                 <th>Description</th>
-                                                <th>Price</th>
+                                                <th>Amount</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -159,6 +177,7 @@
                                             @foreach ($companyIncome as $income)
                                                 <tr>
                                                     <td>{{ $no }}</td>
+                                                    <td>{{ $income->transaction->transaction_name }}</td>
                                                     <td>{{ $income->company_date }}</td>
                                                     <td>{{ $income->company_description }}</td>
                                                     <td>{{ $income->company_price }}</td>

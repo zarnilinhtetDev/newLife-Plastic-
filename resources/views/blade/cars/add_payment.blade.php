@@ -28,12 +28,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Customers</h1>
+                            <h1>Payment</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Customers</li>
+                                <li class="breadcrumb-item active">Payment</li>
                             </ol>
                         </div>
                     </div>
@@ -47,19 +47,19 @@
                         <div class="col-md-12 text-end">
                             <button type="button" class="btn btn-default text-white" style="background-color: #007BFF"
                                 data-toggle="modal" data-target="#modal-lg">
-                                 Payment Register
+                                Payment Register
                             </button>
                         </div>
                     </div>
                 </div>
                 @if (session('payment_store'))
                     <h6 class="alert alert-success">
-                        {{ session('customer_store') }}
+                        {{ session('payment_store') }}
                     </h6>
                 @endif
-                @if (session('payment_delete'))
+                @if (session('deleteStatus'))
                     <h6 class="alert alert-danger">
-                        {{ session('customer_delete') }}
+                        {{ session('deleteStatus') }}
                     </h6>
                 @endif
                 @if (session('payment_update'))
@@ -75,22 +75,22 @@
 
                             </div>
                             {{-- <form action="{{ url('Add_Payment', $payment->id }}" method="POST"> --}}
-                            <form action="{{ url('Add_Payment',$payment->id) }}" method="POST">
+                            <form action="{{ url('Add_Payment', $car->id) }}" method="POST">
 
                                 @csrf
                                 <div class="modal-body">
                                     <div class="form-group col-12">
                                         <label for="price"> Payment Date</label>
-                                        <input type="date" class="form-control" id="payment_date"
-                                            name="payment_date" placeholder="Enter Add Payment">
+                                        <input type="date" class="form-control" id="payment_date" name="payment_date"
+                                            placeholder="Enter Add Payment">
                                         @error('payment_date')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="form-group col-12">
                                         <label for="price">Add Payment</label>
-                                        <input type="text" class="form-control" id="add_payment"
-                                            name="add_payment" placeholder="Enter Add Payment">
+                                        <input type="text" class="form-control" id="add_payment" name="add_payment"
+                                            placeholder="Enter Add Payment">
                                         @error('add_payment')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -100,14 +100,12 @@
                                 <div class="modal-body">
                                     <div class="form-group col-12" style="display: none">
                                         <label for="car_id">Car Type</label>
-                                        <input type="text" name="car_id" class="form-control"
-                                            id="car_id" placeholder="Enter Buying Price"
-                                            value="{{ $buyer->id ?? 'null' }}">
+                                        <input type="text" name="car_id" class="form-control" id="car_id"
+                                            placeholder="Enter Buying Price" value="{{ $buyer->id ?? 'null' }}">
                                     </div>
                                 </div>
                                 <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-default"
-                                        data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Add</button>
                                 </div>
                             </form>
@@ -118,11 +116,9 @@
 
                 </div>
 
-
-
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Customers Table</h3>
+                        <h3 class="card-title">Payment Table</h3>
                     </div>
 
                     <div class="card-body">
@@ -133,9 +129,6 @@
                                     <th>Date</th>
                                     <th>Payment Price</th>
                                     <th>Action</th>
-
-
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -143,41 +136,41 @@
                                     $no = '1';
                                 @endphp
                                 @foreach ($pay as $pays)
+                                    <tr>
+                                        <td>{{ $no }}</td>
+
+                                        <td>{{ $pays->payment_date }}</td>
+                                        <td>{{ $pays->add_payment }}</td>
+
+                                        <td>
+
+                                            <a href="{{ url('payment-edit', $pays->id) }}" class="btn btn-success"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a>
+
+                                            <a href="{{ url('payment_delete', $pays->id) }}" class="btn btn-danger"><i
+                                                    class="fa-solid fa-trash"></i></a>
+
+
+
+                                        </td>
+
+
+                                    </tr>
+
+                                    @php
+                                        $no++;
+                                    @endphp
+                                @endforeach
                                 <tr>
-                                    <td>{{ $no }}</td>
-
-                                    <td>{{ $pays->payment_date }}</td>
-                                    <td>{{ $pays->add_payment}}</td>
-
-                                    <td>
-
-                                    <a href="" class="btn btn-success"><i
-                                            class="fa-solid fa-pen-to-square"></i></a>
-
-                                    <a href="" class="btn btn-danger"><i
-                                            class="fa-solid fa-trash"></i></a>
-
-
-
+                                    <td colspan="2">
+                                        Total
                                     </td>
-
+                                    <td>
+                                        {{ $totalAmount }}
+                                    </td>
+                                    <td></td>
 
                                 </tr>
-
-                                @php
-                                    $no++;
-                                @endphp
-                                @endforeach
-                            <tr>
-                                <td colspan="2">
-                                Total
-                                      </td>
-                                      <td>
-                                        {{ $totalAmount  }}
-                                      </td>
-                                      <td></td>
-
-                                 </tr>
                             </tbody>
                         </table>
                     </div>

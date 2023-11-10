@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buy;
+use App\Models\Car;
 use App\Models\Offer;
 use App\Models\Expense;
 
 use App\Models\CarExpense;
 use Illuminate\Http\Request;
 use App\Models\ExpenseCategory;
+use App\Models\Transaction;
 
 class CarCompanyController extends Controller
 {
@@ -16,9 +18,10 @@ class CarCompanyController extends Controller
     {
         $car_expenses = CarExpense::all();
         $company_expenses = Expense::all();
+        $car = Car::all();
         // return $company_expenses->all();
 
-        return view('blade.car_company_expense.car_company_expnese', compact('car_expenses', 'company_expenses'));
+        return view('blade.car_company_expense.car_company_expnese', compact('car_expenses', 'company_expenses', 'car'));
     }
 
     public function filter(Request $request)

@@ -63,6 +63,15 @@
                           </p>
                       </a>
                   </li>
+
+                  <li class="nav-item">
+                      <a href="{{ url('company_income') }}" class="nav-link">
+                          <i class="fa-solid fa-coins"></i>
+                          <p class="pl-3">
+                              Company Income
+                          </p>
+                      </a>
+                  </li>
                   {{-- @if (auth()->user()->is_admin)
                       <a class="nav-link" href="{{ url('/user') }}">
                           <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i> Users</div>

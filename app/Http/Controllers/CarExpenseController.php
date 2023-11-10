@@ -13,7 +13,9 @@ class CarExpenseController extends Controller
     public function car_expense($id)
     {
         $car = Car::findOrFail($id);
-        $buy = Buy::find($id);
+        $buy = Buy::where('car_id', $car->id)
+            ->orderBy('created_at', 'desc')
+            ->first();
         $expenses = CarExpense::latest()->get();
 
         return view('blade.cars.carExpense', compact('car', 'expenses', 'buy'));

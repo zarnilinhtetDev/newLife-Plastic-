@@ -68,35 +68,28 @@
                             @endif
 
 
-                            <div class="container-fluid mb-4 mr-auto">
+
+                            <div class="container-fluid mb-4 ">
                                 <div class="row">
                                     <div class="col-md-12 d-flex justify-content-end">
-                                        <button type="button" class="btn btn-default text-white mr-2"
-                                            data-toggle="modal" data-target="#modal-lg"
-                                            style="background-color: #007BFF">
-                                            Company Expense
-                                        </button>
-                                        <a href="{{ route('expense-category') }}">
+
+                                        {{-- <a href="{{ route('expense-category') }}">
                                             <button type="button" class="btn btn-default text-white mr-2"
                                                 style="background-color: #007BFF">
                                                 Expenses Category
                                             </button>
                                         </a>
-                                        <a href="{{ url('company_income') }}">
-                                            <button type="button" class="btn btn-default text-white "
-                                                style="background-color: #007BFF">
-                                                Company Income
-                                            </button>
-                                        </a>
-
 
                                         <a href="{{ url('/daily_expense') }}" class="ml-auto">
                                             <button type="button" class="btn btn-default text-white"
                                                 style="background-color: #007BFF">
                                                 ‌Daily Expenses
                                             </button>
+                                        </a> --}}
+                                        <a type="submit" class="btn btn-default text-white mr-2" data-toggle="modal"
+                                            data-target="#modal-lg" style="background-color: #007BFF">
+                                            Company Expense
                                         </a>
-
                                         <a href="{{ url('/inout') }}" class="ml-6">
                                             <button type="button" class="btn btn-default text-white"
                                                 style="background-color: #007BFF">
@@ -130,17 +123,18 @@
                                                 @csrf
 
                                                 <div class="form-group">
-                                                    <label for="category">Category Name</label>
-                                                    <select name="category" class="form-control" id="category">
-                                                        <option value="">Select Category
-                                                            @foreach ($expenseCategory as $category)
-                                                        <option value="{{ $category->category_name }}">
-                                                            {{ $category->category_name }}
+                                                    <label for="transaction_id">Transaction Name</label>
+                                                    <select name="transaction_id" class="form-control"
+                                                        id="transaction_id">
+                                                        <option value="">Select Transaction
+                                                            @foreach ($transaction as $transactions)
+                                                        <option value="{{ $transactions->id }}">
+                                                            {{ $transactions->transaction_name }}
                                                         </option>
                                                         @endforeach
                                                         </option>
                                                     </select>
-                                                    @error('category')
+                                                    @error('transaction_id')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -156,7 +150,7 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="expense_price">Price</label>
+                                                    <label for="expense_price">Amount</label>
                                                     <input type="text" class="form-control" id="expense_price"
                                                         name="expense_price" placeholder="Enter Expense Price"
                                                         value="{{ old('expense_price') }}">
@@ -222,10 +216,10 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Category Name</th>
+                                                <th>Transaction Name</th>
                                                 <th>Date</th>
                                                 <th>Description</th>
-                                                <th>Price</th>
+                                                <th>Amount</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -238,7 +232,9 @@
                                                 @foreach ($companyExpense as $comexpense)
                                                     <tr>
                                                         <td>{{ $no }}</td>
-                                                        <td>{{ $comexpense->category }}</td>
+                                                        <td>
+                                                            {{ $comexpense->transaction->transaction_name }}
+                                                        </td>
                                                         <td>{{ $comexpense->expense_date }}</td>
                                                         <td>{{ $comexpense->expense_description }}</td>
                                                         <td>{{ $comexpense->expense_price }}</td>
@@ -256,7 +252,10 @@
                                                 @foreach ($expense as $expenses)
                                                     <tr>
                                                         <td>{{ $no }}</td>
-                                                        <td>{{ $expenses->category }}</td>
+                                                        <td>
+
+                                                            {{ $expenses->transaction->transaction_name }}
+                                                        </td>
                                                         <td>{{ $expenses->expense_date }}</td>
                                                         <td>{{ $expenses->expense_description }}</td>
                                                         <td>{{ $expenses->expense_price }}</td>

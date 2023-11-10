@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AddPayment;
 use App\Models\Buy;
-use App\Models\Buyer;
 use App\Models\Car;
-use App\Models\CarExpense;
+use App\Models\Buyer;
 use App\Models\Offer;
+use App\Models\AddPayment;
+use App\Models\CarExpense;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CarController extends Controller
 {
@@ -95,7 +96,7 @@ class CarController extends Controller
             Offer::where('car_id', $carDetail->id)
             ->orderBy('created_at', 'desc')
             ->first();
-        $carDetail = Car::find($id);
+
         $carstatus = Buyer::find($id);
         $carexpenses = CarExpense::all();
         return view('blade.cars.carDetail', compact('carDetail', 'buyprice', 'offerprice', 'carstatus', 'carexpenses'));
@@ -107,14 +108,31 @@ class CarController extends Controller
 
         return view('blade.cars.Sold_Out', compact('buyers'));
     }
-    public function Soldout_Detail($id)
 
+
+    // public function Soldout_Detail($id)
+
+    // {
+    //     $buyer = Buyer::find($id);
+    //     $cardata = Car::find($id);
+    //     $buy = Buy::find($id);
+    //     $pay = AddPayment::find($id);
+    //     $carExpense = CarExpense::find($id);
+
+    //     $totalAmount = AddPayment::sum('add_payment');
+
+    //     return view('blade.cars.Sold_Out_Detail', compact('buyer', 'cardata', 'buy', 'pay', 'carExpense', 'totalAmount'));
+    // }
+
+    public function Soldout_Detail($id)
     {
         $buyer = Buyer::find($id);
         $cardata = Car::find($id);
         $buy = Buy::find($id);
-$pay=AddPayment::find($id);
-$totalAmount = AddPayment::sum('add_payment');
-        return view('blade.cars.Sold_Out_Detail', compact('buyer', 'cardata', 'buy','pay','totalAmount'));
+        $pay = AddPayment::find($id);
+        $carExpenses = CarExpense::where('car_id', $cardata->id)->get();
+        $totalExpense = $carExpenses->sum('expense_price');
+        $totalAmount = AddPayment::sum('add_payment');
+        return view('blade.cars.Sold_Out_Detail', compact('buyer', 'cardata', 'buy', 'pay', 'totalExpense', 'totalAmount'));
     }
 }

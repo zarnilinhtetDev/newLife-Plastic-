@@ -31,12 +31,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Company Income</h1>
+                            <h1>Payment</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Company Income Update</li>
+                                <li class="breadcrumb-item active">Payment Update</li>
                             </ol>
                         </div>
                     </div>
@@ -59,6 +59,11 @@
                 </div><!-- /.container-fluid -->
             </section> --}}
 
+            @if (session('updateStatus'))
+                <h6 class="alert alert-success">
+                    {{ session('updateStatus') }}
+                </h6>
+            @endif
             <!-- Main content -->
             <section class="content">
                 <div class="container">
@@ -66,55 +71,38 @@
                         <div class="col-md-6 offset-3 my-3">
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Company Income Update</h3>
+                                    <h3 class="card-title">Payment Update</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
-                                <form action="{{ url('/companyincome_show', $income->id) }}" method="POST">
+                                <form action="{{ url('payment-update', $paymentData->id) }}" method="POST">
                                     @csrf
-                                    <div class="card-body">
+                                    <div class="modal-body">
+                                        <div class="form-group col-12">
+                                            <label for="payment_date"> Payment Date</label>
+                                            <input type="date" class="form-control" id="payment_date"
+                                                name="payment_date" placeholder="Enter Add Payment"
+                                                value="{{ $paymentData->payment_date }}">
 
+                                        </div>
+                                        <div class="form-group col-12">
+                                            <label for="price">Add Payment</label>
+                                            <input type="text" class="form-control" id="add_payment"
+                                                name="add_payment" placeholder="Enter Add Payment"
+                                                value="{{ $paymentData->add_payment }}">
 
-                                        <div class="form-group">
-                                            <label for="transaction_id">Transaction Name</label>
-                                            <select name="transaction_id" class="form-control" id="transaction_id">
-                                                <option value="">Select Transaction</option>
-
-                                                @foreach ($transaction as $transactions)
-                                                    @if ($income->transaction_id == $transactions->id)
-                                                        <option value="{{ $transactions->id }}" selected>
-                                                            {{ $transactions->transaction_name }}
-                                                        </option>
-                                                    @else
-                                                        <option value="{{ $transactions->id }}">
-                                                            {{ $transactions->transaction_name }}
-                                                        </option>
-                                                    @endif
-                                                @endforeach
-
-                                            </select>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="company_date">Date</label>
-                                            <input class="form-control" type="date" name="company_date"
-                                                id="company_date" value="{{ $income->company_date }}">
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group col-12" style="display: none">
+                                            <label for="car_id">Car Type</label>
+                                            <input type="text" name="car_id" class="form-control" id="car_id"
+                                                placeholder="Enter Buying Price" value="{{ $buyer->id ?? 'null' }}">
                                         </div>
-
-                                        <div class="form-group">
-                                            <label for="company_price">Price</label>
-                                            <input type="text" class="form-control" id="company_price"
-                                                name="company_price" value="{{ $income->company_price }}">
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label>Description</label>
-                                            <textarea class="form-control" rows="3" placeholder="Enter ..." style="border-color:#6B7280"
-                                                name="company_description">{{ $income->company_description }}</textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary"
-                                            style="background-color: #007BFF">Update</button>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="submit" class="btn btn-primary">Update</button>
                                     </div>
                                 </form>
                             </div>

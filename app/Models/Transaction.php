@@ -15,4 +15,14 @@ class Transaction extends Model
     {
         return $this->belongsTo(Account::class);
     }
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
+
+    public function companyIncome()
+    {
+        return $this->hasMany(CompanyIncome::class);
+    }
 }
