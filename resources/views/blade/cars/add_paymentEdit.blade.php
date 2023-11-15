@@ -9,9 +9,7 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" class="nav-link">Home</a>
-                </li>
+
             </ul>
 
             <!-- Right navbar links -->
@@ -31,12 +29,23 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Payment</h1>
+                            <h1>Payment Edit</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Payment Update</li>
+                                <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                                <li class="breadcrumb-item active"><a href="{{ url('/sold_out_car') }}">Sold Out
+                                        Cars</a>
+                                </li>
+                                <li class="breadcrumb-item active"><a
+                                        href="{{ url('/Soldout_Detail', $paymentData->id) }}">Sold
+                                        Out Cars
+                                        Details</a>
+                                </li>
+                                <li class="breadcrumb-item active"><a
+                                        href="{{ url('payment-detail', $paymentData->id) }}">Payment</a>
+                                </li>
+                                <li class="breadcrumb-item active">Payment Edit</li>
                             </ol>
                         </div>
                     </div>

@@ -9,9 +9,7 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('/dashboard') }}" class="nav-link">Home</a>
-                </li>
+
             </ul>
 
             <ul class="navbar-nav ml-auto">
@@ -32,21 +30,20 @@
 
         <div class="content-wrapper">
 
-            <section class="content">
+            <section class="content-header">
                 <div class="container-fluid">
-                    <div class="row ">
-                        <div class="col-sm-6 mt-3">
-                            <h4>Cars Detail</h4>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Cars Details</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active"><a href="{{ url('/dashboard') }}"> Cars</a>
-                                </li>
+                                <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Cars</li>
                             </ol>
                         </div>
                     </div>
-                </div>
+                </div><!-- /.container-fluid -->
             </section>
             @if (session('soldout'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -68,13 +65,21 @@
                 <div class=" p-4">
                     <div class="card-header" style="">
                         <h4 style="font-size: 18px" class="fw-semibold">
-                            <a href="{{ url('Buying_Price', $carDetail->id) }}"
-                                class="btn btn-primary btn-default text-white btn-outline-accent-5 btn-md"
-                                style="background-color:#007BFF" data-toggle="modal" data-target="#modal-default">
-                                Buying Price
-                            </a>
+                            @if (isset($buyprice))
+                                @if ($buyprice->car_id == $carDetail->id)
+                                    <a class="btn btn-primary btn-default text-white btn-outline-accent-5 btn-md"
+                                        style="background-color:#007BFF">
+                                        Buying Price
+                                    </a>
+                                @endif
+                            @else
+                                <a href="{{ url('Buying_Price', $carDetail->id) }}"
+                                    class="btn btn-primary btn-default text-white btn-outline-accent-5 btn-md"
+                                    style="background-color:#007BFF" data-toggle="modal" data-target="#modal-default">
+                                    Buying Price
+                                </a>
 
-
+                            @endif
                             <a href="{{ url('Buying_Price', $carDetail->id) }}"
                                 class="btn btn-primary btn-default  text-white btn-outline-accent-5 btn-md "
                                 data-toggle="modal" style = "background-color:#5A6268" data-target="#modal-default1">
@@ -86,10 +91,20 @@
 
 
 
-                            <a href="{{ url('Buying_Price', $carDetail->id) }}" class="btn btn-default text-white"
-                                data-toggle="modal" data-target="#modal-lg" style = "background-color:#C82333">
-                                Sold Out
-                            </a>
+                            @if (@isset($carstatus))
+                                @if ($carDetail->id == $carstatus->car_id)
+                                    <button type="button" class="btn btn-default text-white mutted"
+                                        style="background-color: #dc3545">Sold Out </button>
+                                @endif
+                            @else
+                                <a href="{{ url('Buying_Price', $carDetail->id) }}" class="btn btn-default text-white"
+                                    data-toggle="modal" data-target="#modal-lg" style = "background-color:#047c40">
+                                    Available
+                                </a>
+
+
+                            @endif
+
                         </h4>
                     </div>
 
@@ -279,51 +294,72 @@
                 </div>
                 <div class="row ">
                     <div class="col-md-12">
-                        <table class='table table-bordered mt-4' style="font-size: 20">
+                        <div class="card-body" style="">
+                            <table class='table table-bordered mt-4' style="font-size: 20">
 
 
 
-                            <tr>
-                                <td class="fw-light" style="width:300px">Car Type
-                                </td>
-                                <td class="fw-normal">{{ $carDetail->car_type }}</td>
+                                <tr>
+                                    <td class="fw-light" style="width:300px">Car Status
+                                    </td>
+                                    <td>
+                                        @if (isset($carstatus) && $carDetail->id == $carstatus->car_id)
+                                            <button type="button" class="btn btn-default text-white mutted"
+                                                style="background-color: #dc3545">
+                                                Sold Out
+                                            </button>
+                                        @else
+                                            <a href="{{ url('Buying_Price', $carDetail->id) }}"
+                                                class="btn btn-default text-white" data-toggle="modal"
+                                                data-target="#modal-lg" style="background-color:#047c40">
+                                                Available
+                                            </a>
+                                        @endif
+                                    </td>
 
-                            </tr>
-                            <tr>
-                                <td class="fw-light" style="width:300px">Car Model</td>
-                                <td class="fw-normal">{{ $carDetail->car_model }}</td>
-                            </tr>
-                            <tr>
-                                <td class="fw-light" style="width:300px">Car Manufacture Years</td>
-                                <td class="fw-normal">{{ $carDetail->manufacture_year }}</td>
-                            </tr>
-                            <tr>
+                                </tr>
+                                <tr>
+                                    <td class="fw-light" style="width:300px">Car Type
+                                    </td>
+                                    <td class="fw-normal">{{ $carDetail->car_type }}</td>
 
-                                <td class="fw-light" style="width:300px">License Expire</td>
-                                <td class="fw-normal">{{ $carDetail->License_expire }}</td>
-                            </tr>
+                                </tr>
+                                <tr>
+                                    <td class="fw-light" style="width:300px">Car Model</td>
+                                    <td class="fw-normal">{{ $carDetail->car_model }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-light" style="width:300px">Car Manufacture Years</td>
+                                    <td class="fw-normal">{{ $carDetail->manufacture_year }}</td>
+                                </tr>
+                                <tr>
 
-                            <tr>
+                                    <td class="fw-light" style="width:300px">License Expire</td>
+                                    <td class="fw-normal">{{ $carDetail->License_expire }}</td>
+                                </tr>
 
-                                <td class="fw-light" style="width:300px"> Car Color</td>
-                                <td class="fw-normal">{{ $carDetail->car_color }}</td>
-                            </tr>
+                                <tr>
 
-                            <tr>
+                                    <td class="fw-light" style="width:300px"> Car Color</td>
+                                    <td class="fw-normal">{{ $carDetail->car_color }}</td>
+                                </tr>
 
-                                <td class="fw-light" style="width:300px">Car Image</td>
-                                <td> <a target="_blank" href="/carimage/{{ $carDetail->car_images }}">
-                                        <img src="{{ asset('carimage/' . $carDetail->car_images) }}" alt=""
-                                            width="65px">
-                                    </a>
-                                </td>
-                            </tr>
+                                <tr>
 
-                            <tr>
-                                <td class="fw-light" style="width:300px"> Description</td>
-                                <td class="fw-normal">{{ $carDetail->description }}</td>
-                            </tr>
-                        </table>
+                                    <td class="fw-light" style="width:300px">Car Image</td>
+                                    <td> <a target="_blank" href="/carimage/{{ $carDetail->car_images }}">
+                                            <img src="{{ asset('carimage/' . $carDetail->car_images) }}"
+                                                alt="" width="65px">
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fw-light" style="width:300px"> Description</td>
+                                    <td class="fw-normal">{{ $carDetail->description }}</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -341,7 +377,8 @@
 
                                     @if ($offerprice)
                                         @if ($offerprice->car_id == $carDetail->id)
-                                            {{ $offerprice->offer_price }}
+                                            {{-- {{ $offerprice->offer_price }} --}}
+                                            {{ number_format(intval($offerprice->offer_price), 0, '', ',') }}
                                         @else
                                             N/A
                                         @endif
@@ -360,7 +397,8 @@
 
                                     @if ($buyprice)
                                         @if ($buyprice->car_id == $carDetail->id)
-                                            {{ $buyprice->price }}
+                                            {{-- {{ $buyprice->price }} --}}
+                                            {{ number_format(intval($buyprice->price), 0, '', ',') }}
                                         @else
                                             N/A
                                         @endif
@@ -389,7 +427,8 @@
 
 
 
-                                    {{ $total_expense }}
+                                    {{-- {{ $total_expense }} --}}
+                                    {{ number_format(intval($total_expense), 0, '', ',') }}
 
 
                                 </td>
@@ -399,7 +438,8 @@
                                 <td class="fw-light" style="width:300px">Total Cost</td>
                                 <td class="fw-normal">
 
-                                    {{ ($buyprice->price ?? 0) + $total_expense }}
+                                    {{-- {{ ($buyprice->price ?? 0) + $total_expense }} --}}
+                                    {{ number_format(intval(($buyprice->price ?? 0) + $total_expense), 0, '', ',') }}
 
                                 </td>
 
@@ -409,18 +449,20 @@
                 </div>
             </div>
 
-
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; SSE Web Solutions</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
 
         </div>
     </div>
-
-
-
-
-
-
-
-
-
 
     @include('master.footer')

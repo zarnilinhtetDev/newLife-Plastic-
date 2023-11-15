@@ -9,9 +9,7 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" class="nav-link">Home</a>
-                </li>
+               
             </ul>
 
             <!-- Right navbar links -->
@@ -19,7 +17,7 @@
 
 
                 <li class="nav-item">
-
+                    <a href="{{ url('/logout') }}" class="btn btn-danger text-white">Logout</a>
                 </li>
             </ul>
         </nav>
@@ -186,6 +184,18 @@
                     </div>
                 </div>
             </section>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; SSE Web Solutions</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
     @include('master.footer')

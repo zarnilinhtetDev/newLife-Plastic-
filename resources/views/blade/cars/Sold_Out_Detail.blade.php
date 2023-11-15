@@ -9,9 +9,7 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('/dashboard') }}" class="nav-link">Home</a>
-                </li>
+
             </ul>
 
             <ul class="navbar-nav ml-auto">
@@ -32,7 +30,7 @@
 
         <div class="content-wrapper">
 
-            <section class="content">
+            <div class="content">
                 <section class="content-header">
                     <div class="container-fluid">
                         <div class="row ">
@@ -41,8 +39,11 @@
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active"><a href="{{ url('/dashboard') }}"> Cars</a>
+                                    <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                                    <li class="breadcrumb-item active"><a href="{{ url('/sold_out_car') }}">Sold Out
+                                            Cars</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Sold Out Cars Details
                                     </li>
                                 </ol>
                             </div>
@@ -65,8 +66,9 @@
                         {{ session('offerSuccess') }}
                     </div>
                 @endif
-                <div class="card">
-                    <div class="card ">
+                <section class="content-body">
+                    <div class="card">
+
                         <div class="card-header text-secondary">
                             <h4>Information</h4>
                         </div>
@@ -116,9 +118,9 @@
                     </div>
 
 
-                </div>
 
-                <div class="card">
+
+
                     <div class="card ">
                         <div class="card-header text-secondary">
 
@@ -139,7 +141,7 @@
                                         <td class="fw-light" style="width: 300px; background-color: #A1D39E;">Profit
                                         </td>
                                         <td class="fw-normal" style="background-color: #A1D39E">
-                                            {{ number_format(intval(($buyer->selling ?? 0) - ($buy->price + $totalExpense)), 0, '', ',') ?? 'none' }}
+                                            {{ number_format(intval(($buyer->selling ?? 0) - (($buy ? $buy->price : 0) + $totalExpense)), 0, '', ',') ?? 'none' }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -147,7 +149,7 @@
                                         </td>
                                         <td class="fw-normal">
 
-                                            {{ number_format(intval($buy->price), 0, '', ',') ?? 'none' }}
+                                            {{ number_format(intval($buy ? $buy->price : 0), 0, '', ',') ?? 'none' }}
 
                                         </td>
 
@@ -189,13 +191,27 @@
                     </div>
 
 
-                </div>
-                </main>
+                </section>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; SSE Web Solutions</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
+            </div>
         </div>
     </div>
 
 
     </section>
+
 
     </div>
 

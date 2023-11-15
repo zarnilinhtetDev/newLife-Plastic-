@@ -23,7 +23,7 @@ class BuyController extends Controller
             $buy->save();
         }
 
-        return redirect()->back()->with('offerSuccess', 'Add Offer Price is Successful');
+        return redirect()->back()->with('offerSuccess', 'Add Buying Price is Successful');
     }
     public function deleteCarPrice($carId)
     {
@@ -37,5 +37,16 @@ class BuyController extends Controller
         $car->delete();
 
         return redirect()->back()->with('deleteStatus', 'Car price deleted successfully.');
+    }
+    public function update(Request $request, $id)
+    {
+        $car = Buy::where('car_id', $id)->orderBy('created_at', 'desc')->first();
+        if (isset($request->price)) {
+            $car->price = $request->price;
+            $car->save();
+            return redirect()->back()->with('success', 'Buying Price Update is Successfull');
+        } else {
+            return redirect()->back()->with('error', 'Buying Price cannot be null');
+        }
     }
 }

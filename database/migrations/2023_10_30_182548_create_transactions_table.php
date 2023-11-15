@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('account_id')->nullable;
-            $table->string('transaction_name')->nullable;
-            $table->string('transaction_code')->nullable;
-            $table->string('description')->nullable;
+            $table->foreignId('account_id');
+            $table->string('transaction_name');
+            $table->string('transaction_code');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

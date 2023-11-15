@@ -12,7 +12,7 @@
                           </div>
                           <div class="col-sm-6">
                               <ol class="breadcrumb float-sm-right">
-                                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                  <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
                                   <li class="breadcrumb-item active">Cars</li>
                               </ol>
                           </div>
@@ -175,8 +175,6 @@
                                   <th>License Expire</th>
                                   <th>Car Color</th>
                                   <th>Car Image</th>
-                                  {{-- <th>Car Color</th>
-                                  <th>Message</th> --}}
                                   <th>Action</th>
                               </tr>
                           </thead>
@@ -201,9 +199,6 @@
                                           </a>
 
                                       </td>
-
-
-
                                       <td>
                                           <a href="{{ url('Car_Detail', $cars->id) }}" class="btn btn-warning"><i
                                                   class="fa-regular fa-eye"></i></a>
@@ -219,19 +214,24 @@
                                       $no++;
                                   @endphp
                               @endforeach
-
                           </tbody>
-
-
-
-
                       </table>
                   </div>
-                  <!-- /.card-body -->
+
               </div>
-              <!-- /.card -->
           </div>
-          <!-- /.col -->
       </div>
-      <!-- /.row -->
+
   </div>
+  <footer class="py-4 bg-light mt-auto">
+      <div class="container-fluid px-4">
+          <div class="d-flex align-items-center justify-content-between small">
+              <div class="text-muted">Copyright &copy; SSE Web Solutions</div>
+              <div>
+                  <a href="#">Privacy Policy</a>
+                  &middot;
+                  <a href="#">Terms &amp; Conditions</a>
+              </div>
+          </div>
+      </div>
+  </footer>

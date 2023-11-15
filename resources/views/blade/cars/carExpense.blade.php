@@ -9,9 +9,7 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('/dashboard') }}" class="nav-link">Home</a>
-                </li>
+
             </ul>
 
             <!-- Right navbar links -->
@@ -45,8 +43,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <ol class="breadcrumb float-sm-right">
-                                                <li class="breadcrumb-item"><a
-                                                        href="{{ url('/dashboard') }}">Dashboard</a>
+                                                <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Car</a>
                                                 </li>
 
                                                 <li class="breadcrumb-item active"> Car Expenses</li>
@@ -58,6 +55,11 @@
                             @if (session('success'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('success') }}
+                                </div>
+                            @endif
+                            @if (session('error'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ session('error') }}
                                 </div>
                             @endif
                             @if (session('deleteStatus'))
@@ -148,8 +150,55 @@
                             </div>
 
 
+                            {{-- Buying Price Edit --}}
+                            <div class="modal fade" id="modal-aa">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Buying Price Edit</h4>
 
-                            <h3 class="text-secondary">Car Name - {{ $car->car_type }}</h3>
+                                        </div>
+                                        <form action="{{ url('buyprice_edit', $car->id) }}" method="POST">
+                                            @csrf
+                                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                                            <div class="modal-body">
+                                                <div class="form-group col-12">
+                                                    <label for="price">Buying Price</label>
+                                                    <input type="text" class="form-control" id="price"
+                                                        name="price" value="{{ optional($buy)->price ?? 'N/A' }}">
+                                                </div>
+                                            </div>
+                                            <div class="modal-body" style="display :none">
+                                                <div class="form-group col-12">
+                                                    <label for="car_id">Car Type</label>
+                                                    <input type="text" name="car_id" class="form-control"
+                                                        id="car_id" value="{{ $car->id }}"
+                                                        placeholder="Enter Buying Price">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Edit</button>
+                                            </div>
+                                        </form>
+                                        <div class="alert success" role="alert">
+                                            {{-- {{ $buyprice->price }} --}}
+                                            @if (isset($buyprice))
+                                                Current Buying Price - {{ $buyprice->price }}
+                                            @else
+                                                {{ $buy ? $buy->price : 'N / A ' }}
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <h3 class="text-secondary">Car Name - {{ $car->car_type }} ( {{ $car->car_number }} )
+                            </h3>
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Car Expense Table</h3>
@@ -169,11 +218,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                             <tr>
-
                                                 <td>
-
                                                     @if ($buy)
                                                         {{ $buy->created_at }}
                                                 </td>
@@ -191,13 +237,14 @@
                                             @else
                                                 N/A
                                                 @endif
-
                                                 </td>
-
                                                 <td>
+                                                    <a href="" data-toggle="modal" data-target="#modal-aa"
+                                                        class="btn btn-success"><i
+                                                            class="fa-solid fa-pen-to-square"></i></a>
+
                                                     <a href="{{ route('delete.car.price', $car->id) }}"
-                                                        class="btn btn-danger" style="width:82px"> <i
-                                                            class="fa-solid fa-trash"></i></a>
+                                                        class="btn btn-danger"> <i class="fa-solid fa-trash"></i></a>
                                                 </td>
                                             </tr>
 
@@ -267,21 +314,15 @@
                                                                     placeholder="Enter Expense Amount"
                                                                     value="{{ old('expense_price') }}">
 
-
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label for="description">Description</label>
 
-                                                                <textarea class="form-control" rows="3" name="description" placeholder="Enter ...">
-                                                                         @isset($expense)
+                                                                <textarea class="form-control" rows="3" name="description" placeholder="Enter ..."> @isset($expense)
 {{ $expense->description }}
 @endisset
                                                                     </textarea>
-
-                                                                @error('description')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                @enderror
                                                             </div>
 
                                                             <div class="form-group">
@@ -290,10 +331,6 @@
                                                                     id="expense_price" name="expense_price"
                                                                     placeholder="Enter Expense Amount"
                                                                     value="{{ isset($expense) ? $expense->expense_price : '' }}">
-
-                                                                @error('expense_price')
-                                                                    <span class="text-danger">{{ $message }}</span>
-                                                                @enderror
                                                             </div>
 
 
@@ -303,7 +340,7 @@
                                                                 <button type="button" class="btn btn-default"
                                                                     data-dismiss="modal">Close</button>
                                                                 <button type="submit" class="btn btn-primary"
-                                                                    style="background-color: #007BFF">Register</button>
+                                                                    style="background-color: #007BFF">Edit</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -326,6 +363,18 @@
 
                 </div>
             </section>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; SSE Web Solutions</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 

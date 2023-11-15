@@ -8,6 +8,7 @@
     <title>Car Sale Management</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="  https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <style>
@@ -37,7 +38,7 @@
 
 
     .cardbody-color {
-        background-color: white;
+        background-color: rgb(204, 204, 204);
     }
 
     a {
@@ -56,8 +57,10 @@
 
                 <h2 class="text-center text-white mt-5">Login Form </h2>
                 <div class="card  ">
+
                     <form class="card-body cardbody-color p-lg-5 " method="POST" action="{{ route('admin. login') }}">
                         @csrf
+
                         <div class="text-center">
                             <img src="{{ asset('logo.png') }}"
                                 class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="150px"
@@ -72,6 +75,13 @@
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success') }}
+
+                            </div>
+                        @endif
+
                         <div class="mb-3">
                             <input type="password" class="form-control" id="password" placeholder="password"
                                 name="password" value="{{ old('password') }}">
@@ -79,8 +89,13 @@
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="text-center"><button type="submit"
-                                class="btn btn-color px-5 mb-5 w-100 btn-primary">Login</button></div>
+                        @if (session('error'))
+                            <span class="text-danger"> {{ session('error') }}</span>
+                        @endif
+                        <div class="text-center mt-2"><button type="submit"
+                                class="btn btn-color px-5 mb-5 w-100 btn-primary">
+                                Login</button>
+                        </div>
 
                     </form>
                 </div>

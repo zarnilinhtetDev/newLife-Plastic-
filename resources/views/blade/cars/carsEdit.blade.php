@@ -9,9 +9,7 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" class="nav-link">Home</a>
-                </li>
+
             </ul>
 
             <!-- Right navbar links -->
@@ -32,8 +30,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active"><a href="{{ url('/dashboard') }}">Cars Edit</a>
+                                    <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Cars Edit
                                     </li>
                                 </ol>
                             </div>
@@ -91,8 +89,8 @@
                                     @enderror
                                     @if ($carShow->car_images)
                                         <div class="mt-2">
-                                            <img src="{{ asset('carimage/' . $carShow->car_images) }}" alt="Current Car Image"
-                                                width="100">
+                                            <img src="{{ asset('carimage/' . $carShow->car_images) }}"
+                                                alt="Current Car Image" width="100">
                                         </div>
                                     @endif
                                 </div>
@@ -108,17 +106,24 @@
                             <button type="submit" class="btn btn-primary"
                                 style="background-color: #007BFF">Update</button>
                         </div>
+                    </form>
                 </div>
-                </form>
+
+
+            </section>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; SSE Web Solutions</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
-
-
-        </section>
-
-    </div>
-
-
-
     </div>
 
 

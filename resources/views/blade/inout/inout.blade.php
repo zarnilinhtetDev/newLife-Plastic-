@@ -9,9 +9,7 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" class="nav-link">Home</a>
-                </li>
+
             </ul>
 
             <!-- Right navbar links -->
@@ -30,7 +28,7 @@
 
 
             <!-- Main content -->
-            <section class="content">
+            <div class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
@@ -208,167 +206,138 @@
                                     {{ session('updateStatus') }}
                                 </div>
                             @endif
-                            <div class="card">
-                                <div class="card-header" style="background-color: #96C5F8">
-                                    <h3 class="card-title">ရရန်</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Price</th>
-                                                <th>Descripton</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $no = '1';
-                                            @endphp
-                                            @foreach ($inouts as $inout)
-                                                @if ($inout->date != null)
-                                                    <tr>
-                                                        <td>{{ $inout->date }}</td>
-                                                        <td>{{ $inout->price }}</td>
-                                                        <td>{{ $inout->description }}</td>
-
-                                                        <td>
-                                                            <a href="{{ url('inout_edit', $inout->id) }}"
-                                                                class="btn btn-success"><i
-                                                                    class="fa-solid fa-pen-to-square"></i></a>
-                                                            <a href="{{ url('inout_delete', $inout->id) }}"
-                                                                class="btn btn-danger"><i
-                                                                    class="fa-solid fa-trash"></i>
-                                                        </td>
-                                                    </tr>
-                                                    @php
-                                                        $no++;
-                                                    @endphp
-                                                @endif
-                                            @endforeach
-                                        </tbody>
-
-
-
-
-                                    </table>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-
-                            <div class="card">
-                                <div class="card-header" style="background-color: #96C5F8">
-                                    <h3 class="card-title">ပေးရန်</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Price</th>
-                                                <th>Descripton</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $no = '1';
-                                            @endphp
-                                            @foreach ($inouts as $inout)
-                                                @if ($inout->out_date != null)
-                                                    <tr>
-                                                        <td>{{ $inout->out_date }}</td>
-                                                        <td>{{ $inout->out_price }}</td>
-                                                        <td>{{ $inout->out_description }}</td>
-
-                                                        <td>
-                                                            <a href="{{ url('out_edit', $inout->id) }}"
-                                                                class="btn btn-success"><i
-                                                                    class="fa-solid fa-pen-to-square"></i></a>
-                                                            <a href="{{ url('inout_delete', $inout->id) }}"
-                                                                class="btn btn-danger"><i
-                                                                    class="fa-solid fa-trash"></i>
-                                                        </td>
-                                                    </tr>
-                                                    @php
-                                                        $no++;
-                                                    @endphp
-                                                @endif
-                                            @endforeach
-
-                                        </tbody>
-
-
-
-
-                                    </table>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            {{-- <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">ပေးရန်/ရရန်</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Price Name</th>
-                                                <th>Description</th>
-
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $no = '1';
-                                            @endphp
-                                            {{-- @foreach ($inouts as $inout)
+                            <section class="content-body">
+                                <div class="card">
+                                    <div class="card-header" style="background-color: #96C5F8">
+                                        <h3 class="card-title">ရရန်</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
                                                 <tr>
-
-                                                    <td>{{ $inout->date }}</td>
-                                                    <td>{{ $inout->price }}</td>
-                                                    <td>{{ $inout->description }}</td>
-                                                    <td>
-                                                        <a href="{{ url('expense_show', $expenses->id) }}"
-                                                            class="btn btn-success"><i
-                                                                class="fa-solid fa-pen-to-square"></i></a>
-                                                        <a href="{{ url('expense_delete', $expenses->id) }}"
-                                                            class="btn btn-danger"><i class="fa-solid fa-trash"></i>
-                                                    </td>
+                                                    <th>Date</th>
+                                                    <th>Price</th>
+                                                    <th>Descripton</th>
+                                                    <th>Action</th>
                                                 </tr>
+                                            </thead>
+                                            <tbody>
                                                 @php
-                                                    $no++;
+                                                    $no = '1';
                                                 @endphp
-                                            @endforeach --}}
-                            </tbody>
+                                                @foreach ($inouts as $inout)
+                                                    @if ($inout->date != null)
+                                                        <tr>
+                                                            <td>{{ $inout->date }}</td>
+                                                            <td>{{ $inout->price }}</td>
+                                                            <td>{{ $inout->description }}</td>
+
+                                                            <td>
+                                                                <a href="{{ url('inout_edit', $inout->id) }}"
+                                                                    class="btn btn-success"><i
+                                                                        class="fa-solid fa-pen-to-square"></i></a>
+                                                                <a href="{{ url('inout_delete', $inout->id) }}"
+                                                                    class="btn btn-danger"><i
+                                                                        class="fa-solid fa-trash"></i>
+                                                            </td>
+                                                        </tr>
+                                                        @php
+                                                            $no++;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+                                            </tbody>
 
 
 
 
-                            </table>
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header" style="background-color: #96C5F8">
+                                        <h3 class="card-title">ပေးရန်</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Price</th>
+                                                    <th>Descripton</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $no = '1';
+                                                @endphp
+                                                @foreach ($inouts as $inout)
+                                                    @if ($inout->out_date != null)
+                                                        <tr>
+                                                            <td>{{ $inout->out_date }}</td>
+                                                            <td>{{ $inout->out_price }}</td>
+                                                            <td>{{ $inout->out_description }}</td>
+
+                                                            <td>
+                                                                <a href="{{ url('out_edit', $inout->id) }}"
+                                                                    class="btn btn-success"><i
+                                                                        class="fa-solid fa-pen-to-square"></i></a>
+                                                                <a href="{{ url('inout_delete', $inout->id) }}"
+                                                                    class="btn btn-danger"><i
+                                                                        class="fa-solid fa-trash"></i>
+                                                            </td>
+                                                        </tr>
+                                                        @php
+                                                            $no++;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+
+                                            </tbody>
+
+
+
+
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+
+
+
+
+
+                            </section>
+                            <footer class="py-4 bg-light mt-auto">
+                                <div class="container-fluid px-4">
+                                    <div class="d-flex align-items-center justify-content-between small">
+                                        <div class="text-muted">Copyright &copy; SSE Web Solutions</div>
+                                        <div>
+                                            <a href="#">Privacy Policy</a>
+                                            &middot;
+                                            <a href="#">Terms &amp; Conditions</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </footer>
                         </div>
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
+            </div>
+            <!-- /.row -->
         </div>
-        <!-- /.row -->
-    </div>
-
-    </section>
-
-    </div>
 
 
 
-    </div>
 
 
-    @include('master.footer')
+
+        @include('master.footer')

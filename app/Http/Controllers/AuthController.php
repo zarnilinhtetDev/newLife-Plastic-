@@ -24,7 +24,7 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             return redirect('/dashboard');
         } else {
-            return redirect()->back();
+            return redirect()->back()->with('error', 'User Credentials Wrong');
         }
     }
     public function dashboard()

@@ -73,7 +73,7 @@ Route::middleware(['auth'])->group(
         //Car Buy
         Route::post('/Buying_Price/{id}', [BuyController::class, 'buying_price'])->name('Buying_Price');
         Route::get('/delete-car-price/{carId}', [BuyController::class, 'deleteCarPrice'])->name('delete.car.price');
-
+        Route::post('/buyprice_edit/{id}', [BuyController::class, 'update']);
 
         //Car Offer
         Route::post('/Offer_Price/{id}', [OfferController::class, 'offer_price'])->name('Offer_Price');

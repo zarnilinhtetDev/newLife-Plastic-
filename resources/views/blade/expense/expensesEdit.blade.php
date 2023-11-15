@@ -9,9 +9,7 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" class="nav-link">Home</a>
-                </li>
+
             </ul>
 
             <!-- Right navbar links -->
@@ -31,12 +29,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Company Expense</h1>
+                            <h1>Company Expense Edit</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Company Expense Update</li>
+                                <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="{{ url('/expense') }}">Company Expenses</a></li>
+                                <li class="breadcrumb-item active">Company Expense Edit</li>
                             </ol>
                         </div>
                     </div>
@@ -114,18 +113,27 @@
                                         <button type="submit" class="btn btn-primary"
                                             style="background-color: #007BFF">Update</button>
                                     </div>
+
+                                </form>
                             </div>
-                            </form>
                         </div>
                     </div>
                 </div>
-        </div>
-        </section>
-    </div>
-    </div>
-    </div>
+            </section>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; SSE Web Solutions</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
 
-    </div>
+        </div>
 
 
 

@@ -21,19 +21,26 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|regex:/^[a-zA-Z0-9_.+-]+@gmail.com$/i',
             'password' => 'required',
         ]);
+        $existingUser = User::where('email', $data['email'])->first();
 
-        User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'is_admin' => $request->input('is_admin', false),
-        ]);
+        if ($existingUser) {
+            return redirect()->back()->with('error', 'Email address already exists.');
+        } else {
+
+            User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'is_admin' => $request->input('is_admin', false),
+            ]);
 
 
-        return redirect()->back()->with('success', 'User registration is successful');
+
+            return redirect()->back()->with('success', 'User registration is successful');
+        }
     }
 
 
