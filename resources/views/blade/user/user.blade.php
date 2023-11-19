@@ -66,8 +66,74 @@
 
                 </div>
             @endif
-            <section class="content-body">
-                <div class="row mt-6">
+            <div class="container-fluid mb-4 ">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="d-flex justify-content-end ">
+                            <a href="" data-toggle="modal" data-target="#modal-lg" class="btn btn-primary">Users
+                                Register
+                            </a> &nbsp;
+
+
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modal-lg">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Customers Register</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ url('/User_Register') }}" method="post">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" name="name">
+                                    @error('name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="exampleInputEmail1">Email address <span
+                                            class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" name="email">
+                                    @error('email')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="exampleInputPassword1">Password <span
+                                            class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1"
+                                        name="password">
+                                    @error('password')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="is_admin"> Admin </label> &nbsp;
+                                    <input type="checkbox" name="is_admin" value="1">
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3"
+                                    style="background-color: #0069D9">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <section class=" container-fluid content-body">
+                {{-- <div class="row mt-6">
                     <div class="col-md-6 offset-3">
 
                         <div class="card  p-4 mb-4">
@@ -109,100 +175,100 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
 
-
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Cars Table</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-
-                                    <th>Create Date</th>
-                                    <th>Update Date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $no = '1';
-                                @endphp
-                                @foreach ($showUser_data as $userData)
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Users Table</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
                                     <tr>
-                                        <td>{{ $no }}</td>
-                                        <td>{{ $userData->name }}</td>
-                                        <td>{{ $userData->email }}</td>
-                                        <td>
-                                            @if ($userData->is_admin)
-                                                <span class="text-primary ">Admin</span>
-                                            @else
-                                                <span class="text-primary ">User</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ $userData->created_at->format('Y-m-d h:i A') }}
-                                            ({{ $userData->created_at->diffForHumans() }})
-                                        </td>
-                                        <td>
-                                            {{ $userData->updated_at->format('Y-m-d h:i A') }}
-                                            ({{ $userData->updated_at->diffForHumans() }})
-                                        </td>
-                                        </td>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
 
-                                        </td>
-                                        </td>
-
-                                        <td>
-
-
-                                            <a href="{{ url('userShow', $userData->id) }}" class="btn btn-success">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-
-                                            </a>
-
-                                            <a href="{{ url('delete_user', $userData->id) }}" class="btn btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this user ?')">
-                                                <i class="fa-solid fa-trash"></i></a>
-
-
-                                        </td>
-
+                                        <th>Create Date</th>
+                                        <th>Update Date</th>
+                                        <th>Action</th>
                                     </tr>
+                                </thead>
+                                <tbody>
                                     @php
-                                        $no++;
+                                        $no = '1';
                                     @endphp
-                                @endforeach
-                            </tbody>
+                                    @foreach ($showUser_data as $userData)
+                                        <tr>
+                                            <td>{{ $no }}</td>
+                                            <td>{{ $userData->name }}</td>
+                                            <td>{{ $userData->email }}</td>
+                                            <td>
+                                                @if ($userData->is_admin)
+                                                    <span class="text-primary ">Admin</span>
+                                                @else
+                                                    <span class="text-primary ">User</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ $userData->created_at->format('Y-m-d h:i A') }}
+                                                ({{ $userData->created_at->diffForHumans() }})
+                                            </td>
+                                            <td>
+                                                {{ $userData->updated_at->format('Y-m-d h:i A') }}
+                                                ({{ $userData->updated_at->diffForHumans() }})
+                                            </td>
+                                            </td>
+
+                                            </td>
+                                            </td>
+
+                                            <td>
+
+
+                                                <a href="{{ url('userShow', $userData->id) }}" class="btn btn-success">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+
+                                                </a>
+
+                                                <a href="{{ url('delete_user', $userData->id) }}"
+                                                    class="btn btn-danger"
+                                                    onclick="return confirm('Are you sure you want to delete this user ?')">
+                                                    <i class="fa-solid fa-trash"></i></a>
+
+
+                                            </td>
+
+                                        </tr>
+                                        @php
+                                            $no++;
+                                        @endphp
+                                    @endforeach
+                                </tbody>
 
 
 
 
-                        </table>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
                 </div>
-            </section>
 
+            </section>
 
 
 
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; SSE Web Solutions</div>
+                        <div class="text-muted"> New Life (Taungggyi)</div>
                         <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
+                            ပလပ်စတစ် ဘူးခွံလုပ်ငန်း
                         </div>
                     </div>
                 </div>

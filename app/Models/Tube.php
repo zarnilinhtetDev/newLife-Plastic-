@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class Tube extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'category', 'amount', 'price', 'remark'];
+    protected $guarded = [''];
 }

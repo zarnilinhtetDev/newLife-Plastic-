@@ -16,7 +16,7 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
 
-
+                <li> </li>
                 <li class="nav-item">
 
 
@@ -31,7 +31,7 @@
 
             <!-- Main content -->
             <section class="content">
-                @include('blade.cars.cars')
+                @include('blade.tube.tube')
 
             </section>
 

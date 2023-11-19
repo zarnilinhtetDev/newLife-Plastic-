@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Car Management</title>
+    <title>New Life</title>
 
     <!-- Google Font: Source Sans Pro -->
 
@@ -27,13 +27,3 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
-
-
-<style>
-    .dt-buttons {
-        background-color: #007BFF;
-
-        color: #fff;
-
-    }
-</style>

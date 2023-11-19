@@ -2,52 +2,76 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
     public function customer()
     {
         $customers = Customer::latest()->get();
-        return view('blade.customer.customer', compact('customers'));
+        return view('blade.customers.customer', compact('customers'));
     }
-    public function customer_store(Request $request)
+    public function register(Request $request)
     {
-        $validatedData = $request->validate([
-            'customer_name' => 'required',
-            'phone_number' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'message' => 'required',
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'amount' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:0',
+
         ]);
 
-        Customer::create($validatedData);
+        $customer = new Customer();
+        $customer->name = $request->input('name');
+        $customer->amount = $request->input('amount');
+        $customer->category = $request->input('category');
+        $customer->price = $request->input('price');
+        $customer->remark = $request->input('remark');
 
-        return redirect()->back()->with('customer_store', 'Customer registered successfully');
+        $customer->save();
+
+        return redirect()->back()->with('success', 'Customer created successfully');
     }
-    public function customer_delete($id)
+    public function delete($id)
     {
         $delete = Customer::find($id);
         $delete->delete();
-
-        return redirect()->back()->with('customer_delete', 'Customer Delete Successful');
+        return back()->with('deleteStatus', 'Customer Delete Successfully');
     }
-    public function customer_show($id)
+    public function filter(Request $request)
     {
-        $showCustomer = Customer::find($id);
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
 
-        return view('blade.customer.customerShow', compact('showCustomer'));
+        $customers = Customer::whereBetween('created_at', [$start_date, $end_date])
+            ->get();
+
+        return view('blade.customers.customer', compact('customers'));
     }
-    public function customer_update(Request $request, $id)
+    public function update(Request $request, $id)
     {
-        $update = Customer::find($id);
-        $update->customer_name = $request->input('customer_name');
-        $update->phone_number = $request->input('phone_number');
-        $update->address = $request->input('address');
-        $update->city = $request->input('city');
-        $update->message = $request->input('message');
-        $update->update();
-        return redirect()->route('customer')->with('customer_update', 'Customer Updated Successfully');
+        $customerupdate = Customer::find($id);
+
+
+        $customerupdate->update($request->all());
+
+        return redirect('/customers')->with('updateStatus', 'Update Successfully');
+    }
+    public function dailyShow()
+    {
+
+        $today = now();
+        $todayDate = $today->toDateString();
+
+        $dailyData = DB::table('customers')
+            ->whereDate('created_at', $todayDate)
+            ->get();
+
+        $todayTotal = Customer::whereDate('created_at', Carbon::today())->sum('price');
+
+        return view('blade.customers.daily_customer', compact('dailyData', 'todayTotal'));
     }
 }

@@ -13,71 +13,28 @@
           <nav class="mt-2">
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                   data-accordion="false">
-                  <li class="nav-item">
 
-
-
-                  </li>
                   <li class="nav-item">
                       <a href="{{ url('/dashboard') }}" class="nav-link">
-                          <i class="fa-solid fa-car-side"></i>
-                          <p class="pl-3">
-                              Cars
-
-                          </p>
-                      </a>
-
-                  </li>
-                  <li class="nav-item">
-                      <a href="{{ url('/sold_out_car') }}" class="nav-link">
                           <i class="fa-solid fa-list"></i>
                           <p class="pl-3">
-                              Cars Sold Out
+                              Details
 
                           </p>
                       </a>
 
-                  </li>
-
-                  <li class="nav-item">
-                      <a href="{{ url('account') }}" class="nav-link">
-                          <i class="fa-solid fa-credit-card"></i>
-                          <p class="pl-3">
-                              Accounts
-                          </p>
-                      </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{ url('transaction') }}" class="nav-link">
-                          <i class="fa-solid fa-address-card"></i>
+                      <a href="{{ url('/customers') }}" class="nav-link">
+                          <i class="fa-solid fa-cart-shopping"></i>
                           <p class="pl-3">
-                              Transaction
+                              Customers
+
                           </p>
                       </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="{{ url('expense') }}" class="nav-link">
-                          <i class="fa-solid fa-building-circle-arrow-right"></i>
-                          <p class="pl-3">
-                              Company Expenses
-                          </p>
-                      </a>
+
                   </li>
 
-                  <li class="nav-item">
-                      <a href="{{ url('company_income') }}" class="nav-link">
-                          <i class="fa-solid fa-coins"></i>
-                          <p class="pl-3">
-                              Company Income
-                          </p>
-                      </a>
-                  </li>
-                  {{-- @if (auth()->user()->is_admin)
-                      <a class="nav-link" href="{{ url('/user') }}">
-                          <div class="sb-nav-link-icon"><i class="fa-solid fa-user-plus"></i> Users</div>
-
-                      </a>
-                  @endif --}}
                   <li class="nav-item">
                       <a class="nav-link" href="{{ url('/user') }}">
                           <i class="fa-solid fa-user-plus"></i>
